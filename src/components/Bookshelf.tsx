@@ -62,15 +62,6 @@ const bookshelfItems: BookShelfItem[] = [
     features: ['Secure Donations', 'Recurring Gifts', 'Tithe Tracking', 'Ministry Support']
   },
   {
-    id: 'connect',
-    title: 'Community Forum',
-    description: 'Connect with fellow members, share prayer requests, and discuss topics.',
-    icon: <MessageCircle className="w-8 h-8" />,
-    color: 'bg-gradient-to-br from-orange-500 to-yellow-600',
-    path: '/connect',
-    features: ['Discussion Boards', 'Prayer Requests', 'Small Groups', 'Member Directory']
-  },
-  {
     id: 'events',
     title: 'Events & Ministries',
     description: 'Discover upcoming events and explore our various ministries and programs.',
@@ -103,7 +94,7 @@ const bookshelfItems: BookShelfItem[] = [
     description: 'Learn about our mission, values, and the story of our congregation.',
     icon: <Users className="w-8 h-8" />,
     color: 'bg-gradient-to-br from-pink-500 to-rose-600',
-    path: '/about',
+    path: '/learn-more',
     features: ['Our Mission', 'Church History', 'Leadership Team', 'Core Values']
   }
 ];
@@ -116,7 +107,7 @@ export const Bookshelf: React.FC<BookshelfProps> = ({ onBookSelect }) => {
   const [selectedBook, setSelectedBook] = useState<BookShelfItem | null>(null);
 
   const handleBookClick = (book: BookShelfItem) => {
-    setSelectedBook(book);
+    onBookSelect(book.path);
   };
 
   const handleCloseModal = () => {

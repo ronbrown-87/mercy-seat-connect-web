@@ -225,56 +225,6 @@ const NewAbout: React.FC = () => {
             </div>
           </div>
 
-          {/* Pastors List */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Our Pastors</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Pastor Maston Musowoya</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Pastor Catherine Chewe</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Pastor Eric Tady</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Pastor Eric Nyundi</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Pastor Emmanuel Chindawi</CardTitle>
-                </CardHeader>
-              </Card>
-            </div>
-          </div>
 
           {/* Ministry Team */}
           <div className="mb-12">

@@ -62,14 +62,6 @@ const TraditionalHome = () => {
       path: '/give'
     },
     {
-      id: 'connect',
-      title: 'Community Forum',
-      description: 'Connect with fellow members, share prayer requests, and discuss topics.',
-      icon: <MessageCircle className="w-8 h-8" />,
-      color: 'bg-gradient-to-br from-orange-500 to-yellow-600',
-      path: '/connect'
-    },
-    {
       id: 'events',
       title: 'Events & Ministries',
       description: 'Discover upcoming events and explore our various ministries and programs.',
@@ -116,7 +108,7 @@ const TraditionalHome = () => {
       description: 'Learn about our mission, values, and the story of our congregation.',
       icon: <Users className="w-8 h-8" />,
       color: 'bg-gradient-to-br from-emerald-500 to-green-600',
-      path: '/about'
+      path: '/learn-more'
     }
   ];
 
@@ -139,7 +131,7 @@ const TraditionalHome = () => {
                     <Button size="lg" variant="secondary" onClick={() => navigate('/learn-more')}>
           Learn More About Us
         </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-amber-600">
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-amber-600" onClick={() => window.open('https://www.facebook.com/share/1Agq7Kd1f1/?mibextid=qi2Omg','_blank')}>
               Watch Live Service
             </Button>
           </div>

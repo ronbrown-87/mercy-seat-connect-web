@@ -69,9 +69,9 @@ export const Hero = () => {
             size="lg" 
             variant="outline" 
             className="border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-blue-900 px-6 py-3 transition-all duration-300 hover:scale-105"
-            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => window.open('https://www.facebook.com/share/1Agq7Kd1f1/?mibextid=qi2Omg','_blank')}
           >
-            Read Pastor's Bio
+            Watch Live on Facebook
           </Button>
         </div>
 
