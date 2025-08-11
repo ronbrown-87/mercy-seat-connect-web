@@ -118,7 +118,7 @@ const NewAbout: React.FC = () => {
             </Card>
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <Community className="h-12 w-12 text-green-500 mx-auto mb-2" />
+                <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center"><Users className="h-12 w-12 text-green-500" /></div>
                 <CardTitle>Community</CardTitle>
               </CardHeader>
               <CardContent>
@@ -216,7 +216,7 @@ const NewAbout: React.FC = () => {
               
               <Card className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-full mx-auto mb-4 flex items-center justify-center">
+                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
                     <Users className="h-12 w-12 text-blue-600" />
                   </div>
                   <CardTitle>Pastor Emmanuel Chindawi</CardTitle>

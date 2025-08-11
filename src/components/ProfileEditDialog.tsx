@@ -53,7 +53,7 @@ export const ProfileEditDialog: React.FC<ProfileEditDialogProps> = ({
       await updateProfile({
         name: name.trim(),
         email: email.trim(),
-        avatarFile: avatarFile || undefined
+        avatarUrl: avatarPreview || undefined
       });
       onOpenChange(false);
     } catch (error) {

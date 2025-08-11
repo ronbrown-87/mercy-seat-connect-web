@@ -40,7 +40,7 @@ const Give = () => {
       description: "Give your tithes to support the church's mission and ministry.",
       icon: <Heart className="w-6 h-6" />,
       goal: 50000,
-      raised: 35000,
+      raised: 0,
       color: "bg-gradient-to-br from-green-500 to-emerald-600",
     },
     {
@@ -49,7 +49,7 @@ const Give = () => {
       description: "Give a special offering to support specific projects and needs.",
       icon: <DollarSign className="w-6 h-6" />,
       goal: 25000,
-      raised: 18000,
+      raised: 0,
       color: "bg-gradient-to-br from-blue-500 to-blue-600",
     },
     {
@@ -58,7 +58,7 @@ const Give = () => {
       description: "Support our global missions and outreach programs.",
       icon: <Users className="w-6 h-6" />,
       goal: 30000,
-      raised: 22000,
+      raised: 0,
       color: "bg-gradient-to-br from-purple-500 to-purple-600",
     },
     {
@@ -67,7 +67,7 @@ const Give = () => {
       description: "Contribute to the church's building and maintenance fund.",
       icon: <Building2 className="w-6 h-6" />,
       goal: 100000,
-      raised: 75000,
+      raised: 0,
       color: "bg-gradient-to-br from-orange-500 to-orange-600",
     },
     {
@@ -76,7 +76,7 @@ const Give = () => {
       description: "Support local community development initiatives.",
       icon: <Utensils className="w-6 h-6" />,
       goal: 15000,
-      raised: 12000,
+      raised: 0,
       color: "bg-gradient-to-br from-teal-500 to-teal-600",
     },
     {
@@ -85,7 +85,7 @@ const Give = () => {
       description: "Support our youth programs and activities.",
       icon: <BookOpen className="w-6 h-6" />,
       goal: 20000,
-      raised: 15000,
+      raised: 0,
       color: "bg-gradient-to-br from-pink-500 to-pink-600",
     },
   ];
@@ -170,7 +170,7 @@ const Give = () => {
                     {category.icon}
                   </div>
                   <Badge variant="secondary" className="bg-gray-100 text-gray-700">
-                    ${category.raised.toLocaleString()} / ${category.goal.toLocaleString()}
+                    ZMW {category.raised.toLocaleString()} / ZMW {category.goal.toLocaleString()}
                   </Badge>
                 </div>
                 <CardTitle className="text-lg">{category.name}</CardTitle>

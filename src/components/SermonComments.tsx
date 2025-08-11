@@ -168,7 +168,7 @@ export const SermonComments: React.FC<SermonCommentsProps> = ({ sermonId, sermon
       <div className={`${isReply ? 'ml-8 pl-4 border-l-2 border-gray-200' : 'border-l-2 border-blue-200 pl-4'}`}>
         <div className="flex space-x-3">
           <Avatar className="w-8 h-8">
-            <AvatarImage src={user?.profilePicture} />
+            <AvatarImage src={user?.avatarUrl} />
             <AvatarFallback className="bg-blue-100 text-blue-700 text-xs font-bold">
               {comment.author.split(' ').map(n => n[0]).join('')}
             </AvatarFallback>
@@ -269,7 +269,7 @@ export const SermonComments: React.FC<SermonCommentsProps> = ({ sermonId, sermon
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <Avatar className="w-10 h-10">
-                  <AvatarImage src={user?.profilePicture} />
+                  <AvatarImage src={user?.avatarUrl} />
                   <AvatarFallback className="bg-blue-100 text-blue-700">
                     {user?.name?.split(' ').map(n => n[0]).join('') || 'U'}
                   </AvatarFallback>

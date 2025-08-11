@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, BookOpen, User, LogOut, Settings } from 'lucide-react';
+import { Menu, X, BookOpen, User, LogOut, Settings, MapPin, Phone } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { LoginDialog } from './LoginDialog';
 import { ProfileEditDialog } from './ProfileEditDialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,7 @@ export const Navigation = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showLoginDialog, setShowLoginDialog] = useState(false);
   const [showProfileEditDialog, setShowProfileEditDialog] = useState(false);
+  const [showVisitDialog, setShowVisitDialog] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
@@ -165,7 +167,7 @@ export const Navigation = () => {
               )}
               
               <Button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => setShowVisitDialog(true)}
                 className="bg-blue-600 hover:bg-blue-700 text-white"
               >
                 Visit Us
@@ -250,7 +252,7 @@ export const Navigation = () => {
 
                 <div className="px-3 py-2">
                   <Button
-                    onClick={() => scrollToSection('contact')}
+                    onClick={() => setShowVisitDialog(true)}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                   >
                     Visit Us
@@ -274,6 +276,26 @@ export const Navigation = () => {
         open={showProfileEditDialog}
         onOpenChange={setShowProfileEditDialog}
       />
+
+      {/* Visit Us Dialog */}
+      <Dialog open={showVisitDialog} onOpenChange={setShowVisitDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Visit Us</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3">
+            <Button
+              className="w-full"
+              onClick={() => window.open('https://www.google.com/maps/search/?api=1&query=Mercy+Seat+Ministries+R12+Kalukungu+Street+Kitwe', '_blank')}
+            >
+              <MapPin className="w-4 h-4 mr-2" /> Get Directions
+            </Button>
+            <Button className="w-full" variant="outline" onClick={() => (window.location.href = 'tel:0975448759')}>
+              <Phone className="w-4 h-4 mr-2" /> Call Us: 0975448759
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

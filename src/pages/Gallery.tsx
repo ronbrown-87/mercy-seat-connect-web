@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { toast } from 'sonner';
 import { useAuth } from '@/context/AuthContext';
+import { LoginDialog } from '@/components/LoginDialog';
 
 interface GalleryItem {
   id: number;
@@ -165,6 +166,7 @@ const Gallery: React.FC = () => {
   const [replyTo, setReplyTo] = useState<{ commentId: number; userName: string } | null>(null);
   const [newReply, setNewReply] = useState('');
   const [copiedLink, setCopiedLink] = useState(false);
+  const [showAuthDialog, setShowAuthDialog] = useState(false);
 
   // Handle static gallery like
   const handleStaticLike = (item: GalleryItem) => {
@@ -242,8 +244,8 @@ const Gallery: React.FC = () => {
     const comment: Comment = {
       id: Date.now(),
       userId: user?.id || '',
-      userName: user?.user_metadata?.name || 'Anonymous',
-      userAvatar: user?.user_metadata?.avatar_url || '',
+      userName: user?.name || 'Anonymous',
+      userAvatar: user?.avatarUrl || '',
       content: newComment,
       timestamp: new Date().toLocaleDateString(),
       replies: []
@@ -270,8 +272,8 @@ const Gallery: React.FC = () => {
     const reply: Reply = {
       id: Date.now(),
       userId: user?.id || '',
-      userName: user?.user_metadata?.name || 'Anonymous',
-      userAvatar: user?.user_metadata?.avatar_url || '',
+      userName: user?.name || 'Anonymous',
+      userAvatar: user?.avatarUrl || '',
       content: newReply,
       timestamp: new Date().toLocaleDateString()
     };
@@ -305,8 +307,8 @@ const Gallery: React.FC = () => {
     const newPhoto: UserPhoto = {
       id: Date.now(),
       userId: user?.id || '',
-      userName: user?.user_metadata?.name || 'Anonymous',
-      userAvatar: user?.user_metadata?.avatar_url || '',
+      userName: user?.name || 'Anonymous',
+      userAvatar: user?.avatarUrl || '',
       title: uploadData.title,
       description: uploadData.description,
       imageUrl: uploadData.imagePreview,
@@ -574,7 +576,7 @@ const Gallery: React.FC = () => {
                 <Camera className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">Join our community</h3>
                 <p className="text-gray-500 mb-4">Log in to upload photos and interact with others</p>
-                <Button className="bg-amber-600 hover:bg-amber-700">
+                <Button className="bg-amber-600 hover:bg-amber-700" onClick={() => setShowAuthDialog(true)}>
                   Login / Sign Up
                 </Button>
               </div>
@@ -826,6 +828,8 @@ const Gallery: React.FC = () => {
           </div>
         </DialogContent>
       </Dialog>
+
+      <LoginDialog open={showAuthDialog} onOpenChange={setShowAuthDialog} reason="Please log in to upload and interact" />
     </div>
   );
 };
