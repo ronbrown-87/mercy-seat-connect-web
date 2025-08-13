@@ -65,37 +65,39 @@ export const PhotoInteraction: React.FC<PhotoInteractionProps> = ({
 
   return (
     <>
-      <div className={`flex items-center justify-between bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-sm ${className}`}>
-        <div className="flex items-center space-x-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleLike}
-            className={`${isLiked ? 'text-red-500 hover:text-red-600' : 'text-gray-600 hover:text-red-500'}`}
-          >
-            <Heart className={`w-4 h-4 mr-1 ${isLiked ? 'fill-current' : ''}`} />
-            {likes}
-          </Button>
-          
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleShare}
-            className="text-gray-600 hover:text-blue-500"
-          >
-            <Share2 className="w-4 h-4 mr-1" />
-            Share
-          </Button>
-        </div>
+      <div className={`flex items-center justify-center space-x-6 bg-white/95 backdrop-blur-sm rounded-lg p-4 shadow-md mt-4 ${className}`}>
+        <Button
+          variant="ghost"
+          size="lg"
+          onClick={handleLike}
+          className={`flex flex-col items-center space-y-1 p-3 rounded-lg transition-all duration-200 ${
+            isLiked 
+              ? 'text-red-500 hover:text-red-600 bg-red-50 hover:bg-red-100' 
+              : 'text-gray-600 hover:text-red-500 hover:bg-red-50'
+          }`}
+        >
+          <Heart className={`w-6 h-6 ${isLiked ? 'fill-current' : ''}`} />
+          <span className="text-sm font-medium">{likes} Likes</span>
+        </Button>
         
         <Button
           variant="ghost"
-          size="sm"
-          onClick={handleDownload}
-          className="text-gray-600 hover:text-green-500"
+          size="lg"
+          onClick={handleShare}
+          className="flex flex-col items-center space-y-1 p-3 rounded-lg text-gray-600 hover:text-blue-500 hover:bg-blue-50 transition-all duration-200"
         >
-          <Download className="w-4 h-4 mr-1" />
-          Download
+          <Share2 className="w-6 h-6" />
+          <span className="text-sm font-medium">Share</span>
+        </Button>
+        
+        <Button
+          variant="ghost"
+          size="lg"
+          onClick={handleDownload}
+          className="flex flex-col items-center space-y-1 p-3 rounded-lg text-gray-600 hover:text-green-500 hover:bg-green-50 transition-all duration-200"
+        >
+          <Download className="w-6 h-6" />
+          <span className="text-sm font-medium">Download</span>
         </Button>
       </div>
       

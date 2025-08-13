@@ -67,7 +67,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .eq('id', userId)
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.warn('Profile fetch error:', error);
+        // If we can't fetch profile, get user from auth
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setUser({
+            id: user.id,
+            name: user.user_metadata?.name || user.email?.split('@')[0] || 'User',
+            email: user.email || '',
+            avatarUrl: user.user_metadata?.avatar_url
+          });
+        }
+        return;
+      }
 
       if (data) {
         setUser({
@@ -79,13 +92,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
+      // Fallback to auth user data
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          setUser({
+            id: user.id,
+            name: user.user_metadata?.name || user.email?.split('@')[0] || 'User',
+            email: user.email || '',
+            avatarUrl: user.user_metadata?.avatar_url
+          });
+        }
+      } catch (authError) {
+        console.error('Auth fallback failed:', authError);
+      }
     }
   };
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
       // Check if Supabase is accessible
-      if (!supabase.auth) {
+      if (!supabase?.auth) {
         throw new Error('Authentication service is not available. Please check your internet connection.');
       }
 
@@ -96,14 +123,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (error) {
         console.error('Login error:', error);
-        if (error.message.includes('fetch')) {
-          throw new Error('Network error: Unable to connect to authentication service. Please check your internet connection and try again.');
+        if (error.message.includes('fetch') || error.message.includes('Invalid API key')) {
+          throw new Error('Authentication service is temporarily unavailable. Please try again later.');
         }
         throw error;
       }
 
       if (data.user) {
-        await fetchUserProfile(data.user.id);
+        try {
+          await fetchUserProfile(data.user.id);
+        } catch (profileError) {
+          console.warn('Profile fetch failed, using basic user data:', profileError);
+          // Fallback to basic user data if profile fetch fails
+          setUser({
+            id: data.user.id,
+            name: data.user.user_metadata?.name || data.user.email?.split('@')[0] || 'User',
+            email: data.user.email || '',
+            avatarUrl: data.user.user_metadata?.avatar_url
+          });
+        }
         return true;
       }
       return false;
@@ -111,8 +149,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error('Login error:', error);
       
       // Handle specific error types
-      if (error.message?.includes('fetch') || error.message?.includes('network')) {
-        throw new Error('Network error: Unable to connect to authentication service. Please check your internet connection and try again.');
+      if (error.message?.includes('fetch') || error.message?.includes('network') || error.message?.includes('Invalid API key')) {
+        throw new Error('Authentication service is temporarily unavailable. Please try again later.');
       }
       
       if (error.message?.includes('Invalid login credentials')) {
@@ -130,7 +168,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signup = async (name: string, email: string, password: string, avatarUrl?: string): Promise<{ success: boolean; error?: string }> => {
     try {
       // Check if Supabase is accessible
-      if (!supabase.auth) {
+      if (!supabase?.auth) {
         return { success: false, error: 'Authentication service is not available. Please check your internet connection.' };
       }
 
@@ -153,8 +191,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           return { success: false, error: 'An account with this email already exists. Please try logging in instead.' };
         }
         
-        if (error.message.includes('fetch') || error.message.includes('network')) {
-          return { success: false, error: 'Network error: Unable to connect to authentication service. Please check your internet connection and try again.' };
+        if (error.message.includes('fetch') || error.message.includes('network') || error.message.includes('Invalid API key')) {
+          return { success: false, error: 'Authentication service is temporarily unavailable. Please try again later.' };
         }
         
         if (error.message.includes('password')) {
@@ -170,7 +208,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (data.user) {
         try {
-          // Create profile
+          // Try to create profile, but don't fail if it doesn't work
           const { error: profileError } = await supabase
             .from('profiles')
             .insert([
@@ -183,19 +221,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             ]);
 
           if (profileError) {
-            console.error('Profile creation error:', profileError);
-            // If profile creation fails, we should clean up the user account
-            await supabase.auth.signOut();
-            return { success: false, error: 'Failed to create user profile. Please try again.' };
+            console.warn('Profile creation failed, using basic user data:', profileError);
+            // Don't fail signup if profile creation fails, just use basic data
+            setUser({
+              id: data.user.id,
+              name,
+              email,
+              avatarUrl
+            });
+          } else {
+            await fetchUserProfile(data.user.id);
           }
-
-          await fetchUserProfile(data.user.id);
           return { success: true };
         } catch (profileError: any) {
-          console.error('Profile creation error:', profileError);
-          // Clean up the user account if profile creation fails
-          await supabase.auth.signOut();
-          return { success: false, error: 'Failed to create user profile. Please try again.' };
+          console.warn('Profile creation error, using basic user data:', profileError);
+          // Fallback to basic user data
+          setUser({
+            id: data.user.id,
+            name,
+            email,
+            avatarUrl
+          });
+          return { success: true };
         }
       }
       return { success: false, error: 'Signup failed. Please try again.' };
@@ -203,8 +250,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       console.error('Signup error:', error);
       
       // Handle network and fetch errors
-      if (error.message?.includes('fetch') || error.message?.includes('network')) {
-        return { success: false, error: 'Network error: Unable to connect to authentication service. Please check your internet connection and try again.' };
+      if (error.message?.includes('fetch') || error.message?.includes('network') || error.message?.includes('Invalid API key')) {
+        return { success: false, error: 'Authentication service is temporarily unavailable. Please try again later.' };
       }
       
       return { success: false, error: error.message || 'An unexpected error occurred. Please try again.' };

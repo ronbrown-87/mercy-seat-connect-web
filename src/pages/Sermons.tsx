@@ -54,7 +54,7 @@ const Sermons = () => {
       speaker: "Pastor Gavu Nyirongo",
       date: "2024-12-15",
       category: "Faith",
-      url: "#",
+      url: "https://www.facebook.com/watch/video/example1", // You can edit this later
       description: "A powerful message about walking in faith through life's challenges.",
       duration: "45:30",
       tags: ["Faith", "Encouragement", "Life"]
@@ -65,7 +65,7 @@ const Sermons = () => {
       speaker: "Pastor Maston Musowoya",
       date: "2024-12-08",
       category: "Prayer",
-      url: "#",
+      url: "https://www.youtube.com/watch?v=example2", // You can edit this later
       description: "Discovering the transformative power of prayer in our daily lives.",
       duration: "52:15",
       tags: ["Prayer", "Spiritual Growth", "Transformation"]
@@ -76,7 +76,7 @@ const Sermons = () => {
       speaker: "Pastor Catherine Chewe",
       date: "2024-12-01",
       category: "Family",
-      url: "#",
+      url: "https://www.facebook.com/watch/video/example3", // You can edit this later
       description: "Biblical principles for building strong, God-centered families.",
       duration: "48:20",
       tags: ["Family", "Relationships", "Biblical Principles"]
@@ -87,7 +87,7 @@ const Sermons = () => {
       speaker: "Pastor Eric Tady",
       date: "2024-11-24",
       category: "Youth",
-      url: "#",
+      url: "https://www.youtube.com/watch?v=example4", // You can edit this later
       description: "Empowering young people to live passionately for Christ.",
       duration: "41:35",
       tags: ["Youth", "Passion", "Empowerment"]
@@ -98,7 +98,7 @@ const Sermons = () => {
       speaker: "Pastor Eric Nyundi",
       date: "2024-11-17",
       category: "Children",
-      url: "#",
+      url: "https://www.facebook.com/watch/video/example5", // You can edit this later
       description: "Teaching children about God's love in age-appropriate ways.",
       duration: "35:45",
       tags: ["Children", "Education", "God's Love"]
@@ -109,7 +109,7 @@ const Sermons = () => {
       speaker: "Pastor Emmanuel Chindawi",
       date: "2024-11-10",
       category: "Outreach",
-      url: "#",
+      url: "https://www.youtube.com/watch?v=example6", // You can edit this later
       description: "Strategies for effective community outreach and evangelism.",
       duration: "55:10",
       tags: ["Outreach", "Evangelism", "Community"]
