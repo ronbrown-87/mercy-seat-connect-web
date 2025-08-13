@@ -1,31 +1,22 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { 
-  Users, 
-  Target, 
-  Heart, 
-  BookOpen, 
-  Clock, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Globe,
-  Star,
-  Award,
-  Trophy,
-  Calendar,
-  Church,
-  Cross,
-  Music,
-  Video,
+import {
+  BookOpen,
   Camera,
-  Mic,
-  Guitar,
+  Clock,
+  Cross,
   Drum,
-  Piano
+  Guitar,
+  Heart,
+  Mail,
+  Mic,
+  Music,
+  Piano,
+  Target,
+  Users,
+  Video
 } from 'lucide-react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const NewAbout: React.FC = () => {
@@ -226,71 +217,7 @@ const NewAbout: React.FC = () => {
           </div>
 
 
-          {/* Ministry Team */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Ministry Team</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Ministry Team Member</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Ministry Team Member</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Ministry Team Member</CardTitle>
-                </CardHeader>
-              </Card>
-            </div>
-          </div>
-
-          {/* Elders & Deacons */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Elders & Deacons</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Elder/Deacon</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Elder/Deacon</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
-                  </div>
-                  <CardTitle>Elder/Deacon</CardTitle>
-                </CardHeader>
-              </Card>
-            </div>
-          </div>
+                
         </section>
 
         {/* Praise Team */}
@@ -390,103 +317,9 @@ const NewAbout: React.FC = () => {
             </Card>
           </div>
         </section>
-        <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Praise & Worship Team</h2>
-          
-          {/* Praise Team Leader */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Praise Team Leader</h3>
-            <div className="flex justify-center">
-              <Card className="max-w-md text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-32 h-32 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Music className="h-16 w-16 text-yellow-600" />
-                  </div>
-                  <CardTitle className="text-xl">Boyd Daka</CardTitle>
-                  <CardDescription>Praise Team Leader</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Leading our congregation in worship with passion and musical excellence.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+        
 
-          {/* Instrumentalists and Mixing Team */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Instrumentalists & Mixing Team</h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Guitar className="h-12 w-12 text-yellow-600" />
-                  </div>
-                  <CardTitle>Sydney Mutondo</CardTitle>
-                  <CardDescription>Instrumentalist</CardDescription>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Drum className="h-12 w-12 text-yellow-600" />
-                  </div>
-                  <CardTitle>Samson Silungwe</CardTitle>
-                  <CardDescription>Instrumentalist</CardDescription>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Piano className="h-12 w-12 text-yellow-600" />
-                  </div>
-                  <CardTitle>Paul Nyirongo</CardTitle>
-                  <CardDescription>Mixing Team</CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* Media Team */}
-        <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Media Team</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-24 h-24 bg-gradient-to-br from-green-200 to-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Camera className="h-12 w-12 text-green-600" />
-                </div>
-                <CardTitle>Wanipa Musowoya</CardTitle>
-                <CardDescription>Media Team</CardDescription>
-              </CardHeader>
-            </Card>
-            
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-24 h-24 bg-gradient-to-br from-green-200 to-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Video className="h-12 w-12 text-green-600" />
-                </div>
-                <CardTitle>Shadreck Silungwe</CardTitle>
-                <CardDescription>Media Team</CardDescription>
-              </CardHeader>
-            </Card>
-            
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-24 h-24 bg-gradient-to-br from-green-200 to-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Mic className="h-12 w-12 text-green-600" />
-                </div>
-                <CardTitle>Seth Musakanya</CardTitle>
-                <CardDescription>Media Team</CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-        </section>
-
+       
         {/* Service Times */}
         <section className="bg-white rounded-2xl p-8 shadow-lg">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Service Times</h2>

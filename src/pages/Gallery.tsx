@@ -1,35 +1,34 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Label } from "@/components/ui/label";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { 
-  Heart, 
-  Download, 
-  Share2, 
-  MessageCircle, 
-  Upload, 
-  Plus, 
-  X, 
-  Facebook, 
-  Instagram, 
-  MessageCircle as WhatsApp,
-  Copy,
-  Check,
-  Reply,
-  Eye,
-  Filter,
-  Camera
-} from "lucide-react";
-import { toast } from 'sonner';
-import { useAuth } from '@/context/AuthContext';
 import { LoginDialog } from '@/components/LoginDialog';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { useAuth } from '@/context/AuthContext';
+import {
+  Camera,
+  Check,
+  Copy,
+  Download,
+  Eye,
+  Facebook,
+  Filter,
+  Heart,
+  Instagram,
+  MessageCircle,
+  Plus,
+  Reply,
+  Share2,
+  Upload,
+  MessageCircle as WhatsApp,
+  X
+} from "lucide-react";
+import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 interface GalleryItem {
   id: number;
@@ -83,7 +82,7 @@ const staticGalleryData: GalleryItem[] = [
     id: 1,
     title: "Sunday Service",
     description: "Beautiful moments from our Sunday service",
-    imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=300&fit=crop",
+    imageUrl: "/images/crowd.jpg",
     category: "Ministry",
     likes: 0,
     downloads: 0,
@@ -105,7 +104,7 @@ const staticGalleryData: GalleryItem[] = [
     id: 3,
     title: "Prayer Time",
     description: "Devoted moments of prayer and reflection",
-    imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=300&fit=crop",
+    imageUrl: "/images/crowd2.jpg",
     category: "Ministry",
     likes: 0,
     downloads: 0,
@@ -116,7 +115,7 @@ const staticGalleryData: GalleryItem[] = [
     id: 4,
     title: "Youth Ministry",
     description: "Engaging with our young members",
-    imageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&h=300&fit=crop",
+    imageUrl: "/images/youth.jpg",
     category: "People",
     likes: 0,
     downloads: 0,
