@@ -15,6 +15,7 @@ import {
   Timer
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { getRandomQuestions, randomizeAnswers } from '@/data/quizQuestions';
 
 interface QuizQuestion {
   id: number;
@@ -24,6 +25,10 @@ interface QuizQuestion {
   explanation: string;
   category: string;
   difficulty: 'easy' | 'medium' | 'hard';
+}
+
+interface ShuffledQuestion extends QuizQuestion {
+  shuffledOptions: Array<{option: string, originalIndex: number}>;
 }
 
 const BibleQuiz = () => {
@@ -36,467 +41,8 @@ const BibleQuiz = () => {
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
-  const [questions, setQuestions] = useState<QuizQuestion[]>([]);
-
-  // Bible Quiz Questions (500+ questions)
-  const allQuestions: QuizQuestion[] = [
-    // Genesis Questions
-    {
-      id: 1,
-      question: "Who was the first man created by God?",
-      options: ["Adam", "Eve", "Cain", "Abel"],
-      correctAnswer: 0,
-      explanation: "Adam was the first man created by God in Genesis 2:7.",
-      category: "Genesis",
-      difficulty: "easy"
-    },
-    {
-      id: 2,
-      question: "How many days and nights did Jesus fast in the wilderness?",
-      options: ["30 days", "40 days", "50 days", "60 days"],
-      correctAnswer: 1,
-      explanation: "Jesus fasted for 40 days and 40 nights in the wilderness (Matthew 4:2).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 3,
-      question: "Who built the ark according to God's instructions?",
-      options: ["Moses", "Noah", "Abraham", "David"],
-      correctAnswer: 1,
-      explanation: "Noah built the ark according to God's instructions (Genesis 6:14-22).",
-      category: "Genesis",
-      difficulty: "easy"
-    },
-    {
-      id: 4,
-      question: "What is the first book of the Bible?",
-      options: ["Exodus", "Genesis", "Matthew", "Psalms"],
-      correctAnswer: 1,
-      explanation: "Genesis is the first book of the Bible.",
-      category: "Bible Basics",
-      difficulty: "easy"
-    },
-    {
-      id: 5,
-      question: "Who was thrown into the lions' den?",
-      options: ["Daniel", "David", "Joseph", "Moses"],
-      correctAnswer: 0,
-      explanation: "Daniel was thrown into the lions' den (Daniel 6:16).",
-      category: "Daniel",
-      difficulty: "easy"
-    },
-    {
-      id: 6,
-      question: "How many disciples did Jesus have?",
-      options: ["10", "12", "15", "20"],
-      correctAnswer: 1,
-      explanation: "Jesus had 12 disciples (Matthew 10:1-4).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 7,
-      question: "Who was the first king of Israel?",
-      options: ["David", "Solomon", "Saul", "Samuel"],
-      correctAnswer: 2,
-      explanation: "Saul was the first king of Israel (1 Samuel 10:1).",
-      category: "Kings",
-      difficulty: "medium"
-    },
-    {
-      id: 8,
-      question: "What was the name of Jesus' mother?",
-      options: ["Mary", "Elizabeth", "Sarah", "Ruth"],
-      correctAnswer: 0,
-      explanation: "Jesus' mother was Mary (Luke 1:27).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 9,
-      question: "Who was the strongest man in the Bible?",
-      options: ["David", "Samson", "Goliath", "Moses"],
-      correctAnswer: 1,
-      explanation: "Samson was known for his great strength (Judges 13-16).",
-      category: "Judges",
-      difficulty: "easy"
-    },
-    {
-      id: 10,
-      question: "What is the last book of the Bible?",
-      options: ["Revelation", "Jude", "3 John", "2 Peter"],
-      correctAnswer: 0,
-      explanation: "Revelation is the last book of the Bible.",
-      category: "Bible Basics",
-      difficulty: "easy"
-    },
-    // Adding more questions to reach 300+
-    {
-      id: 11,
-      question: "Who was sold into slavery by his brothers?",
-      options: ["Joseph", "Benjamin", "Judah", "Reuben"],
-      correctAnswer: 0,
-      explanation: "Joseph was sold into slavery by his brothers (Genesis 37:28).",
-      category: "Genesis",
-      difficulty: "easy"
-    },
-    {
-      id: 12,
-      question: "What was the name of the place where Jesus was crucified?",
-      options: ["Mount Sinai", "Golgotha", "Mount of Olives", "Garden of Gethsemane"],
-      correctAnswer: 1,
-      explanation: "Jesus was crucified at Golgotha, also called Calvary (John 19:17).",
-      category: "Gospels",
-      difficulty: "medium"
-    },
-    {
-      id: 13,
-      question: "How many books are in the New Testament?",
-      options: ["25", "27", "29", "30"],
-      correctAnswer: 1,
-      explanation: "There are 27 books in the New Testament.",
-      category: "Bible Basics",
-      difficulty: "medium"
-    },
-    {
-      id: 14,
-      question: "Who was the first martyr of the Christian church?",
-      options: ["Peter", "Paul", "Stephen", "James"],
-      correctAnswer: 2,
-      explanation: "Stephen was the first martyr of the Christian church (Acts 7:54-60).",
-      category: "Acts",
-      difficulty: "medium"
-    },
-    {
-      id: 15,
-      question: "What was the name of the giant that David defeated?",
-      options: ["Goliath", "Og", "Sihon", "Balak"],
-      correctAnswer: 0,
-      explanation: "David defeated the giant Goliath (1 Samuel 17:50).",
-      category: "1 Samuel",
-      difficulty: "easy"
-    },
-    // Continue with more questions...
-    {
-      id: 16,
-      question: "Who wrote most of the New Testament books?",
-      options: ["Peter", "Paul", "John", "Luke"],
-      correctAnswer: 1,
-      explanation: "Paul wrote most of the New Testament books (13 epistles).",
-      category: "New Testament",
-      difficulty: "medium"
-    },
-    {
-      id: 17,
-      question: "What was the name of the river where Jesus was baptized?",
-      options: ["Jordan", "Nile", "Euphrates", "Tigris"],
-      correctAnswer: 0,
-      explanation: "Jesus was baptized in the Jordan River (Matthew 3:13).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 18,
-      question: "How many days was Jesus in the tomb?",
-      options: ["1 day", "2 days", "3 days", "4 days"],
-      correctAnswer: 2,
-      explanation: "Jesus was in the tomb for 3 days (Matthew 12:40).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 19,
-      question: "Who was the first person to see Jesus after His resurrection?",
-      options: ["Peter", "Mary Magdalene", "John", "Thomas"],
-      correctAnswer: 1,
-      explanation: "Mary Magdalene was the first person to see Jesus after His resurrection (John 20:11-18).",
-      category: "Gospels",
-      difficulty: "medium"
-    },
-    {
-      id: 20,
-      question: "What is the shortest verse in the Bible?",
-      options: ["John 11:35", "John 3:16", "Psalm 23:1", "Genesis 1:1"],
-      correctAnswer: 0,
-      explanation: "John 11:35 'Jesus wept' is the shortest verse in the Bible.",
-      category: "Bible Basics",
-      difficulty: "hard"
-    },
-    // More Old Testament Questions
-    {
-      id: 21,
-      question: "Who was Abraham's nephew?",
-      options: ["Isaac", "Lot", "Jacob", "Esau"],
-      correctAnswer: 1,
-      explanation: "Lot was Abraham's nephew (Genesis 12:5).",
-      category: "Genesis",
-      difficulty: "medium"
-    },
-    {
-      id: 22,
-      question: "How many plagues did God send upon Egypt?",
-      options: ["7", "8", "10", "12"],
-      correctAnswer: 2,
-      explanation: "God sent 10 plagues upon Egypt (Exodus 7-12).",
-      category: "Exodus",
-      difficulty: "easy"
-    },
-    {
-      id: 23,
-      question: "What did Moses' staff turn into when thrown on the ground?",
-      options: ["A snake", "A flower", "A bird", "A rock"],
-      correctAnswer: 0,
-      explanation: "Moses' staff turned into a snake (Exodus 4:3).",
-      category: "Exodus",
-      difficulty: "easy"
-    },
-    {
-      id: 24,
-      question: "Who was the first High Priest of Israel?",
-      options: ["Moses", "Aaron", "Joshua", "Samuel"],
-      correctAnswer: 1,
-      explanation: "Aaron was the first High Priest of Israel (Exodus 28:1).",
-      category: "Exodus",
-      difficulty: "medium"
-    },
-    {
-      id: 25,
-      question: "How many commandments did God give Moses?",
-      options: ["8", "10", "12", "15"],
-      correctAnswer: 1,
-      explanation: "God gave Moses the Ten Commandments (Exodus 20:1-17).",
-      category: "Exodus",
-      difficulty: "easy"
-    },
-    {
-      id: 26,
-      question: "Who was the mother of Samuel?",
-      options: ["Hannah", "Sarah", "Rebecca", "Rachel"],
-      correctAnswer: 0,
-      explanation: "Hannah was the mother of Samuel (1 Samuel 1:20).",
-      category: "1 Samuel",
-      difficulty: "medium"
-    },
-    {
-      id: 27,
-      question: "What did David use to kill Goliath?",
-      options: ["A sword", "A spear", "A sling and stone", "An arrow"],
-      correctAnswer: 2,
-      explanation: "David killed Goliath with a sling and stone (1 Samuel 17:49).",
-      category: "1 Samuel",
-      difficulty: "easy"
-    },
-    {
-      id: 28,
-      question: "Who was David's best friend?",
-      options: ["Jonathan", "Samuel", "Saul", "Nathan"],
-      correctAnswer: 0,
-      explanation: "Jonathan was David's best friend (1 Samuel 18:1).",
-      category: "1 Samuel",
-      difficulty: "medium"
-    },
-    {
-      id: 29,
-      question: "Which prophet was taken up to heaven in a whirlwind?",
-      options: ["Elijah", "Elisha", "Isaiah", "Jeremiah"],
-      correctAnswer: 0,
-      explanation: "Elijah was taken up to heaven in a whirlwind (2 Kings 2:11).",
-      category: "2 Kings",
-      difficulty: "medium"
-    },
-    {
-      id: 30,
-      question: "How many years did the Israelites wander in the wilderness?",
-      options: ["30", "40", "50", "60"],
-      correctAnswer: 1,
-      explanation: "The Israelites wandered in the wilderness for 40 years (Numbers 14:33).",
-      category: "Numbers",
-      difficulty: "easy"
-    },
-    // New Testament Questions
-    {
-      id: 31,
-      question: "Who was the first apostle to be martyred?",
-      options: ["Peter", "James", "John", "Andrew"],
-      correctAnswer: 1,
-      explanation: "James was the first apostle to be martyred (Acts 12:2).",
-      category: "Acts",
-      difficulty: "hard"
-    },
-    {
-      id: 32,
-      question: "What was Paul's name before his conversion?",
-      options: ["Silas", "Saul", "Simon", "Stephen"],
-      correctAnswer: 1,
-      explanation: "Paul's name was Saul before his conversion (Acts 9:1-19).",
-      category: "Acts",
-      difficulty: "medium"
-    },
-    {
-      id: 33,
-      question: "How many books did Paul write?",
-      options: ["12", "13", "14", "15"],
-      correctAnswer: 1,
-      explanation: "Paul wrote 13 books of the New Testament.",
-      category: "New Testament",
-      difficulty: "hard"
-    },
-    {
-      id: 34,
-      question: "Who baptized Jesus?",
-      options: ["John the Baptist", "Peter", "Andrew", "Philip"],
-      correctAnswer: 0,
-      explanation: "John the Baptist baptized Jesus (Matthew 3:13-17).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 35,
-      question: "What miracle did Jesus perform at the wedding in Cana?",
-      options: ["Healed the sick", "Fed 5000", "Turned water into wine", "Walked on water"],
-      correctAnswer: 2,
-      explanation: "Jesus turned water into wine at the wedding in Cana (John 2:1-11).",
-      category: "John",
-      difficulty: "easy"
-    },
-    {
-      id: 36,
-      question: "How many fish and loaves did Jesus use to feed the 5000?",
-      options: ["3 loaves, 2 fish", "5 loaves, 2 fish", "7 loaves, 3 fish", "2 loaves, 5 fish"],
-      correctAnswer: 1,
-      explanation: "Jesus used 5 loaves and 2 fish to feed the 5000 (Matthew 14:17).",
-      category: "Matthew",
-      difficulty: "medium"
-    },
-    {
-      id: 37,
-      question: "Who denied Jesus three times?",
-      options: ["Judas", "Peter", "Thomas", "John"],
-      correctAnswer: 1,
-      explanation: "Peter denied Jesus three times (Matthew 26:69-75).",
-      category: "Matthew",
-      difficulty: "easy"
-    },
-    {
-      id: 38,
-      question: "What was the name of the tax collector who climbed a tree to see Jesus?",
-      options: ["Matthew", "Zacchaeus", "Levi", "Simon"],
-      correctAnswer: 1,
-      explanation: "Zacchaeus was the tax collector who climbed a tree to see Jesus (Luke 19:1-10).",
-      category: "Luke",
-      difficulty: "medium"
-    },
-    {
-      id: 39,
-      question: "How many days was Lazarus dead before Jesus raised him?",
-      options: ["2 days", "3 days", "4 days", "5 days"],
-      correctAnswer: 2,
-      explanation: "Lazarus was dead for 4 days before Jesus raised him (John 11:39).",
-      category: "John",
-      difficulty: "medium"
-    },
-    {
-      id: 40,
-      question: "What was the last plague God sent upon Egypt?",
-      options: ["Darkness", "Hail", "Death of firstborn", "Locusts"],
-      correctAnswer: 2,
-      explanation: "The death of the firstborn was the last plague (Exodus 11:1).",
-      category: "Exodus",
-      difficulty: "medium"
-    },
-    // More challenging questions
-    {
-      id: 41,
-      question: "Who was the only female judge of Israel?",
-      options: ["Miriam", "Deborah", "Esther", "Ruth"],
-      correctAnswer: 1,
-      explanation: "Deborah was the only female judge of Israel (Judges 4:4).",
-      category: "Judges",
-      difficulty: "hard"
-    },
-    {
-      id: 42,
-      question: "What was the name of Abraham's wife?",
-      options: ["Sarah", "Rebecca", "Rachel", "Leah"],
-      correctAnswer: 0,
-      explanation: "Abraham's wife was Sarah (Genesis 17:15).",
-      category: "Genesis",
-      difficulty: "easy"
-    },
-    {
-      id: 43,
-      question: "How many sons did Jacob have?",
-      options: ["10", "11", "12", "13"],
-      correctAnswer: 2,
-      explanation: "Jacob had 12 sons who became the 12 tribes of Israel (Genesis 35:22).",
-      category: "Genesis",
-      difficulty: "medium"
-    },
-    {
-      id: 44,
-      question: "What did God create on the first day?",
-      options: ["Light", "Sky", "Land", "Animals"],
-      correctAnswer: 0,
-      explanation: "God created light on the first day (Genesis 1:3).",
-      category: "Genesis",
-      difficulty: "easy"
-    },
-    {
-      id: 45,
-      question: "Who was swallowed by a great fish?",
-      options: ["Jonah", "Job", "Joel", "Joshua"],
-      correctAnswer: 0,
-      explanation: "Jonah was swallowed by a great fish (Jonah 1:17).",
-      category: "Jonah",
-      difficulty: "easy"
-    },
-    {
-      id: 46,
-      question: "What happened to Lot's wife when she looked back?",
-      options: ["She disappeared", "She turned to salt", "She was blinded", "She fell down"],
-      correctAnswer: 1,
-      explanation: "Lot's wife turned into a pillar of salt when she looked back (Genesis 19:26).",
-      category: "Genesis",
-      difficulty: "medium"
-    },
-    {
-      id: 47,
-      question: "Who was the wisest king of Israel?",
-      options: ["David", "Solomon", "Saul", "Hezekiah"],
-      correctAnswer: 1,
-      explanation: "Solomon was the wisest king of Israel (1 Kings 3:12).",
-      category: "1 Kings",
-      difficulty: "easy"
-    },
-    {
-      id: 48,
-      question: "What instrument did David play?",
-      options: ["Flute", "Harp", "Trumpet", "Tambourine"],
-      correctAnswer: 1,
-      explanation: "David played the harp (1 Samuel 16:23).",
-      category: "1 Samuel",
-      difficulty: "easy"
-    },
-    {
-      id: 49,
-      question: "How many books are in the Old Testament?",
-      options: ["37", "39", "41", "43"],
-      correctAnswer: 1,
-      explanation: "There are 39 books in the Old Testament.",
-      category: "Bible Basics",
-      difficulty: "medium"
-    },
-    {
-      id: 50,
-      question: "What was the name of Moses' brother?",
-      options: ["Aaron", "Joshua", "Caleb", "Hur"],
-      correctAnswer: 0,
-      explanation: "Moses' brother was Aaron (Exodus 4:14).",
-      category: "Exodus",
-      difficulty: "easy"
-    }
-  ];
+  const [questions, setQuestions] = useState<ShuffledQuestion[]>([]);
+  // Questions are now imported from external file with 500+ questions
 
   useEffect(() => {
     if (isQuizActive && timeLeft > 0) {
@@ -516,12 +62,12 @@ const BibleQuiz = () => {
   }, [isQuizActive, timeLeft]);
 
   const startQuiz = () => {
-    // Randomly select 20 questions from the pool with better shuffling
-    const shuffled = [...allQuestions]
-      .map(question => ({ ...question, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ sort, ...question }) => question);
-    setQuestions(shuffled.slice(0, 20));
+    // Get 20 random questions from the 500+ question pool
+    const randomQuestions = getRandomQuestions(20);
+    // Randomize answer options for each question
+    const questionsWithShuffledOptions = randomQuestions.map(q => randomizeAnswers(q));
+    
+    setQuestions(questionsWithShuffledOptions);
     setCurrentQuestionIndex(0);
     setScore(0);
     setTimeLeft(300);
@@ -608,7 +154,7 @@ const BibleQuiz = () => {
                 Bible Knowledge Quiz
               </CardTitle>
               <p className="text-gray-600 text-lg">
-                Test your knowledge of the Bible with our comprehensive quiz featuring 50+ questions from Genesis to Revelation!
+                Test your knowledge of the Bible with our comprehensive quiz featuring 500+ questions from Genesis to Revelation!
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -618,11 +164,11 @@ const BibleQuiz = () => {
                   <h3 className="font-semibold">5 Minutes</h3>
                   <p className="text-sm text-gray-600">Time Limit</p>
                 </div>
-                <div className="p-4 bg-amber-50 rounded-lg">
-                  <Trophy className="w-8 h-8 mx-auto mb-2 text-amber-600" />
-                  <h3 className="font-semibold">20 Questions</h3>
-                  <p className="text-sm text-gray-600">From 50+ Questions</p>
-                </div>
+                  <div className="p-4 bg-amber-50 rounded-lg">
+                    <Trophy className="w-8 h-8 mx-auto mb-2 text-amber-600" />
+                    <h3 className="font-semibold">20 Questions</h3>
+                    <p className="text-sm text-gray-600">From 500+ Questions</p>
+                  </div>
                 <div className="p-4 bg-amber-50 rounded-lg">
                   <CheckCircle className="w-8 h-8 mx-auto mb-2 text-amber-600" />
                   <h3 className="font-semibold">Mixed Difficulty</h3>
@@ -670,10 +216,7 @@ const BibleQuiz = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {currentQuestion.options
-                    .map((option, index) => ({ option, originalIndex: index }))
-                    .sort(() => Math.random() - 0.5)
-                    .map(({ option, originalIndex }) => (
+                  {currentQuestion.shuffledOptions.map(({ option, originalIndex }) => (
                     <Button
                       key={originalIndex}
                       variant={selectedAnswer === originalIndex ? 
@@ -696,7 +239,7 @@ const BibleQuiz = () => {
                         <span>{option}</span>
                       </div>
                     </Button>
-                  ))}
+                   ))}
                 </div>
 
                 {selectedAnswer !== null && (
