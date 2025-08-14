@@ -1,26 +1,27 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import {
   BookOpen,
-  Camera,
+  ChevronDown,
+  ChevronUp,
   Clock,
   Cross,
-  Drum,
-  Guitar,
   Heart,
+  Info,
   Mail,
-  Mic,
-  Music,
-  Piano,
   Target,
-  Users,
-  Video
+  Users
 } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+// Import team member photos
 
 const NewAbout: React.FC = () => {
   const navigate = useNavigate();
+  const [expandedMission, setExpandedMission] = useState(false);
+  const [expandedStory, setExpandedStory] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -57,9 +58,33 @@ const NewAbout: React.FC = () => {
               <div>
                 <h3 className="text-xl font-semibold text-blue-600 mb-2">Mission</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  To spread the Gospel of Jesus Christ, make disciples, and serve our community with love and compassion, 
-                  bringing hope and transformation to all who seek it.
+                  {expandedMission ? (
+                    <>
+                      To spread the Gospel of Jesus Christ, make disciples, and serve our community with love and compassion, 
+                      bringing hope and transformation to all who seek it. We are committed to creating an environment where 
+                      people can encounter God's love, grow in their faith, and discover their God-given purpose. Through worship, 
+                      fellowship, service, and biblical teaching, we strive to be the hands and feet of Jesus in our community 
+                      and beyond.
+                    </>
+                  ) : (
+                    <>
+                      To spread the Gospel of Jesus Christ, make disciples, and serve our community with love and compassion, 
+                      bringing hope and transformation to all who seek it.
+                    </>
+                  )}
                 </p>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setExpandedMission(!expandedMission)}
+                  className="text-blue-600 hover:text-blue-700 p-0"
+                >
+                  {expandedMission ? (
+                    <>Less <ChevronUp className="h-4 w-4 ml-1" /></>
+                  ) : (
+                    <>More <ChevronDown className="h-4 w-4 ml-1" /></>
+                  )}
+                </Button>
               </div>
               <div>
                 <h3 className="text-xl font-semibold text-purple-600 mb-2">Vision</h3>
@@ -129,14 +154,35 @@ const NewAbout: React.FC = () => {
               Mercy Seat Ministries began as a small prayer group in 2010, meeting in homes and sharing the love of Christ. 
               What started with just a handful of faithful believers has grown into a vibrant community of faith.
             </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Through God's grace and the dedication of our members, we've been able to reach out to our community, 
-              provide spiritual guidance, and create a place where people can experience God's transforming love.
-            </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Today, we continue to grow and serve, always remembering our humble beginnings and the faithfulness of God 
-              who has brought us this far.
-            </p>
+            {expandedStory && (
+              <>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Through God's grace and the dedication of our members, we've been able to reach out to our community, 
+                  provide spiritual guidance, and create a place where people can experience God's transforming love.
+                </p>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Today, we continue to grow and serve, always remembering our humble beginnings and the faithfulness of God 
+                  who has brought us this far. Our journey has been marked by countless testimonies of lives transformed, 
+                  families restored, and communities uplifted through the power of God's love.
+                </p>
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  We have witnessed God's provision in establishing our permanent place of worship, growing our leadership team, 
+                  and expanding our ministry programs. From youth outreach to community service projects, each initiative 
+                  reflects our commitment to being the light of Christ in our neighborhood and beyond.
+                </p>
+              </>
+            )}
+            <Button
+              variant="ghost"
+              onClick={() => setExpandedStory(!expandedStory)}
+              className="text-blue-600 hover:text-blue-700"
+            >
+              {expandedStory ? (
+                <>Read Less <ChevronUp className="h-4 w-4 ml-1" /></>
+              ) : (
+                <>Read More <ChevronDown className="h-4 w-4 ml-1" /></>
+              )}
+            </Button>
           </div>
         </section>
 
@@ -150,16 +196,59 @@ const NewAbout: React.FC = () => {
             <div className="flex justify-center">
               <Card className="max-w-md text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-32 h-32 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-16 w-16 text-blue-600" />
+                  <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden">
+                    <img src="/images/gavuoff.jpg" alt="Pastor Gavu Nyirongo" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-xl">Pastor Gavu Nyirongo</CardTitle>
                   <CardDescription>Senior Pastor & Founder</CardDescription>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-4">
                   <p className="text-gray-600">
                     Leading our congregation with wisdom, compassion, and a deep commitment to God's Word.
                   </p>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="w-full">
+                        <Info className="h-4 w-4 mr-2" />
+                        Learn More About Pastor Gavu
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl">
+                      <DialogHeader>
+                        <DialogTitle>Pastor Gavu Nyirongo - Senior Pastor & Founder</DialogTitle>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        <div className="flex items-start space-x-4">
+                          <img src="/images/gavuoof.jpg" alt="Pastor Gavu" className="w-24 h-24 rounded-full object-cover" />
+                          <div className="flex-1">
+                            <p className="text-gray-600 leading-relaxed">
+                              Pastor Gavu Nyirongo is the founding pastor of Mercy Seat Ministries, called by God to establish 
+                              this ministry. With over 20  years of ministry experience, he has a heart for evangelism, 
+                              discipleship, and community transformation.
+                            </p>
+                          </div>
+                        </div>
+                        <div className="space-y-3">
+                          <h4 className="font-semibold text-gray-800">Ministry Focus:</h4>
+                          <ul className="space-y-2 text-gray-600">
+                            <li>• Expository preaching and biblical teaching</li>
+                            <li>• Leadership development and mentoring</li>
+                            <li>• Community outreach and evangelism</li>
+                            <li>• Marriage and family counseling</li>
+                          </ul>
+                          <h4 className="font-semibold text-gray-800 mt-4">Education & Training:</h4>
+                          <p className="text-gray-600">
+                            Bible College graduate with specialized training in pastoral ministry and church leadership.
+                          </p>
+                          <h4 className="font-semibold text-gray-800 mt-4">Personal:</h4>
+                          <p className="text-gray-600">
+                            Pastor Gavu is married and a devoted father. He enjoys reading, fellowship, and spending time 
+                            with his family. His passion is seeing lives transformed through the power of God's Word.
+                          </p>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </CardContent>
               </Card>
             </div>
@@ -171,8 +260,8 @@ const NewAbout: React.FC = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Card className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
+                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                    <img src="/images/maston.jpg" alt="Pastor Maston Musowoya" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle>Pastor Maston Musowoya</CardTitle>
                 </CardHeader>
@@ -180,8 +269,8 @@ const NewAbout: React.FC = () => {
               
               <Card className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
+                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                    <img src="images/catherine.jpg" alt="Pastor Catherine Chewe" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle>Pastor Catherine Chewe</CardTitle>
                 </CardHeader>
@@ -189,8 +278,8 @@ const NewAbout: React.FC = () => {
               
               <Card className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
+                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                    <img src="images/taddy.jpg" alt="Pastor Eric Tady" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle>Pastor Eric Tady</CardTitle>
                 </CardHeader>
@@ -198,8 +287,8 @@ const NewAbout: React.FC = () => {
               
               <Card className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
+                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                    <img src="/images/nyundi.jpg" alt="Pastor Eric Nyundi" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle>Pastor Eric Nyundi</CardTitle>
                 </CardHeader>
@@ -207,8 +296,8 @@ const NewAbout: React.FC = () => {
               
               <Card className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Users className="h-12 w-12 text-blue-600" />
+                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                    <img src="/images/chindawi.jpg" alt="Pastor Emmanuel Chindawi" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle>Pastor Emmanuel Chindawi</CardTitle>
                 </CardHeader>
@@ -230,8 +319,8 @@ const NewAbout: React.FC = () => {
             <div className="flex justify-center">
               <Card className="max-w-md text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-32 h-32 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Music className="h-16 w-16 text-yellow-600" />
+                  <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden">
+                    <img src="/images/boyd.jpg" alt="Boyd Daka" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle className="text-xl">Boyd Daka</CardTitle>
                   <CardDescription>Praise Team Leader</CardDescription>
@@ -251,8 +340,8 @@ const NewAbout: React.FC = () => {
             <div className="grid md:grid-cols-3 gap-6">
               <Card className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Guitar className="h-12 w-12 text-yellow-600" />
+                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                    <img src="/images/sydney.jpg" alt="Sydney Mutondo" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle>Sydney Mutondo</CardTitle>
                   <CardDescription>Instrumentalist</CardDescription>
@@ -261,8 +350,8 @@ const NewAbout: React.FC = () => {
               
               <Card className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Drum className="h-12 w-12 text-yellow-600" />
+                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                    <img src="/images/sulungweOff.jpg" alt="Samson Silungwe" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle>Samson Silungwe</CardTitle>
                   <CardDescription>Instrumentalist</CardDescription>
@@ -271,8 +360,8 @@ const NewAbout: React.FC = () => {
               
               <Card className="text-center hover:shadow-lg transition-shadow">
                 <CardHeader>
-                  <div className="w-24 h-24 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <Piano className="h-12 w-12 text-yellow-600" />
+                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                    <img src="/images/paulOff.jpg" alt="Paul Nyirongo" className="w-full h-full object-cover" />
                   </div>
                   <CardTitle>Paul Nyirongo</CardTitle>
                   <CardDescription>Mixing Team</CardDescription>
@@ -288,8 +377,8 @@ const NewAbout: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-6">
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-24 h-24 bg-gradient-to-br from-green-200 to-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Camera className="h-12 w-12 text-green-600" />
+                <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                  <img src="/images/wanipa.jpg" alt="Wanipa Musowoya" className="w-full h-full object-cover" />
                 </div>
                 <CardTitle>Wanipa Musowoya</CardTitle>
                 <CardDescription>Media Team</CardDescription>
@@ -298,8 +387,8 @@ const NewAbout: React.FC = () => {
             
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-24 h-24 bg-gradient-to-br from-green-200 to-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Video className="h-12 w-12 text-green-600" />
+                <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                  <img src="/images/shadreck.jpg" alt="Shadreck Silungwe" className="w-full h-full object-cover" />
                 </div>
                 <CardTitle>Shadreck Silungwe</CardTitle>
                 <CardDescription>Media Team</CardDescription>
@@ -308,8 +397,8 @@ const NewAbout: React.FC = () => {
             
             <Card className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="w-24 h-24 bg-gradient-to-br from-green-200 to-blue-200 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <Mic className="h-12 w-12 text-green-600" />
+                <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                  <img src="images/seth.jpg" alt="Seth Musakanya" className="w-full h-full object-cover" />
                 </div>
                 <CardTitle>Seth Musakanya</CardTitle>
                 <CardDescription>Media Team</CardDescription>

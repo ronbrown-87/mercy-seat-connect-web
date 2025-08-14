@@ -15,7 +15,9 @@ import {
   ArrowLeft,
   Send,
   CheckCircle,
-  Navigation
+  Navigation,
+  MessageSquare,
+  QrCode
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -41,20 +43,48 @@ const Contact = () => {
   const [showVisitUsDialog, setShowVisitUsDialog] = useState(false);
   const [visitorEmail, setVisitorEmail] = useState('');
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setContactForm({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: ''
-      });
-    }, 3000);
+    
+    try {
+      // Create email content
+      const emailContent = `
+New Contact Form Submission from Church Website
+
+Name: ${contactForm.name}
+Email: ${contactForm.email}
+Phone: ${contactForm.phone}
+Subject: ${contactForm.subject}
+
+Message:
+${contactForm.message}
+
+Sent from: Church Website Contact Form
+Date: ${new Date().toLocaleString()}
+      `;
+
+      // Create mailto link to open in user's email client
+      const mailtoLink = `mailto:maronnyirongo@gmail.com?subject=Contact Form: ${encodeURIComponent(contactForm.subject)}&body=${encodeURIComponent(emailContent)}`;
+      
+      // Open email client
+      window.location.href = mailtoLink;
+      
+      setIsSubmitted(true);
+      toast.success('Opening your email client to send the message...');
+      
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setContactForm({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        });
+      }, 3000);
+    } catch (error) {
+      toast.error('Failed to open email client. Please try again.');
+    }
   };
 
   const handleVisitUsSubmit = async (e: React.FormEvent) => {
@@ -82,6 +112,19 @@ const Contact = () => {
 
   const handleCall = () => {
     window.open('tel:0975448759', '_self');
+  };
+
+  const handleWhatsApp = () => {
+    const message = "Hello, I'm interested in learning more about Mercy Seat Ministries.";
+    const whatsappUrl = `https://wa.me/260975448759?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const handleQRCode = () => {
+    // Generate QR code for contact information
+    const contactInfo = "Mercy Seat Ministries\nPhone: 0975448759\nEmail: maronnyirongo@gmail.com\nAddress: 123 Church Street, Anytown, ST 12345";
+    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(contactInfo)}`;
+    window.open(qrCodeUrl, '_blank');
   };
 
   return (
@@ -174,6 +217,16 @@ const Contact = () => {
                           <Button onClick={handleCall} className="w-full bg-green-600 hover:bg-green-700">
                             <Phone className="w-4 h-4 mr-2" />
                             Call 0975448759
+                          </Button>
+
+                          <Button onClick={handleWhatsApp} className="w-full bg-green-500 hover:bg-green-600">
+                            <MessageSquare className="w-4 h-4 mr-2" />
+                            WhatsApp 0975448759
+                          </Button>
+
+                          <Button onClick={handleQRCode} className="w-full bg-gray-600 hover:bg-gray-700">
+                            <QrCode className="w-4 h-4 mr-2" />
+                            QR Code
                           </Button>
                         </div>
 

@@ -93,7 +93,7 @@ const staticGalleryData: GalleryItem[] = [
     id: 2,
     title: "Church Building",
     description: "Our church community coming together",
-    imageUrl: "",
+    imageUrl: "/images/church.jpg",
     category: "Architecture",
     likes: 0,
     downloads: 0,
