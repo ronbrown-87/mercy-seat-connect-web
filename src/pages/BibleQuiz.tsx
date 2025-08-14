@@ -15,6 +15,7 @@ import {
   Timer
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { getRandomQuestions, randomizeAnswers } from '@/data/quizQuestions';
 
 interface QuizQuestion {
   id: number;
@@ -24,6 +25,10 @@ interface QuizQuestion {
   explanation: string;
   category: string;
   difficulty: 'easy' | 'medium' | 'hard';
+}
+
+interface ShuffledQuestion extends QuizQuestion {
+  shuffledOptions: Array<{option: string, originalIndex: number}>;
 }
 
 const BibleQuiz = () => {
@@ -36,196 +41,8 @@ const BibleQuiz = () => {
   const [isQuizComplete, setIsQuizComplete] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
-  const [questions, setQuestions] = useState<QuizQuestion[]>([]);
-
-  // Bible Quiz Questions (300+ questions)
-  const allQuestions: QuizQuestion[] = [
-    // Genesis Questions
-    {
-      id: 1,
-      question: "Who was the first man created by God?",
-      options: ["Adam", "Eve", "Cain", "Abel"],
-      correctAnswer: 0,
-      explanation: "Adam was the first man created by God in Genesis 2:7.",
-      category: "Genesis",
-      difficulty: "easy"
-    },
-    {
-      id: 2,
-      question: "How many days and nights did Jesus fast in the wilderness?",
-      options: ["30 days", "40 days", "50 days", "60 days"],
-      correctAnswer: 1,
-      explanation: "Jesus fasted for 40 days and 40 nights in the wilderness (Matthew 4:2).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 3,
-      question: "Who built the ark according to God's instructions?",
-      options: ["Moses", "Noah", "Abraham", "David"],
-      correctAnswer: 1,
-      explanation: "Noah built the ark according to God's instructions (Genesis 6:14-22).",
-      category: "Genesis",
-      difficulty: "easy"
-    },
-    {
-      id: 4,
-      question: "What is the first book of the Bible?",
-      options: ["Exodus", "Genesis", "Matthew", "Psalms"],
-      correctAnswer: 1,
-      explanation: "Genesis is the first book of the Bible.",
-      category: "Bible Basics",
-      difficulty: "easy"
-    },
-    {
-      id: 5,
-      question: "Who was thrown into the lions' den?",
-      options: ["Daniel", "David", "Joseph", "Moses"],
-      correctAnswer: 0,
-      explanation: "Daniel was thrown into the lions' den (Daniel 6:16).",
-      category: "Daniel",
-      difficulty: "easy"
-    },
-    {
-      id: 6,
-      question: "How many disciples did Jesus have?",
-      options: ["10", "12", "15", "20"],
-      correctAnswer: 1,
-      explanation: "Jesus had 12 disciples (Matthew 10:1-4).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 7,
-      question: "Who was the first king of Israel?",
-      options: ["David", "Solomon", "Saul", "Samuel"],
-      correctAnswer: 2,
-      explanation: "Saul was the first king of Israel (1 Samuel 10:1).",
-      category: "Kings",
-      difficulty: "medium"
-    },
-    {
-      id: 8,
-      question: "What was the name of Jesus' mother?",
-      options: ["Mary", "Elizabeth", "Sarah", "Ruth"],
-      correctAnswer: 0,
-      explanation: "Jesus' mother was Mary (Luke 1:27).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 9,
-      question: "Who was the strongest man in the Bible?",
-      options: ["David", "Samson", "Goliath", "Moses"],
-      correctAnswer: 1,
-      explanation: "Samson was known for his great strength (Judges 13-16).",
-      category: "Judges",
-      difficulty: "easy"
-    },
-    {
-      id: 10,
-      question: "What is the last book of the Bible?",
-      options: ["Revelation", "Jude", "3 John", "2 Peter"],
-      correctAnswer: 0,
-      explanation: "Revelation is the last book of the Bible.",
-      category: "Bible Basics",
-      difficulty: "easy"
-    },
-    // Adding more questions to reach 300+
-    {
-      id: 11,
-      question: "Who was sold into slavery by his brothers?",
-      options: ["Joseph", "Benjamin", "Judah", "Reuben"],
-      correctAnswer: 0,
-      explanation: "Joseph was sold into slavery by his brothers (Genesis 37:28).",
-      category: "Genesis",
-      difficulty: "easy"
-    },
-    {
-      id: 12,
-      question: "What was the name of the place where Jesus was crucified?",
-      options: ["Mount Sinai", "Golgotha", "Mount of Olives", "Garden of Gethsemane"],
-      correctAnswer: 1,
-      explanation: "Jesus was crucified at Golgotha, also called Calvary (John 19:17).",
-      category: "Gospels",
-      difficulty: "medium"
-    },
-    {
-      id: 13,
-      question: "How many books are in the New Testament?",
-      options: ["25", "27", "29", "30"],
-      correctAnswer: 1,
-      explanation: "There are 27 books in the New Testament.",
-      category: "Bible Basics",
-      difficulty: "medium"
-    },
-    {
-      id: 14,
-      question: "Who was the first martyr of the Christian church?",
-      options: ["Peter", "Paul", "Stephen", "James"],
-      correctAnswer: 2,
-      explanation: "Stephen was the first martyr of the Christian church (Acts 7:54-60).",
-      category: "Acts",
-      difficulty: "medium"
-    },
-    {
-      id: 15,
-      question: "What was the name of the giant that David defeated?",
-      options: ["Goliath", "Og", "Sihon", "Balak"],
-      correctAnswer: 0,
-      explanation: "David defeated the giant Goliath (1 Samuel 17:50).",
-      category: "1 Samuel",
-      difficulty: "easy"
-    },
-    // Continue with more questions...
-    {
-      id: 16,
-      question: "Who wrote most of the New Testament books?",
-      options: ["Peter", "Paul", "John", "Luke"],
-      correctAnswer: 1,
-      explanation: "Paul wrote most of the New Testament books (13 epistles).",
-      category: "New Testament",
-      difficulty: "medium"
-    },
-    {
-      id: 17,
-      question: "What was the name of the river where Jesus was baptized?",
-      options: ["Jordan", "Nile", "Euphrates", "Tigris"],
-      correctAnswer: 0,
-      explanation: "Jesus was baptized in the Jordan River (Matthew 3:13).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 18,
-      question: "How many days was Jesus in the tomb?",
-      options: ["1 day", "2 days", "3 days", "4 days"],
-      correctAnswer: 2,
-      explanation: "Jesus was in the tomb for 3 days (Matthew 12:40).",
-      category: "Gospels",
-      difficulty: "easy"
-    },
-    {
-      id: 19,
-      question: "Who was the first person to see Jesus after His resurrection?",
-      options: ["Peter", "Mary Magdalene", "John", "Thomas"],
-      correctAnswer: 1,
-      explanation: "Mary Magdalene was the first person to see Jesus after His resurrection (John 20:11-18).",
-      category: "Gospels",
-      difficulty: "medium"
-    },
-    {
-      id: 20,
-      question: "What is the shortest verse in the Bible?",
-      options: ["John 11:35", "John 3:16", "Psalm 23:1", "Genesis 1:1"],
-      correctAnswer: 0,
-      explanation: "John 11:35 'Jesus wept' is the shortest verse in the Bible.",
-      category: "Bible Basics",
-      difficulty: "hard"
-    }
-    // Note: In a real implementation, you would have 300+ questions here
-    // For brevity, I'm showing 20 questions as an example
-  ];
+  const [questions, setQuestions] = useState<ShuffledQuestion[]>([]);
+  // Questions are now imported from external file with 500+ questions
 
   useEffect(() => {
     if (isQuizActive && timeLeft > 0) {
@@ -245,9 +62,12 @@ const BibleQuiz = () => {
   }, [isQuizActive, timeLeft]);
 
   const startQuiz = () => {
-    // Randomly select 20 questions from the pool
-    const shuffled = [...allQuestions].sort(() => 0.5 - Math.random());
-    setQuestions(shuffled.slice(0, 20));
+    // Get 20 random questions from the 500+ question pool
+    const randomQuestions = getRandomQuestions(20);
+    // Randomize answer options for each question
+    const questionsWithShuffledOptions = randomQuestions.map(q => randomizeAnswers(q));
+    
+    setQuestions(questionsWithShuffledOptions);
     setCurrentQuestionIndex(0);
     setScore(0);
     setTimeLeft(300);
@@ -334,7 +154,7 @@ const BibleQuiz = () => {
                 Bible Knowledge Quiz
               </CardTitle>
               <p className="text-gray-600 text-lg">
-                Test your knowledge of the Bible with our comprehensive quiz featuring 300+ questions!
+                Test your knowledge of the Bible with our comprehensive quiz featuring 500+ questions from Genesis to Revelation!
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -344,15 +164,15 @@ const BibleQuiz = () => {
                   <h3 className="font-semibold">5 Minutes</h3>
                   <p className="text-sm text-gray-600">Time Limit</p>
                 </div>
-                <div className="p-4 bg-amber-50 rounded-lg">
-                  <Trophy className="w-8 h-8 mx-auto mb-2 text-amber-600" />
-                  <h3 className="font-semibold">20 Questions</h3>
-                  <p className="text-sm text-gray-600">Random Selection</p>
-                </div>
+                  <div className="p-4 bg-amber-50 rounded-lg">
+                    <Trophy className="w-8 h-8 mx-auto mb-2 text-amber-600" />
+                    <h3 className="font-semibold">20 Questions</h3>
+                    <p className="text-sm text-gray-600">From 500+ Questions</p>
+                  </div>
                 <div className="p-4 bg-amber-50 rounded-lg">
                   <CheckCircle className="w-8 h-8 mx-auto mb-2 text-amber-600" />
-                  <h3 className="font-semibold">Multiple Choice</h3>
-                  <p className="text-sm text-gray-600">Easy to Answer</p>
+                  <h3 className="font-semibold">Mixed Difficulty</h3>
+                  <p className="text-sm text-gray-600">Easy to Hard</p>
                 </div>
               </div>
               <Button onClick={startQuiz} size="lg" className="bg-amber-600 hover:bg-amber-700">
@@ -396,19 +216,19 @@ const BibleQuiz = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {currentQuestion.options.map((option, index) => (
+                  {currentQuestion.shuffledOptions.map(({ option, originalIndex }) => (
                     <Button
-                      key={index}
-                      variant={selectedAnswer === index ? 
-                        (index === currentQuestion.correctAnswer ? 'default' : 'destructive') : 
+                      key={originalIndex}
+                      variant={selectedAnswer === originalIndex ? 
+                        (originalIndex === currentQuestion.correctAnswer ? 'default' : 'destructive') : 
                         'outline'}
-                      className="w-full justify-start h-auto p-4 text-left"
-                      onClick={() => handleAnswerSelect(index)}
+                      className="w-full justify-start h-auto p-4 text-left transition-all duration-200 hover:scale-105"
+                      onClick={() => handleAnswerSelect(originalIndex)}
                       disabled={selectedAnswer !== null}
                     >
                       <div className="flex items-center space-x-3">
-                        {selectedAnswer === index ? (
-                          index === currentQuestion.correctAnswer ? (
+                        {selectedAnswer === originalIndex ? (
+                          originalIndex === currentQuestion.correctAnswer ? (
                             <CheckCircle className="w-5 h-5 text-green-600" />
                           ) : (
                             <XCircle className="w-5 h-5 text-red-600" />
@@ -419,7 +239,7 @@ const BibleQuiz = () => {
                         <span>{option}</span>
                       </div>
                     </Button>
-                  ))}
+                   ))}
                 </div>
 
                 {selectedAnswer !== null && (
