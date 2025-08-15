@@ -1,27 +1,24 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { 
-  Search, 
-  Filter, 
-  Play, 
-  Download, 
-  Share2, 
-  Heart, 
-  MessageSquare, 
-  Clock, 
-  User,
-  X
-} from 'lucide-react';
-import { useAuth } from '@/context/AuthContext';
+import { Footer } from '@/components/Footer';
 import { LoginDialog } from '@/components/LoginDialog';
 import { SermonComments } from '@/components/SermonComments';
-import { Footer } from '@/components/Footer';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useAuth } from '@/context/AuthContext';
+import {
+  Clock,
+  Download,
+  Heart,
+  MessageSquare,
+  Play,
+  Search,
+  Share2
+} from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Sermon {
   id: number;
@@ -48,72 +45,111 @@ const Sermons = () => {
   const [sermonLikes, setSermonLikes] = useState<{ [key: number]: number }>({});
 
   const sermonsData: Sermon[] = [
+   {
+    id: 1,
+    title: "Walking in Faith",
+    speaker: "Pastor Gavu Nyirongo",
+    date: "2024-12-15",
+    category: "Faith",
+    url: `<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1079532757672291%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`,
+    description: "A powerful message about walking in faith through life's challenges.",
+    duration: "45:30",
+    tags: ["Faith", "Encouragement", "Life"]
+  },
     {
-      id: 1,
-      title: "Walking in Faith",
-      speaker: "Pastor Gavu Nyirongo",
-      date: "2024-12-15",
-      category: "Faith",
-      url: "https://www.facebook.com/watch/video/example1", // You can edit this later
-      description: "A powerful message about walking in faith through life's challenges.",
-      duration: "45:30",
-      tags: ["Faith", "Encouragement", "Life"]
-    },
+    id: 2,
+    title: "The Power of Prayer",
+    speaker: "Pastor Maston Musowoya",
+    date: "2024-12-08",
+    category: "Prayer",
+    url: `<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F903705225309016%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`,
+    description: "Discovering the transformative power of prayer in our daily lives.",
+    duration: "52:15",
+    tags: ["Prayer", "Spiritual Growth", "Transformation"]
+  },
+
     {
-      id: 2,
-      title: "The Power of Prayer",
-      speaker: "Pastor Maston Musowoya",
-      date: "2024-12-08",
-      category: "Prayer",
-      url: "https://www.youtube.com/watch?v=example2", // You can edit this later
-      description: "Discovering the transformative power of prayer in our daily lives.",
-      duration: "52:15",
-      tags: ["Prayer", "Spiritual Growth", "Transformation"]
-    },
+    id: 3,
+    title: "Building Strong Families",
+    speaker: "Pastor Catherine Chewe",
+    date: "2024-12-01",
+    category: "Family",
+    url: `<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F525254380290613%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`,
+    description: "Biblical principles for building strong, God-centered families.",
+    duration: "48:20",
+    tags: ["Family", "Relationships", "Biblical Principles"]
+  },
+
     {
-      id: 3,
-      title: "Building Strong Families",
-      speaker: "Pastor Catherine Chewe",
-      date: "2024-12-01",
-      category: "Family",
-      url: "https://www.facebook.com/watch/video/example3", // You can edit this later
-      description: "Biblical principles for building strong, God-centered families.",
-      duration: "48:20",
-      tags: ["Family", "Relationships", "Biblical Principles"]
-    },
+    id: 4,
+    title: "Youth on Fire for God",
+    speaker: "Pastor Eric Tady",
+    date: "2024-11-24",
+    category: "Youth",
+    url: `<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F593885550076996%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`,
+    description: "Empowering young people to live passionately for Christ.",
+    duration: "41:35",
+    tags: ["Youth", "Passion", "Empowerment"]
+  },
+
     {
-      id: 4,
-      title: "Youth on Fire for God",
-      speaker: "Pastor Eric Tady",
-      date: "2024-11-24",
-      category: "Youth",
-      url: "https://www.youtube.com/watch?v=example4", // You can edit this later
-      description: "Empowering young people to live passionately for Christ.",
-      duration: "41:35",
-      tags: ["Youth", "Passion", "Empowerment"]
-    },
+    id: 5,
+    title: "Nurturing Young Hearts",
+    speaker: "Pastor Eric Nyundi",
+    date: "2024-11-17",
+    category: "Children",
+    url: `<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1172976404441094%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`,
+    description: "Teaching children about God's love in age-appropriate ways.",
+    duration: "35:45",
+    tags: ["Children", "Education", "God's Love"]
+  },
+
     {
-      id: 5,
-      title: "Nurturing Young Hearts",
-      speaker: "Pastor Eric Nyundi",
-      date: "2024-11-17",
-      category: "Children",
-      url: "https://www.facebook.com/watch/video/example5", // You can edit this later
-      description: "Teaching children about God's love in age-appropriate ways.",
-      duration: "35:45",
-      tags: ["Children", "Education", "God's Love"]
-    },
-    {
-      id: 6,
-      title: "Reaching Our Community",
-      speaker: "Pastor Emmanuel Chindawi",
-      date: "2024-11-10",
-      category: "Outreach",
-      url: "https://www.youtube.com/watch?v=example6", // You can edit this later
-      description: "Strategies for effective community outreach and evangelism.",
-      duration: "55:10",
-      tags: ["Outreach", "Evangelism", "Community"]
-    }
+    id: 6,
+    title: "Reaching Our Community",
+    speaker: "Pastor Emmanuel Chindawi",
+    date: "2024-11-10",
+    category: "Outreach",
+    url: `<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1117609872877381%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`,
+    description: "Strategies for effective community outreach and evangelism.",
+    duration: "55:10",
+    tags: ["Outreach", "Evangelism", "Community"]
+  },
+
+  {
+    id: 7,
+    title: "Talk with Grace Chipo Nyoni",
+    speaker: "Grace Chipo Nyoni",
+    date: "2024-12-18",
+    category: "Interviews",
+    url: `<iframe src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F553233244206378%2F&show_text=false&width=267&t=0" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`,
+    description: "An inspiring interview with Grace Chipo Nyoni.",
+    duration: "30:00",
+    tags: ["Interviews", "Faith", "Inspiration"]
+  },
+  {
+    id: 8,
+    title: "Our Praise Team",
+    speaker: "Church Praise Team",
+    date: "2024-12-12",
+    category: "Worship",
+    url: `<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1409009000069252%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`,
+    description: "Our talented praise team leading worship.",
+    duration: "50:00",
+    tags: ["Worship", "Music", "Praise"]
+  },
+
+   {
+    id: 9,
+    title: "Talk with Mr Milanzi",
+    speaker: "Mr Milanzi",
+    date: "2024-12-05",
+    category: "Interviews",
+    url: `<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1111421133771660%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`,
+    description: "Interview with Mr Milanzi about faith and community.",
+    duration: "40:00",
+    tags: ["Interviews", "Faith", "Community"]
+  }
   ];
 
   // Initialize likes for each sermon

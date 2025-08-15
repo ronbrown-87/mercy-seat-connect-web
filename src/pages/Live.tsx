@@ -294,14 +294,19 @@ const Live = () => {
                   </div>
                 )}
                 {/* Video Player */}
-                <div className="aspect-w-16 aspect-h-9">
-                  <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" // Replace with your live stream URL
-                    title="Live Stream"
-                    allowFullScreen
-                    className="rounded-lg"
-                  ></iframe>
-                </div>
+                <div className="w-full max-w-2xl mx-auto mt-6">
+  <iframe
+    src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1456410805702175%2F&show_text=false&width=560&t=0"
+    width="560"
+    height="314"
+    style={{ border: "none", overflow: "hidden" }}
+    scrolling="no"
+    frameBorder="0"
+    allowFullScreen
+    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+  ></iframe>
+</div>
+
                 {/* Service Info */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                   <div className="flex items-center space-x-2">
