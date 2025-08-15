@@ -63,6 +63,27 @@ export const About = () => {
             Mercy Seat Ministries is a vibrant church community in Kitwe, dedicated to spreading God's love, 
             fostering spiritual growth, and serving our community with compassion and purpose.
           </p>
+          
+          {/* Stats Section */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-8">
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">500+</div>
+              <div className="text-gray-600">Church Members</div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">10+</div>
+              <div className="text-gray-600">Ministries</div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">25+</div>
+              <div className="text-gray-600">Years of Service</div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">1000+</div>
+              <div className="text-gray-600">Lives Touched</div>
+            </div>
+          </div>
+          
           <div className="bg-white rounded-lg p-8 shadow-md max-w-4xl mx-auto">
             <h3 className="text-2xl font-bold text-gray-800 mb-4">Our Mission</h3>
             <p className="text-lg text-gray-600 leading-relaxed">
