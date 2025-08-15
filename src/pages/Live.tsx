@@ -294,12 +294,18 @@ const Live = () => {
                   </div>
                 )}
                 {/* Video Player */}
-                <div className="w-full max-w-2xl mx-auto mt-6">
+                <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden" }}>
   <iframe
     src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1456410805702175%2F&show_text=false&width=560&t=0"
-    width="560"
-    height="314"
-    style={{ border: "none", overflow: "hidden" }}
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      border: "none",
+      overflow: "hidden",
+    }}
     scrolling="no"
     frameBorder="0"
     allowFullScreen
