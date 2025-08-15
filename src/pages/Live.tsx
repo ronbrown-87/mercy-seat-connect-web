@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Play, Calendar, Clock, Users, MessageCircle, Share2, Facebook, ArrowLeft, Video, Mic, Heart, Send, Eye, Mail, MapPin, Phone, Copy, Check } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Footer } from "@/components/Footer";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { ArrowLeft, Calendar, Check, Clock, Copy, Eye, Facebook, MessageCircle, Mic, Send, Share2, Users, Video } from "lucide-react";
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -440,15 +439,15 @@ const Live = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="font-medium">Sunday Morning</span>
-                    <span className="text-gray-600">9:00 AM & 11:00 AM</span>
+                    <span className="text-gray-600">10:00 AM to 1:00 PM</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="font-medium">Wednesday Bible Study</span>
-                    <span className="text-gray-600">7:00 PM</span>
+                    <span className="font-medium">Wednesday Cell Meetings </span>
+                    <span className="text-gray-600">5:00 PM to 6:00 PM</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="font-medium">Youth Group</span>
-                    <span className="text-gray-600">Friday 6:30 PM</span>
+                    <span className="font-medium">Friday Afternoon </span>
+                    <span className="text-gray-600">4:00 PM to 6:00 PM</span>
                   </div>
                 </div>
               </CardContent>

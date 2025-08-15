@@ -68,7 +68,7 @@ const NewAbout: React.FC = () => {
                     </>
                   ) : (
                     <>
-                      To spread the Gospel of Jesus Christ, make disciples, and serve our community with love and compassion, 
+                      To spread the Gospel of Jesus Chris  and serve our community with love and compassion, 
                       bringing hope and transformation to all who seek it.
                     </>
                   )}
@@ -151,7 +151,7 @@ const NewAbout: React.FC = () => {
           <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Our Story</h2>
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <p className="text-lg text-gray-600 leading-relaxed">
-              Mercy Seat Ministries began as a small prayer group in 2010, meeting in homes and sharing the love of Christ. 
+              Mercy Seat Ministries began as a small prayer group , meeting in homes and sharing the love of Christ. 
               What started with just a handful of faithful believers has grown into a vibrant community of faith.
             </p>
             {expandedStory && (
@@ -418,31 +418,31 @@ const NewAbout: React.FC = () => {
                 <Clock className="h-8 w-8 text-blue-600" />
               </div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Sunday Service</h3>
-              <p className="text-gray-600">9:00 AM - 12:00 PM</p>
+              <p className="text-gray-600">10:00 AM - 1:00 PM</p>
             </div>
             
             <div className="text-center">
                               <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <Heart className="h-8 w-8 text-purple-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">Prayer Meeting</h3>
-              <p className="text-gray-600">Wednesday 6:00 PM</p>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">Cell Meeting</h3>
+              <p className="text-gray-600">Wednesday 5:00 PM</p>
             </div>
             
             <div className="text-center">
                               <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <BookOpen className="h-8 w-8 text-green-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">Bible Study</h3>
-              <p className="text-gray-600">Friday 7:00 PM</p>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">Friday Service</h3>
+              <p className="text-gray-600">Friday 4:00 PM</p>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 bg-yellow-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <Users className="h-8 w-8 text-yellow-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Youth Group</h3>
-              <p className="text-gray-600">Saturday 3:00 PM</p>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Youth Group Meetings/not every saturday, keep note</h3>
+              <p className="text-gray-600">Saturday 10:00 AM</p>
             </div>
           </div>
         </section>
