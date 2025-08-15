@@ -78,6 +78,43 @@ const BibleQuiz = () => {
     setShowExplanation(false);
   };
 
+  const playSound = (type: 'correct' | 'incorrect' | 'complete') => {
+    // Create audio context for sound feedback
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    if (type === 'correct') {
+      // High pleasant tone for correct answer
+      oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+      oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+    } else if (type === 'incorrect') {
+      // Lower tone for incorrect answer
+      oscillator.frequency.setValueAtTime(220, audioContext.currentTime); // A3
+    } else {
+      // Completion sound - ascending notes
+      oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+      oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.2); // E5
+      oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.4); // G5
+    }
+    
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + (type === 'complete' ? 0.6 : 0.3));
+    
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + (type === 'complete' ? 0.6 : 0.3));
+  };
+
+  const triggerVibration = () => {
+    // Vibrate for incorrect answers on mobile devices
+    if ('vibrate' in navigator) {
+      navigator.vibrate([100, 50, 100]);
+    }
+  };
+
   const handleAnswerSelect = (answerIndex: number) => {
     if (selectedAnswer !== null) return; // Prevent multiple selections
     
@@ -86,6 +123,10 @@ const BibleQuiz = () => {
     
     if (answerIndex === currentQuestion.correctAnswer) {
       setScore(prev => prev + 1);
+      playSound('correct');
+    } else {
+      playSound('incorrect');
+      triggerVibration();
     }
     
     setAnsweredQuestions(prev => new Set([...prev, currentQuestion.id]));
@@ -99,6 +140,7 @@ const BibleQuiz = () => {
     } else {
       setIsQuizActive(false);
       setIsQuizComplete(true);
+      playSound('complete');
     }
   };
 
