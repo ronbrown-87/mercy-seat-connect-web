@@ -70,7 +70,7 @@ export const Navigation = () => {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-md' : 'bg-white/90 backdrop-blur-sm shadow-sm'
+          isScrolled ? 'bg-header/95 backdrop-blur-sm shadow-md' : 'bg-header/90 backdrop-blur-sm shadow-sm'
         } ${isVisible ? 'nav-show' : 'nav-hide'}`}
       >
         <div className="container mx-auto px-4">
@@ -86,10 +86,10 @@ export const Navigation = () => {
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h1 className={`font-bold text-lg ${isScrolled ? 'text-gray-800' : 'text-gray-800'}`}>
+                <h1 className="font-bold text-lg text-header-foreground">
                   Mercy Seat
                 </h1>
-                <p className={`text-xs ${isScrolled ? 'text-gray-600' : 'text-gray-600'}`}>
+                <p className="text-xs text-header-foreground/80">
                   Connect
                 </p>
               </div>
@@ -102,7 +102,7 @@ export const Navigation = () => {
                   <Link
                     key={index}
                     to={item.to}
-                    className={`hover:text-blue-600 transition-colors font-medium text-gray-700 ${
+                    className={`hover:text-blue-200 transition-colors font-medium text-header-foreground ${
                       location.pathname === item.to ? 'page-glow' : ''
                     }`}
                     onClick={() => setIsOpen(false)}
@@ -113,7 +113,7 @@ export const Navigation = () => {
                   <button
                     key={index}
                     onClick={item.action}
-                    className={`hover:text-blue-600 transition-colors font-medium text-gray-700`}
+                    className={`hover:text-blue-200 transition-colors font-medium text-header-foreground`}
                   >
                     {item.label}
                   </button>
@@ -122,7 +122,8 @@ export const Navigation = () => {
               
               <Button
                 onClick={() => setShowVisitDialog(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white"
+                className="bg-white/20 hover:bg-white/30 text-header-foreground border-white/30"
+                variant="outline"
               >
                 Visit Us
               </Button>
@@ -134,7 +135,7 @@ export const Navigation = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-gray-800"
+                className="text-header-foreground"
               >
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </Button>
@@ -143,15 +144,15 @@ export const Navigation = () => {
 
           {/* Mobile Navigation */}
           {isOpen && (
-            <div className="lg:hidden bg-white border-t shadow-lg">
+            <div className="lg:hidden bg-header border-t border-white/20 shadow-lg">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {navItems.map((item, index) =>
                   item.to ? (
                       <Link
                         key={index}
                         to={item.to}
-                        className={`block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md font-medium ${
-                          location.pathname === item.to ? 'page-glow bg-blue-50' : ''
+                        className={`block px-3 py-2 text-header-foreground hover:text-blue-200 hover:bg-white/10 rounded-md font-medium ${
+                          location.pathname === item.to ? 'page-glow bg-white/10' : ''
                         }`}
                         onClick={() => setIsOpen(false)}
                       >
@@ -161,7 +162,7 @@ export const Navigation = () => {
                     <button
                       key={index}
                       onClick={item.action}
-                      className="block px-3 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-md font-medium w-full text-left"
+                      className="block px-3 py-2 text-header-foreground hover:text-blue-200 hover:bg-white/10 rounded-md font-medium w-full text-left"
                     >
                       {item.label}
                     </button>
@@ -171,7 +172,8 @@ export const Navigation = () => {
                 <div className="px-3 py-2">
                   <Button
                     onClick={() => setShowVisitDialog(true)}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    className="w-full bg-white/20 hover:bg-white/30 text-header-foreground border-white/30"
+                    variant="outline"
                   >
                     Visit Us
                   </Button>

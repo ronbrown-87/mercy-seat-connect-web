@@ -8,6 +8,8 @@ import { Clock, Download, Search, Share2 } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { ScrollToTop } from '@/components/ScrollToTop';
+import { SocialShareDialog } from '@/components/SocialShareDialog';
 
 interface Sermon {
   id: number;
@@ -22,6 +24,10 @@ interface Sermon {
 }
 
 const Sermons = () => {
+  const [shareDialog, setShareDialog] = useState<{ isOpen: boolean; sermon: any }>({
+    isOpen: false,
+    sermon: null
+  });
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('All');
@@ -134,19 +140,7 @@ const Sermons = () => {
   };
 
   const handleShare = (sermon: Sermon) => {
-    const url = `${window.location.origin}/sermons#${sermon.id}`;
-    const text = `Check out this sermon: ${sermon.title}`;
-    
-    if (navigator.share) {
-      navigator.share({
-        title: sermon.title,
-        text: text,
-        url: url
-      });
-    } else {
-      navigator.clipboard.writeText(`${text} - ${url}`);
-      toast.success('Link copied to clipboard!');
-    }
+    setShareDialog({ isOpen: true, sermon });
   };
 
   const filteredSermons = sermonsData.filter(sermon => {
@@ -250,6 +244,15 @@ const Sermons = () => {
       </div>
 
       <Footer />
+      
+      <ScrollToTop />
+      
+      <SocialShareDialog
+        isOpen={shareDialog.isOpen}
+        onClose={() => setShareDialog({ isOpen: false, sermon: null })}
+        title={shareDialog.sermon?.title || ''}
+        url={`${window.location.origin}/sermons`}
+      />
     </div>
   );
 };

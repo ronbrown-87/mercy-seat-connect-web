@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, Share2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { SocialShareDialog } from '@/components/SocialShareDialog';
 
 interface PhotoInteractionProps {
   imageUrl: string;
@@ -14,6 +15,7 @@ export const PhotoInteraction: React.FC<PhotoInteractionProps> = ({
   imageTitle, 
   className = '' 
 }) => {
+  const [showShareDialog, setShowShareDialog] = useState(false);
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = imageUrl;
@@ -25,9 +27,7 @@ export const PhotoInteraction: React.FC<PhotoInteractionProps> = ({
   };
 
   const handleShare = () => {
-    const url = `${window.location.origin}${window.location.pathname}`;
-    navigator.clipboard.writeText(url);
-    toast.success('Page link copied to clipboard!');
+    setShowShareDialog(true);
   };
 
   return (
@@ -51,6 +51,12 @@ export const PhotoInteraction: React.FC<PhotoInteractionProps> = ({
         <Download className="w-6 h-6" />
         <span className="text-sm font-medium">Download</span>
       </Button>
+      
+      <SocialShareDialog
+        isOpen={showShareDialog}
+        onClose={() => setShowShareDialog(false)}
+        title={imageTitle}
+      />
     </div>
   );
 };

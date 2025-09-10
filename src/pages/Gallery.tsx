@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Filter, Download, Share2 } from "lucide-react";
 import React, { useState } from 'react';
 import { toast } from 'sonner';
+import { ScrollToTop } from '@/components/ScrollToTop';
+import { SocialShareDialog } from '@/components/SocialShareDialog';
 
 interface GalleryItem {
   id: number;
@@ -11,7 +13,6 @@ interface GalleryItem {
   description: string;
   imageUrl: string;
   category: string;
-  downloads: number;
 }
 
 const categories = ['All', 'Nature', 'Architecture', 'People', 'Events', 'Ministry'];
@@ -22,64 +23,55 @@ const staticGalleryData: GalleryItem[] = [
     title: "Sunday Service",
     description: "Beautiful moments from our Sunday service",
     imageUrl: "/images/crowd.jpg",
-    category: "Ministry",
-    downloads: 0
+    category: "Ministry"
   },
   {
     id: 2,
     title: "Church Building",
     description: "Our church community coming together",
     imageUrl: "/images/church.jpg",
-    category: "Architecture",
-    downloads: 0
+    category: "Architecture"
   },
   {
     id: 3,
     title: "Prayer Time",
     description: "Devoted moments of prayer and reflection",
     imageUrl: "/images/crowd2.jpg",
-    category: "Ministry",
-    downloads: 0
+    category: "Ministry"
   },
   {
     id: 4,
     title: "Youth Ministry",
     description: "Engaging with our young members",
     imageUrl: "/images/youth.jpg",
-    category: "People",
-    downloads: 0
+    category: "People"
   },
   {
     id: 5,
     title: "Chamboli Cell Meeting",
     description: "Our cell meetings ",
     imageUrl: "/images/community3.jpg",
-    category: "Community Gathering",
-    downloads: 0
+    category: "Community Gathering"
   },
   {
     id: 6,
     title: "Children's Ministry",
     description: "engaging with our children",
     imageUrl: "/images/children4.jpg",
-    category: "Ministry",
-    downloads: 0
+    category: "Ministry"
   }
 ];
 
 const Gallery: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [gallery, setGallery] = useState<GalleryItem[]>(staticGalleryData);
+  const [gallery] = useState<GalleryItem[]>(staticGalleryData);
+  const [shareDialog, setShareDialog] = useState<{ isOpen: boolean; item: GalleryItem | null }>({
+    isOpen: false,
+    item: null
+  });
 
   // Handle download
   const handleDownload = (item: GalleryItem) => {
-    setGallery(prev => prev.map(photo => 
-      photo.id === item.id 
-        ? { ...photo, downloads: photo.downloads + 1 }
-        : photo
-    ));
-    
-    // Simulate download
     const link = document.createElement('a');
     link.href = item.imageUrl;
     link.download = `${item.title}.jpg`;
@@ -92,19 +84,7 @@ const Gallery: React.FC = () => {
 
   // Handle share
   const handleShare = (item: GalleryItem) => {
-    const url = `${window.location.origin}/gallery`;
-    const text = `Check out this photo: ${item.title}`;
-    
-    if (navigator.share) {
-      navigator.share({
-        title: item.title,
-        text: text,
-        url: url
-      });
-    } else {
-      navigator.clipboard.writeText(`${text} - ${url}`);
-      toast.success('Link copied to clipboard!');
-    }
+    setShareDialog({ isOpen: true, item });
   };
 
   // Filter gallery by category
@@ -157,7 +137,7 @@ const Gallery: React.FC = () => {
                       className="bg-white text-gray-800 hover:bg-gray-100"
                     >
                       <Download className="h-4 w-4 mr-1" />
-                      {item.downloads}
+                      Download
                     </Button>
                     <Button
                       size="sm"
@@ -166,6 +146,7 @@ const Gallery: React.FC = () => {
                       className="bg-white text-gray-800 hover:bg-gray-100"
                     >
                       <Share2 className="h-4 w-4 mr-1" />
+                      Share
                     </Button>
                   </div>
                 </div>
@@ -175,11 +156,15 @@ const Gallery: React.FC = () => {
                 <p className="text-gray-600 text-sm mb-3">{item.description}</p>
                 <div className="flex items-center justify-between">
                   <Badge variant="outline">{item.category}</Badge>
-                  <div className="flex items-center space-x-4 text-sm text-gray-500">
-                    <span className="flex items-center">
-                      <Download className="h-4 w-4 mr-1" />
-                      {item.downloads}
-                    </span>
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => handleShare(item)}
+                      className="text-gray-600 hover:text-primary"
+                    >
+                      <Share2 className="h-4 w-4" />
+                    </Button>
                   </div>
                 </div>
               </CardContent>
@@ -187,6 +172,15 @@ const Gallery: React.FC = () => {
           ))}
         </div>
       </div>
+      
+      <ScrollToTop />
+      
+      <SocialShareDialog
+        isOpen={shareDialog.isOpen}
+        onClose={() => setShareDialog({ isOpen: false, item: null })}
+        title={shareDialog.item?.title || ''}
+        url={`${window.location.origin}/gallery`}
+      />
     </div>
   );
 };
