@@ -1,12 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, BookOpen, User, LogOut, Settings, MapPin, Phone } from 'lucide-react';
+import { Menu, X, BookOpen, MapPin, Phone } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/context/AuthContext';
-import { LoginDialog } from './LoginDialog';
-import { ProfileEditDialog } from './ProfileEditDialog';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 export const Navigation = () => {
@@ -14,12 +9,9 @@ export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [showLoginDialog, setShowLoginDialog] = useState(false);
-  const [showProfileEditDialog, setShowProfileEditDialog] = useState(false);
   const [showVisitDialog, setShowVisitDialog] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,10 +53,6 @@ export const Navigation = () => {
     setIsOpen(false);
   };
 
-  const handleLogout = async () => {
-    await logout();
-    navigate('/');
-  };
 
   const navItems = [
     { label: 'Home', action: scrollToTop, isScroll: true },
@@ -87,40 +75,6 @@ export const Navigation = () => {
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
-            {/* Login Button on Far Left */}
-            <div className="flex items-center space-x-4">
-              {!isAuthenticated ? (
-                <Button
-                  onClick={() => setShowLoginDialog(true)}
-                  variant="outline"
-                  className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
-                >
-                  Login / Sign Up
-                </Button>
-              ) : (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="flex items-center space-x-2">
-                      <Avatar className="w-8 h-8">
-                        <AvatarImage src={user?.avatarUrl} alt={user?.name} />
-                        <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                      <span className="hidden md:block">{user?.name}</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-56">
-                    <DropdownMenuItem onClick={() => setShowProfileEditDialog(true)}>
-                      <Settings className="w-4 h-4 mr-2" />
-                      Edit Profile
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handleLogout} className="text-red-600">
-                      <LogOut className="w-4 h-4 mr-2" />
-                      Logout
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              )}
-            </div>
 
             {/* Logo */}
             <Link
@@ -213,42 +167,6 @@ export const Navigation = () => {
                     </button>
                   )
                 )}
-                
-                {/* Mobile Auth */}
-                {!isAuthenticated ? (
-                  <div className="px-3 py-2">
-                    <Button
-                      onClick={() => {
-                        setShowLoginDialog(true);
-                        setIsOpen(false);
-                      }}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                    >
-                      Login / Sign Up
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="px-3 py-2">
-                    <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-md">
-                      <Avatar className="w-8 h-8">
-                        <AvatarImage src={user?.avatarUrl} alt={user?.name} />
-                        <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
-                      </Avatar>
-                      <span className="text-sm font-medium">{user?.name}</span>
-                    </div>
-                    <Button
-                      onClick={() => {
-                        handleLogout();
-                        setIsOpen(false);
-                      }}
-                      variant="outline"
-                      className="w-full mt-2 text-red-600 hover:text-red-700"
-                    >
-                      <LogOut className="w-4 h-4 mr-2" />
-                      Logout
-                    </Button>
-                  </div>
-                )}
 
                 <div className="px-3 py-2">
                   <Button
@@ -263,19 +181,6 @@ export const Navigation = () => {
           )}
         </div>
       </nav>
-
-      {/* Login Dialog */}
-      <LoginDialog
-        open={showLoginDialog}
-        onOpenChange={setShowLoginDialog}
-        reason="Please sign up or log in to access all features"
-      />
-
-      {/* Profile Edit Dialog */}
-      <ProfileEditDialog
-        open={showProfileEditDialog}
-        onOpenChange={setShowProfileEditDialog}
-      />
 
       {/* Visit Us Dialog */}
       <Dialog open={showVisitDialog} onOpenChange={setShowVisitDialog}>

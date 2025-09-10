@@ -1,16 +1,13 @@
 import { Footer } from '@/components/Footer';
-import { LoginDialog } from '@/components/LoginDialog';
-import { SermonComments } from '@/components/SermonComments';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useAuth } from '@/context/AuthContext';
-import { Clock, Download, Heart, MessageSquare, Search, Share2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Clock, Download, Search, Share2 } from 'lucide-react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 interface Sermon {
   id: number;
@@ -18,7 +15,7 @@ interface Sermon {
   speaker: string;
   date: string;
   category: string;
-  videoUrl: string; // Use videoUrl instead of iframe string
+  videoUrl: string;
   description: string;
   duration?: string;
   tags?: string[];
@@ -26,15 +23,8 @@ interface Sermon {
 
 const Sermons = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('All');
-  const [selectedSermon, setSelectedSermon] = useState<number | null>(null);
-  const [showLoginDialog, setShowLoginDialog] = useState(false);
-  const [loginReason, setLoginReason] = useState('');
-  const [showCommentsDialog, setShowCommentsDialog] = useState(false);
-  const [likedSermons, setLikedSermons] = useState<Set<number>>(new Set());
-  const [sermonLikes, setSermonLikes] = useState<{ [key: number]: number }>({});
 
   const sermonsData: Sermon[] = [
     {
@@ -138,59 +128,25 @@ const Sermons = () => {
     }
   ];
 
-  // Initialize likes
-  useEffect(() => {
-    const initialLikes: { [key: number]: number } = {};
-    sermonsData.forEach(sermon => initialLikes[sermon.id] = 0);
-    setSermonLikes(initialLikes);
-  }, []);
-
-  const handleAuthRequired = (action: string) => {
-    if (!isAuthenticated) {
-      setLoginReason(`Please log in to ${action}`);
-      setShowLoginDialog(true);
-      return false;
-    }
-    return true;
-  };
-
-  const handleLike = (sermonId: number) => {
-    if (!handleAuthRequired('like sermons')) return;
-    setLikedSermons(prev => {
-      const newLiked = new Set(prev);
-      if (newLiked.has(sermonId)) {
-        newLiked.delete(sermonId);
-        setSermonLikes(prevLikes => ({ ...prevLikes, [sermonId]: Math.max(0, prevLikes[sermonId] - 1) }));
-      } else {
-        newLiked.add(sermonId);
-        setSermonLikes(prevLikes => ({ ...prevLikes, [sermonId]: prevLikes[sermonId] + 1 }));
-      }
-      return newLiked;
-    });
-  };
-
   const handleDownload = (sermon: Sermon) => {
-    if (!handleAuthRequired('download sermons')) return;
-    alert(`Downloading: ${sermon.title}`);
+    toast.success(`Downloading: ${sermon.title}`);
+    // Implement actual download logic here
   };
 
   const handleShare = (sermon: Sermon) => {
-    if (!handleAuthRequired('share sermons')) return;
+    const url = `${window.location.origin}/sermons#${sermon.id}`;
+    const text = `Check out this sermon: ${sermon.title}`;
+    
     if (navigator.share) {
       navigator.share({
         title: sermon.title,
-        text: sermon.description,
-        url: sermon.videoUrl
+        text: text,
+        url: url
       });
     } else {
-      alert(`Sharing: ${sermon.title}`);
+      navigator.clipboard.writeText(`${text} - ${url}`);
+      toast.success('Link copied to clipboard!');
     }
-  };
-
-  const handleViewComments = (sermonId: number) => {
-    if (!handleAuthRequired('view comments')) return;
-    setSelectedSermon(sermonId);
-    setShowCommentsDialog(true);
   };
 
   const filteredSermons = sermonsData.filter(sermon => {
@@ -273,37 +229,13 @@ const Sermons = () => {
                   ></iframe>
                 </div>
 
-                <div className="flex items-center justify-between pt-2">
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleLike(sermon.id)}
-                      className={`flex items-center gap-2 ${likedSermons.has(sermon.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-500 hover:text-gray-600'}`}
-                    >
-                      <Heart className={`h-5 w-5 ${likedSermons.has(sermon.id) ? 'fill-current' : ''}`} />
-                      <span>{sermonLikes[sermon.id] || 0}</span>
-                    </Button>
-
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleViewComments(sermon.id)}
-                      className="flex items-center gap-2 text-gray-500 hover:text-gray-600"
-                    >
-                      <MessageSquare className="h-5 w-5" />
-                      <span>Comments</span>
-                    </Button>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="sm" onClick={() => handleDownload(sermon)} className="text-gray-500 hover:text-gray-600">
-                      <Download className="h-5 w-5" />
-                    </Button>
-                    <Button variant="ghost" size="sm" onClick={() => handleShare(sermon)} className="text-gray-500 hover:text-gray-600">
-                      <Share2 className="h-5 w-5" />
-                    </Button>
-                  </div>
+                <div className="flex items-center justify-end gap-2 pt-2">
+                  <Button variant="ghost" size="sm" onClick={() => handleDownload(sermon)} className="text-gray-500 hover:text-gray-600">
+                    <Download className="h-5 w-5" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => handleShare(sermon)} className="text-gray-500 hover:text-gray-600">
+                    <Share2 className="h-5 w-5" />
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -316,37 +248,6 @@ const Sermons = () => {
           </div>
         )}
       </div>
-
-      {/* Comments Dialog */}
-      <Dialog open={showCommentsDialog} onOpenChange={setShowCommentsDialog}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <MessageSquare className="h-5 w-5" />
-              Comments
-              {selectedSermon && (
-                <span className="text-sm text-gray-500 font-normal">
-                  - {sermonsData.find(s => s.id === selectedSermon)?.title}
-                </span>
-              )}
-            </DialogTitle>
-          </DialogHeader>
-
-          {selectedSermon && (
-            <SermonComments
-              sermonId={selectedSermon}
-              sermonTitle={sermonsData.find(s => s.id === selectedSermon)?.title || ''}
-            />
-          )}
-        </DialogContent>
-      </Dialog>
-
-      {/* Login Dialog */}
-      <LoginDialog
-        open={showLoginDialog}
-        onOpenChange={setShowLoginDialog}
-        reason={loginReason}
-      />
 
       <Footer />
     </div>

@@ -1,12 +1,10 @@
 import { Bookshelf } from "@/components/Bookshelf";
 import { Navigation } from "@/components/Navigation";
-import { AuthProvider } from "@/context/AuthContext";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import TraditionalHome from "@/components/TraditionalHome";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import BibleQuiz from "./pages/BibleQuiz";
@@ -20,8 +18,6 @@ import NewAbout from "./pages/NewAbout";
 import NotFound from "./pages/NotFound";
 import Sermons from "./pages/Sermons";
 import Volunteer from "./pages/Volunteer";
-
-const queryClient = new QueryClient();
 
 const AppContent = () => {
   const navigate = useNavigate();
@@ -65,17 +61,13 @@ const AppContent = () => {
 };
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <AuthProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AppContent />
-        </BrowserRouter>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <TooltipProvider>
+    <Toaster />
+    <Sonner />
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  </TooltipProvider>
 );
 
 export default App;
