@@ -105,7 +105,7 @@ Date: ${new Date().toLocaleString()}
 
   const handleGetDirections = () => {
     // Open Google Maps with the church location
-    const address = "123 Church Street, Anytown, ST 12345";
+    const address = "R12 Kalukungu Street, Chamboli, Kitwe, Zambia";
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
     window.open(googleMapsUrl, '_blank');
   };
@@ -122,7 +122,7 @@ Date: ${new Date().toLocaleString()}
 
   const handleQRCode = () => {
     // Generate QR code for contact information
-    const contactInfo = "Mercy Seat Ministries\nPhone: 0975448759\nEmail: maronnyirongo@gmail.com\nAddress: 123 Church Street, Anytown, ST 12345";
+    const contactInfo = "Mercy Seat Ministries\nPhone: 0975448759\nEmail: maronnyirongo@gmail.com\nAddress: R12 Kalukungu Street, Chamboli, Kitwe, Zambia";
     const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(contactInfo)}`;
     window.open(qrCodeUrl, '_blank');
   };
@@ -162,7 +162,7 @@ Date: ${new Date().toLocaleString()}
                   <MapPin className="w-5 h-5 text-amber-600 mt-1" />
                   <div>
                     <p className="font-medium">Address</p>
-                    <p className="text-gray-600">123 Church Street<br />Anytown, ST 12345</p>
+                    <p className="text-gray-600">R12 Kalukungu Street, Chamboli<br />Kitwe, Zambia</p>
                   </div>
                 </div>
                 
@@ -205,7 +205,7 @@ Date: ${new Date().toLocaleString()}
                       <div className="text-center space-y-4">
                         <div className="flex items-center justify-center space-x-2 text-lg font-medium">
                           <MapPin className="w-5 h-5 text-amber-600" />
-                          <span>123 Church Street, Anytown, ST 12345</span>
+                          <span>R12 Kalukungu Street, Chamboli, Kitwe</span>
                         </div>
                         
                         <div className="space-y-3">
