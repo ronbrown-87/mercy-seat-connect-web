@@ -64,7 +64,7 @@ Date: ${new Date().toLocaleString()}
       `;
 
       // Create mailto link to open in user's email client
-      const mailtoLink = `mailto:maronnyirongo@gmail.com?subject=Contact Form: ${encodeURIComponent(contactForm.subject)}&body=${encodeURIComponent(emailContent)}`;
+      const mailtoLink = `mailto:mercyseatkit@gmail.com?subject=Contact Form: ${encodeURIComponent(contactForm.subject)}&body=${encodeURIComponent(emailContent)}`;
       
       // Open email client
       window.location.href = mailtoLink;
@@ -92,7 +92,7 @@ Date: ${new Date().toLocaleString()}
     if (!visitorEmail.trim()) return;
 
     try {
-      // Simulate sending visitor info to maronnyirongo@gmail.com
+      // Simulate sending visitor info to mercyseatkit@gmail.com
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast.success('Thank you! We will contact you with more information.');
@@ -122,7 +122,7 @@ Date: ${new Date().toLocaleString()}
 
   const handleQRCode = () => {
     // Generate QR code for contact information
-    const contactInfo = "Mercy Seat Ministries\nPhone: 0975448759\nEmail: maronnyirongo@gmail.com\nAddress: R12 Kalukungu Street, Chamboli, Kitwe, Zambia";
+    const contactInfo = "Mercy Seat Ministries\nPhone: 0975448759\nEmail: mercyseatkit@gmail.com\nAddress: R12 Kalukungu Street, Chamboli, Kitwe, Zambia";
     const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(contactInfo)}`;
     window.open(qrCodeUrl, '_blank');
   };
@@ -178,7 +178,7 @@ Date: ${new Date().toLocaleString()}
                   <Mail className="w-5 h-5 text-amber-600" />
                   <div>
                     <p className="font-medium">Email</p>
-                    <p className="text-gray-600">maronnyirongo@gmail.com</p>
+                    <p className="text-gray-600">mercyseatkit@gmail.com</p>
                   </div>
                 </div>
                 

@@ -91,32 +91,12 @@ const Give = () => {
   ];
 
   const handleDonate = (category: DonationCategory) => {
-    setSelectedCategory(category.id);
+    alert('🚧 Coming Soon!\n\nThis feature is not yet available. Please wait — you will be notified when online giving is ready. Thank you for your patience!');
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!amount || !paymentMethod || !selectedCategory) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-
-    setIsProcessing(true);
-    // Simulate payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      setIsSuccess(true);
-      setTimeout(() => {
-        setIsSuccess(false);
-        setAmount('');
-        setPaymentMethod('');
-        setSelectedCategory('');
-        setNotes('');
-        setIsAnonymous(false);
-        setIsRecurring(false);
-        setRecurringFrequency('');
-      }, 3000);
-    }, 2000);
+    alert('🚧 Coming Soon!\n\nThis feature is not yet available. Please wait — you will be notified when online giving is ready. Thank you for your patience!');
   };
 
   const getProgressPercentage = (raised: number, goal: number) => {

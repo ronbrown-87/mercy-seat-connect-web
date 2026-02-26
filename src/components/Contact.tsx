@@ -53,7 +53,7 @@ export const Contact = () => {
   };
 
   const sendEmail = () => {
-    window.open('mailto:maronnyirongo@gmail.com?subject=Inquiry about Mercy Seat Ministries', '_self');
+    window.open('mailto:mercyseatkit@gmail.com?subject=Inquiry about Mercy Seat Ministries', '_self');
   };
 
   return (
@@ -117,7 +117,7 @@ export const Contact = () => {
                     onClick={sendEmail}
                     className="w-full justify-start hover:bg-blue-50"
                   >
-                    maronnyirongo@gmail.com
+                    mercyseatkit@gmail.com
                   </Button>
                 </div>
               </CardContent>

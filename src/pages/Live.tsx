@@ -143,7 +143,7 @@ const Live = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate sending email to maronnyirongo@gmail.com
+      // Simulate sending email to mercyseatkit@gmail.com
       // In production, this would be a real email service
       await new Promise(resolve => setTimeout(resolve, 1000));
       

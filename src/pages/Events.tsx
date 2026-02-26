@@ -164,7 +164,7 @@ const Events = () => {
       return;
     }
     
-    // Here you would typically send the email to maronnyirongo@gmail.com
+    // Here you would typically send the email to mercyseatkit@gmail.com
     // For now, we'll just show a success message
     alert(`Thank you for your interest in "${selectedEvent?.title}". Your request has been sent to our team. We'll contact you at ${joinEmail} with more details.`);
     
@@ -469,7 +469,7 @@ const Events = () => {
             </div>
             
             <div className="text-center text-sm text-gray-500">
-              <p>Your request will be sent to our team at maronnyirongo@gmail.com</p>
+              <p>Your request will be sent to our team at mercyseatkit@gmail.com</p>
             </div>
           </div>
         </DialogContent>
