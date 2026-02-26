@@ -122,7 +122,7 @@ Date: ${new Date().toLocaleString()}
 
   const handleQRCode = () => {
     // Generate QR code for contact information
-    const contactInfo = "Mercy Seat Ministries\nPhone: 0975448759\nEmail: maronnyirongo@gmail.com\nAddress: R12 Kalukungu Street, Chamboli, Kitwe, Zambia";
+    const contactInfo = "Mercy Seat Ministries\nPhone: 0975448759\nEmail: mercyseatkit@gmail.com\nAddress: R12 Kalukungu Street, Chamboli, Kitwe, Zambia";
     const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(contactInfo)}`;
     window.open(qrCodeUrl, '_blank');
   };
