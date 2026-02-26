@@ -92,7 +92,7 @@ Date: ${new Date().toLocaleString()}
     if (!visitorEmail.trim()) return;
 
     try {
-      // Simulate sending visitor info to maronnyirongo@gmail.com
+      // Simulate sending visitor info to mercyseatkit@gmail.com
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast.success('Thank you! We will contact you with more information.');
