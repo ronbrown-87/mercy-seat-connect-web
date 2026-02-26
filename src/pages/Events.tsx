@@ -164,7 +164,7 @@ const Events = () => {
       return;
     }
     
-    // Here you would typically send the email to maronnyirongo@gmail.com
+    // Here you would typically send the email to mercyseatkit@gmail.com
     // For now, we'll just show a success message
     alert(`Thank you for your interest in "${selectedEvent?.title}". Your request has been sent to our team. We'll contact you at ${joinEmail} with more details.`);
     
