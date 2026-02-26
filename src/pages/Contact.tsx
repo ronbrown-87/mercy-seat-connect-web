@@ -64,7 +64,7 @@ Date: ${new Date().toLocaleString()}
       `;
 
       // Create mailto link to open in user's email client
-      const mailtoLink = `mailto:maronnyirongo@gmail.com?subject=Contact Form: ${encodeURIComponent(contactForm.subject)}&body=${encodeURIComponent(emailContent)}`;
+      const mailtoLink = `mailto:mercyseatkit@gmail.com?subject=Contact Form: ${encodeURIComponent(contactForm.subject)}&body=${encodeURIComponent(emailContent)}`;
       
       // Open email client
       window.location.href = mailtoLink;
