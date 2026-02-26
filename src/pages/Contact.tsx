@@ -178,7 +178,7 @@ Date: ${new Date().toLocaleString()}
                   <Mail className="w-5 h-5 text-amber-600" />
                   <div>
                     <p className="font-medium">Email</p>
-                    <p className="text-gray-600">maronnyirongo@gmail.com</p>
+                    <p className="text-gray-600">mercyseatkit@gmail.com</p>
                   </div>
                 </div>
                 

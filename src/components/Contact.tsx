@@ -117,7 +117,7 @@ export const Contact = () => {
                     onClick={sendEmail}
                     className="w-full justify-start hover:bg-blue-50"
                   >
-                    maronnyirongo@gmail.com
+                    mercyseatkit@gmail.com
                   </Button>
                 </div>
               </CardContent>

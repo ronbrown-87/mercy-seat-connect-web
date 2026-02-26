@@ -469,7 +469,7 @@ const Events = () => {
             </div>
             
             <div className="text-center text-sm text-gray-500">
-              <p>Your request will be sent to our team at maronnyirongo@gmail.com</p>
+              <p>Your request will be sent to our team at mercyseatkit@gmail.com</p>
             </div>
           </div>
         </DialogContent>
