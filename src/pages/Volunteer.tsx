@@ -120,25 +120,8 @@ const Volunteer = () => {
 
   const handleSubmitApplication = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    try {
-      // Simulate sending application to maronnyirongo@gmail.com
-      // In production, this would be a real email service
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      alert('Thank you for your application! We will contact you soon. Your application has been sent to our team.');
-      setShowApplicationForm(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        experience: '',
-        availability: '',
-        message: ''
-      });
-    } catch (error) {
-      alert('Failed to submit application. Please try again.');
-    }
+    alert('🚧 Coming Soon!\n\nVolunteer applications are not yet available. Please wait — you will be notified when this feature is ready. Thank you for your patience!');
+    setShowApplicationForm(false);
   };
 
   return (
