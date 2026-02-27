@@ -34,72 +34,6 @@ const Sermons = () => {
 
   const sermonsData: Sermon[] = [
     {
-      id: 1,
-      title: "Walking in Faith",
-      speaker: "Pastor Gavu Nyirongo",
-      date: "2024-12-15",
-      category: "Faith",
-      videoUrl: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1079532757672291%2F&show_text=false&width=560&t=0",
-      description: "A powerful message about walking in faith through life's challenges.",
-      duration: "45:30",
-      tags: ["Faith", "Encouragement", "Life"]
-    },
-    {
-      id: 2,
-      title: "The Power of Prayer",
-      speaker: "Pastor Maston Musowoya",
-      date: "2024-12-08",
-      category: "Prayer",
-      videoUrl: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F903705225309016%2F&show_text=false&width=560&t=0",
-      description: "Discovering the transformative power of prayer in our daily lives.",
-      duration: "52:15",
-      tags: ["Prayer", "Spiritual Growth", "Transformation"]
-    },
-    {
-      id: 3,
-      title: "Building Strong Families",
-      speaker: "Pastor Catherine Chewe",
-      date: "2024-12-01",
-      category: "Family",
-      videoUrl: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F525254380290613%2F&show_text=false&width=560&t=0",
-      description: "Biblical principles for building strong, God-centered families.",
-      duration: "48:20",
-      tags: ["Family", "Relationships", "Biblical Principles"]
-    },
-    {
-      id: 4,
-      title: "Youth on Fire for God",
-      speaker: "Pastor Eric Tady",
-      date: "2024-11-24",
-      category: "Youth",
-      videoUrl: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F593885550076996%2F&show_text=false&width=560&t=0",
-      description: "Empowering young people to live passionately for Christ.",
-      duration: "41:35",
-      tags: ["Youth", "Passion", "Empowerment"]
-    },
-    {
-      id: 5,
-      title: "Nurturing Young Hearts",
-      speaker: "Pastor Eric Nyundi",
-      date: "2024-11-17",
-      category: "Children",
-      videoUrl: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1172976404441094%2F&show_text=false&width=560&t=0",
-      description: "Teaching children about God's love in age-appropriate ways.",
-      duration: "35:45",
-      tags: ["Children", "Education", "God's Love"]
-    },
-    {
-      id: 6,
-      title: "Reaching Our Community",
-      speaker: "Pastor Emmanuel Chindawi",
-      date: "2024-11-10",
-      category: "Outreach",
-      videoUrl: "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1117609872877381%2F&show_text=false&width=560&t=0",
-      description: "Strategies for effective community outreach and evangelism.",
-      duration: "55:10",
-      tags: ["Outreach", "Evangelism", "Community"]
-    },
-    {
       id: 7,
       title: "Talk with Grace Chipo Nyoni",
       speaker: "Grace Chipo Nyoni",
@@ -136,7 +70,6 @@ const Sermons = () => {
 
   const handleDownload = (sermon: Sermon) => {
     toast.success(`Downloading: ${sermon.title}`);
-    // Implement actual download logic here
   };
 
   const handleShare = (sermon: Sermon) => {
@@ -151,7 +84,7 @@ const Sermons = () => {
     return matchesSearch && matchesCategory;
   });
 
-  const categories = ['All', 'Faith', 'Prayer', 'Family', 'Youth', 'Children', 'Outreach', 'Worship', 'Interviews'];
+  const categories = ['All', 'Worship', 'Interviews'];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">

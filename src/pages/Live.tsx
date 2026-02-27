@@ -1,8 +1,9 @@
 import { Footer } from "@/components/Footer";
+import { UpcomingEvents } from "@/components/UpcomingEvents";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { ArrowLeft, Calendar, Check, Clock, Copy, Eye, Facebook, MessageCircle, Mic, Send, Share2, Users, Video } from "lucide-react";
 import React, { useEffect, useState } from 'react';
@@ -36,7 +37,7 @@ const Live = () => {
 
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const targetDate = new Date("2025-08-17T10:00:00"); // Future date for testing
+      const targetDate = new Date("2025-08-17T10:00:00");
       const now = new Date();
       const difference = targetDate.getTime() - now.getTime();
 
@@ -82,10 +83,10 @@ const Live = () => {
     },
     {
       id: "2",
-      title: "Wednesday Bible Study",
+      title: "Cell Meetings / Bible Study",
       description: "Deep dive into God's Word with our midweek Bible study.",
       date: "2025-08-20",
-      time: "7:00 PM",
+      time: "Contact us for details",
       isLive: false,
       viewers: 0,
       duration: "1:00:00",
@@ -132,30 +133,7 @@ const Live = () => {
 
   const [showSmallGroupDialog, setShowSmallGroupDialog] = useState(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
-  const [smallGroupEmail, setSmallGroupEmail] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
-
-  const handleSmallGroupSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!smallGroupEmail.trim()) return;
-
-    setIsSubmitting(true);
-    
-    try {
-      // Simulate sending email to mercyseatkit@gmail.com
-      // In production, this would be a real email service
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      toast.success('Thank you! We will contact you about joining a small group.');
-      setSmallGroupEmail('');
-      setShowSmallGroupDialog(false);
-    } catch (error) {
-      toast.error('Failed to submit. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const handleShareService = (platform: string) => {
     const url = window.location.href;
@@ -164,11 +142,6 @@ const Live = () => {
     switch (platform) {
       case 'facebook':
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-        break;
-      case 'instagram':
-        // Instagram doesn't support direct sharing via URL, so we'll copy the link
-        navigator.clipboard.writeText(url);
-        toast.success('Link copied! You can paste it in Instagram.');
         break;
       case 'whatsapp':
         window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
@@ -197,18 +170,18 @@ const Live = () => {
         url: window.location.href,
       }).catch(() => {
         navigator.clipboard.writeText(window.location.href);
-        alert("Live stream link copied to clipboard!");
+        toast.success("Live stream link copied to clipboard!");
       });
     } else {
       navigator.clipboard.writeText(window.location.href);
-      alert("Live stream link copied to clipboard!");
+      toast.success("Live stream link copied to clipboard!");
     }
   };
 
   const handleChatSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (chatMessage.trim()) {
-      console.log("Chat message:", chatMessage); // Replace with backend integration
+      console.log("Chat message:", chatMessage);
       setChatMessage("");
     }
   };
@@ -295,23 +268,23 @@ const Live = () => {
                 )}
                 {/* Video Player */}
                 <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden" }}>
-  <iframe
-    src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1456410805702175%2F&show_text=false&width=560&t=0"
-    style={{
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      border: "none",
-      overflow: "hidden",
-    }}
-    scrolling="no"
-    frameBorder="0"
-    allowFullScreen
-    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-  ></iframe>
-</div>
+                  <iframe
+                    src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2F100068315346662%2Fvideos%2F1456410805702175%2F&show_text=false&width=560&t=0"
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      border: "none",
+                      overflow: "hidden",
+                    }}
+                    scrolling="no"
+                    frameBorder="0"
+                    allowFullScreen
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  ></iframe>
+                </div>
 
                 {/* Service Info */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
@@ -330,18 +303,19 @@ const Live = () => {
                 </div>
               </CardContent>
             </Card>
-            {/* Live Chat */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <MessageCircle className="h-5 w-5" />
-                  <span>Live Chat</span>
-                  {isLive && <Badge variant="secondary">Active</Badge>}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="h-64 bg-gray-50 rounded-lg p-4 mb-4 overflow-y-auto">
-                  {isLive ? (
+
+            {/* Live Chat - Only visible when live */}
+            {isLive && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center space-x-2">
+                    <MessageCircle className="h-5 w-5" />
+                    <span>Live Chat</span>
+                    <Badge variant="secondary">Active</Badge>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-64 bg-gray-50 rounded-lg p-4 mb-4 overflow-y-auto">
                     <div className="space-y-3">
                       <div className="flex items-start space-x-3">
                         <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
@@ -371,27 +345,22 @@ const Live = () => {
                         </div>
                       </div>
                     </div>
-                  ) : (
-                    <div className="text-center text-gray-500 py-8">
-                      <MessageCircle className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                      <p>Chat will be available during live services</p>
-                    </div>
-                  )}
-                </div>
-                <form onSubmit={handleChatSubmit} className="flex space-x-2">
-                  <Input
-                    value={chatMessage}
-                    onChange={(e) => setChatMessage(e.target.value)}
-                    placeholder="Type your message..."
-                    disabled={!isLive}
-                  />
-                  <Button type="submit" disabled={!isLive || !chatMessage.trim()}>
-                    <Send className="h-4 w-4" />
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                  </div>
+                  <form onSubmit={handleChatSubmit} className="flex space-x-2">
+                    <Input
+                      value={chatMessage}
+                      onChange={(e) => setChatMessage(e.target.value)}
+                      placeholder="Type your message..."
+                    />
+                    <Button type="submit" disabled={!chatMessage.trim()}>
+                      <Send className="h-4 w-4" />
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            )}
           </div>
+
           {/* Sidebar */}
           <div className="space-y-6">
             <Card>
@@ -414,9 +383,6 @@ const Live = () => {
                           <span>{event.time}</span>
                         </div>
                       </div>
-                      <Button size="sm" variant="outline" className="mt-2">
-                        Set Reminder
-                      </Button>
                     </div>
                   ))}
                 </div>
@@ -452,12 +418,12 @@ const Live = () => {
                     <span className="font-medium">Sunday Morning</span>
                     <span className="text-gray-600">10:00 AM to 1:00 PM</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">Wednesday Cell Meetings </span>
-                    <span className="text-gray-600">5:00 PM to 6:00 PM</span>
+                  <div>
+                    <span className="font-medium">Cell Meetings</span>
+                    <p className="text-xs text-gray-500 mt-1">Contact us for Cell Meetings</p>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="font-medium">Friday Afternoon </span>
+                    <span className="font-medium">Friday Afternoon</span>
                     <span className="text-gray-600">4:00 PM to 6:00 PM</span>
                   </div>
                 </div>
@@ -465,34 +431,38 @@ const Live = () => {
             </Card>
           </div>
         </div>
+
+        {/* Upcoming Events Section - Below live stream */}
+        <div className="mt-12">
+          <UpcomingEvents />
+        </div>
       </main>
 
-      {/* Small Group Join Dialog */}
+      {/* Small Group Join Dialog - Artistic "Coming Soon" */}
       <Dialog open={showSmallGroupDialog} onOpenChange={setShowSmallGroupDialog}>
-        <DialogContent>
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Join a Small Group</DialogTitle>
+            <DialogTitle className="text-center text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              Join a Small Group
+            </DialogTitle>
+            <DialogDescription className="text-center">
+              Small group feature coming soon
+            </DialogDescription>
           </DialogHeader>
-          <form onSubmit={handleSmallGroupSubmit}>
-            <div className="grid gap-4 py-4">
-              <div className="grid gap-2">
-                <label htmlFor="smallGroupEmail" className="text-sm font-medium">
-                  Email Address
-                </label>
-                <Input
-                  id="smallGroupEmail"
-                  value={smallGroupEmail}
-                  onChange={(e) => setSmallGroupEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  type="email"
-                  required
-                />
-              </div>
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Joining...' : 'Join Small Group'}
+          <div className="text-center py-8 space-y-4">
+            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
+              <Users className="w-10 h-10 text-blue-600" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800">Please be patient</h3>
+            <p className="text-gray-600 leading-relaxed max-w-sm mx-auto">
+              This feature will soon be available. Thank you for your interest in joining a small group!
+            </p>
+            <div className="pt-4">
+              <Button onClick={() => setShowSmallGroupDialog(false)} className="bg-blue-600 hover:bg-blue-700">
+                Got it, thank you!
               </Button>
             </div>
-          </form>
+          </div>
         </DialogContent>
       </Dialog>
 
@@ -511,10 +481,6 @@ const Live = () => {
                 <Button onClick={() => handleShareService('facebook')} className="w-full bg-blue-600 hover:bg-blue-700">
                   <Facebook className="h-4 w-4 mr-2" />
                   Share on Facebook
-                </Button>
-                <Button onClick={() => handleShareService('instagram')} className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
-                  <Share2 className="h-4 w-4 mr-2" />
-                  Share on Instagram
                 </Button>
                 <Button onClick={() => handleShareService('whatsapp')} className="w-full bg-green-600 hover:bg-green-700">
                   <Share2 className="h-4 w-4 mr-2" />

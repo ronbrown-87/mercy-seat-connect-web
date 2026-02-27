@@ -10,13 +10,10 @@ import {
     HandHeart,
     Heart,
     Image,
-    Instagram,
-    MessageCircle,
     Phone,
     Trophy,
     Users,
-    Video,
-    Youtube
+    Video
 } from 'lucide-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -88,7 +85,7 @@ const TraditionalHome = () => {
     {
       id: 'bible-quiz',
       title: 'Bible Quiz',
-      description: 'Test your knowledge of God\'s Word with our interactive quiz.',
+      description: "Test your knowledge of God's Word with our interactive quiz.",
       icon: <Trophy className="w-8 h-8" />,
       color: 'bg-gradient-to-br from-yellow-500 to-orange-600',
       path: '/bible-quiz',
@@ -128,9 +125,9 @@ const TraditionalHome = () => {
             Welcome to our church family. Connect, grow, and serve with us as we journey together in faith.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button size="lg" variant="secondary" onClick={() => navigate('/learn-more')}>
-          Learn More About Us
-        </Button>
+            <Button size="lg" variant="secondary" onClick={() => navigate('/learn-more')}>
+              Learn More About Us
+            </Button>
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-amber-600" onClick={() => window.open('https://www.facebook.com/share/1Agq7Kd1f1/?mibextid=qi2Omg','_blank')}>
               Watch Live Service
             </Button>
@@ -150,7 +147,7 @@ const TraditionalHome = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {navigationCards.map((card, index) => (
+          {navigationCards.map((card) => (
             <Card 
               key={card.id} 
               className="hover:shadow-xl transition-all duration-300 cursor-pointer group"
@@ -185,10 +182,10 @@ const TraditionalHome = () => {
         </div>
       </div>
 
-      {/* Quick Stats */}
+      {/* Quick Stats - Removed "Lives Touched" */}
       <div className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold text-amber-600 mb-2">500+</div>
               <div className="text-gray-600">Church Members</div>
@@ -201,15 +198,11 @@ const TraditionalHome = () => {
               <div className="text-3xl font-bold text-amber-600 mb-2">35+</div>
               <div className="text-gray-600">Years of Service</div>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-amber-600 mb-2">1000+</div>
-              <div className="text-gray-600">Lives Touched</div>
-            </div>
           </div>
         </div>
       </div>
 
-      {/* Social Media Links */}
+      {/* Social Media Links - Removed Instagram, YouTube maps to Mercy Seat TV */}
       <div className="max-w-7xl mx-auto px-4 py-16 text-center">
         <h3 className="text-2xl font-bold text-amber-800 mb-6">Connect With Us</h3>
         <div className="flex justify-center space-x-6">
@@ -221,13 +214,12 @@ const TraditionalHome = () => {
           >
             <Facebook className="w-6 h-6" />
           </Button>
-          <Button variant="ghost" size="icon" className="text-pink-600 hover:text-pink-700">
-            <Instagram className="w-6 h-6" />
-          </Button>
-          <Button variant="ghost" size="icon" className="text-red-600 hover:text-red-700">
-            <Youtube className="w-6 h-6" />
-          </Button>
-          <Button variant="ghost" size="icon" className="text-blue-500 hover:text-blue-600">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="text-blue-500 hover:text-blue-600"
+            onClick={() => window.open('https://www.youtube.com/@MercySeatTV', '_blank')}
+          >
             <Globe className="w-6 h-6" />
           </Button>
         </div>
@@ -236,4 +228,4 @@ const TraditionalHome = () => {
   );
 };
 
-export default TraditionalHome; 
+export default TraditionalHome;

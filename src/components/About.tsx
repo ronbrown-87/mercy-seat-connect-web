@@ -64,8 +64,8 @@ export const About = () => {
             fostering spiritual growth, and serving our community with compassion and purpose.
           </p>
           
-          {/* Stats Section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-8">
+          {/* Stats Section - Removed "Lives Touched" */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center mb-8">
             <div>
               <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">500+</div>
               <div className="text-gray-600">Church Members</div>
@@ -77,10 +77,6 @@ export const About = () => {
             <div>
               <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">25+</div>
               <div className="text-gray-600">Years of Service</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">1000+</div>
-              <div className="text-gray-600">Lives Touched</div>
             </div>
           </div>
           
