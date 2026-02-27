@@ -21,12 +21,13 @@ export const Services = () => {
       color: "border-emerald-200 hover:border-emerald-400"
     },
     {
-      title: "Cell Group Meetings",
-      time: "5:00 PM - 6:00 PM",
+      title: "Cell Meetings",
+      time: "",
       day: "Every Wednesday",
       description: "Connect in smaller groups for Bible study, prayer, and deeper fellowship.",
       icon: <MapPin className="h-8 w-8 text-purple-600" />,
-      color: "border-purple-200 hover:border-purple-400"
+      color: "border-purple-200 hover:border-purple-400",
+      contactNote: "Contact us for Cell Meetings"
     },
     {
       title: "Friday Evening Service",
@@ -91,7 +92,11 @@ export const Services = () => {
               <CardContent>
                 <div className="mb-4">
                   <p className="text-lg font-semibold text-gray-700">{service.day}</p>
-                  <p className="text-2xl font-bold text-blue-600 mt-1">{service.time}</p>
+                  {service.time ? (
+                    <p className="text-2xl font-bold text-blue-600 mt-1">{service.time}</p>
+                  ) : (
+                    <p className="text-sm text-gray-500 mt-1">{(service as any).contactNote}</p>
+                  )}
                 </div>
                 <p className="text-gray-600 leading-relaxed">
                   {service.description}

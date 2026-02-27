@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { 
   HandHeart, 
   Users, 
@@ -15,7 +13,8 @@ import {
   Calendar,
   MapPin,
   Clock,
-  ArrowLeft
+  ArrowLeft,
+  Phone
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -45,12 +44,12 @@ const volunteerOpportunities: VolunteerOpportunity[] = [
   },
   {
     id: 'children-ministry',
-    title: 'Children\'s Ministry',
+    title: "Children's Ministry",
     description: 'Help nurture and teach children during Sunday services and events.',
     icon: <Baby className="w-6 h-6" />,
     category: 'Children',
     timeCommitment: '1-2 hours/week',
-    location: 'Children\'s Wing',
+    location: "Children's Wing",
     skills: ['Teaching', 'Patience', 'Safety'],
     isUrgent: true
   },
@@ -102,26 +101,12 @@ const volunteerOpportunities: VolunteerOpportunity[] = [
 
 const Volunteer = () => {
   const navigate = useNavigate();
+  const [showApplyDialog, setShowApplyDialog] = useState(false);
   const [selectedOpportunity, setSelectedOpportunity] = useState<VolunteerOpportunity | null>(null);
-  const [showApplicationForm, setShowApplicationForm] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    experience: '',
-    availability: '',
-    message: ''
-  });
 
   const handleApply = (opportunity: VolunteerOpportunity) => {
     setSelectedOpportunity(opportunity);
-    setShowApplicationForm(true);
-  };
-
-  const handleSubmitApplication = async (e: React.FormEvent) => {
-    e.preventDefault();
-    alert('🚧 Coming Soon!\n\nVolunteer applications are not yet available. Please wait — you will be notified when this feature is ready. Thank you for your patience!');
-    setShowApplicationForm(false);
+    setShowApplyDialog(true);
   };
 
   return (
@@ -136,7 +121,7 @@ const Volunteer = () => {
               className="text-amber-600 hover:text-amber-700"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Shelf
+              Back to Home
             </Button>
             <div>
               <h1 className="text-3xl font-bold text-gray-800">Volunteer Opportunities</h1>
@@ -239,106 +224,52 @@ const Volunteer = () => {
             </Card>
           ))}
         </div>
+      </div>
 
-        {/* Application Form Modal */}
-        {showApplicationForm && selectedOpportunity && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold">Apply for {selectedOpportunity.title}</h2>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setShowApplicationForm(false)}
-                >
-                  ×
-                </Button>
-              </div>
-
-              <form onSubmit={handleSubmitApplication} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name">Full Name *</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({...formData, name: e.target.value})}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Email *</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({...formData, email: e.target.value})}
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="phone">Phone Number</Label>
-                    <Input
-                      id="phone"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="availability">Preferred Availability</Label>
-                    <Input
-                      id="availability"
-                      placeholder="e.g., Sunday mornings, weekdays"
-                      value={formData.availability}
-                      onChange={(e) => setFormData({...formData, availability: e.target.value})}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="experience">Relevant Experience</Label>
-                  <Textarea
-                    id="experience"
-                    placeholder="Tell us about your relevant experience..."
-                    value={formData.experience}
-                    onChange={(e) => setFormData({...formData, experience: e.target.value})}
-                    rows={3}
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="message">Why do you want to serve in this ministry?</Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Share your motivation and what you hope to contribute..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({...formData, message: e.target.value})}
-                    rows={4}
-                  />
-                </div>
-
-                <div className="flex space-x-3 pt-4">
-                  <Button type="submit" className="flex-1 bg-amber-600 hover:bg-amber-700">
-                    Submit Application
-                  </Button>
-                  <Button 
-                    type="button" 
-                    variant="outline"
-                    onClick={() => setShowApplicationForm(false)}
-                  >
-                    Cancel
-                  </Button>
-                </div>
-              </form>
+      {/* Apply Dialog - Artistic "Not Available Yet" */}
+      <Dialog open={showApplyDialog} onOpenChange={setShowApplyDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+              Volunteer Application
+            </DialogTitle>
+            <DialogDescription className="text-center">
+              Application feature coming soon
+            </DialogDescription>
+          </DialogHeader>
+          <div className="text-center py-6 space-y-4">
+            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-amber-100 to-orange-200 rounded-full flex items-center justify-center">
+              <HandHeart className="w-10 h-10 text-amber-600" />
+            </div>
+            <h3 className="text-xl font-semibold text-gray-800">
+              This feature is not available yet
+            </h3>
+            <p className="text-gray-600 leading-relaxed max-w-sm mx-auto">
+              We're working on making volunteer applications available online. In the meantime, please contact us directly for more information.
+            </p>
+            <div className="pt-4 space-y-3">
+              <Button 
+                onClick={() => {
+                  setShowApplyDialog(false);
+                  navigate('/contact');
+                }}
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
+                <Phone className="w-4 h-4 mr-2" />
+                Go to Contact Page
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => setShowApplyDialog(false)}
+              >
+                Close
+              </Button>
             </div>
           </div>
-        )}
-      </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
 
-export default Volunteer; 
+export default Volunteer;

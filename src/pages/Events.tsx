@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Calendar, Clock, MapPin, Users, Filter, ArrowLeft, Search, Plus, Share2, Heart, Bookmark, Mail, X } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, ArrowLeft, Search, Share2, Bookmark, Phone, Mail } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Footer } from "@/components/Footer";
 import { useNavigate } from 'react-router-dom';
 
@@ -23,7 +22,6 @@ interface Event {
   maxAttendees: number;
   isFeatured: boolean;
   isRecurring: boolean;
-  image?: string;
 }
 
 const Events = () => {
@@ -34,8 +32,6 @@ const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [showJoinDialog, setShowJoinDialog] = useState(false);
   const [showDetailsDialog, setShowDetailsDialog] = useState(false);
-  const [joinEmail, setJoinEmail] = useState('');
-  const [joinMessage, setJoinMessage] = useState('');
 
   const events: Event[] = [
     {
@@ -60,7 +56,7 @@ const Events = () => {
       location: "Mercy Seat Ministries",
       description: "Come and intercede with us for our community and nation.",
       category: "Prayer",
-      fullDescription: "Join us for an intensive time of prayer and intercession. We pray for our community, nation, church members, and global missions. This is a powerful time of seeking God's face and experiencing His presence through corporate prayer.",
+      fullDescription: "Join us for an intensive time of prayer and intercession. We pray for our community, nation, church members, and global missions.",
       attendees: 45,
       maxAttendees: 60,
       isFeatured: false,
@@ -72,9 +68,9 @@ const Events = () => {
       date: "2025-08-16",
       time: "6:30 PM - 8:30 PM",
       location: "Mercy Seat Ministries",
-      description: "A time for the youth to connect, learn, and grow together. you will get informed when the event will be",
+      description: "A time for the youth to connect, learn, and grow together.",
       category: "Youth",
-      fullDescription: "Our youth ministry brings together teenagers ages 13-19 for fun activities, relevant Bible teaching, and meaningful fellowship. We focus on building character, developing leadership skills, and helping young people navigate the challenges of adolescence with biblical wisdom.",
+      fullDescription: "Our youth ministry brings together teenagers ages 13-19 for fun activities, relevant Bible teaching, and meaningful fellowship.",
       attendees: 28,
       maxAttendees: 40,
       isFeatured: false,
@@ -82,13 +78,13 @@ const Events = () => {
     },
     {
       id: 4,
-      title: "Wednesday Cell Meetings/Bible study",
+      title: "Cell Meetings / Bible Study",
       date: "2025-08-13",
-      time: "5:00 PM - 6:00 PM",
-      location: "We Have alot of locations depending on ones residential area",
+      time: "Contact us for details",
+      location: "Various locations depending on residential area",
       description: "Dive deeper into the Word of God with us.",
       category: "Study",
-      fullDescription: "Our midweek Bible study provides an opportunity for deeper exploration of Scripture. We study various books of the Bible, discuss practical application, and encourage one another in our faith journey. Light refreshments are provided.",
+      fullDescription: "Our midweek Bible study provides an opportunity for deeper exploration of Scripture. We study various books of the Bible, discuss practical application, and encourage one another in our faith journey.",
       attendees: 35,
       maxAttendees: 50,
       isFeatured: false,
@@ -102,7 +98,7 @@ const Events = () => {
       location: "Various Locations in Chamboli",
       description: "Join us as we share the love of Christ in our community.",
       category: "Outreach",
-      fullDescription: "Our community outreach includes visiting the elderly, distributing food to needy families, sharing the Gospel, and providing practical assistance where needed. We believe in being the hands and feet of Jesus in our neighborhood. Transportation will be provided.",
+      fullDescription: "Our community outreach includes visiting the elderly, distributing food to needy families, sharing the Gospel, and providing practical assistance where needed.",
       attendees: 18,
       maxAttendees: 25,
       isFeatured: true,
@@ -116,7 +112,7 @@ const Events = () => {
       location: "Mercy Seat Ministries",
       description: "Celebrate the birth of our Savior with us.",
       category: "Special",
-      fullDescription: "Join us for a special Christmas Eve service as we celebrate the birth of Jesus Christ. The service will include special music, dramatic presentations, and a message of hope and joy. All families are welcome to this blessed celebration.",
+      fullDescription: "Join us for a special Christmas Eve service as we celebrate the birth of Jesus Christ.",
       attendees: 180,
       maxAttendees: 250,
       isFeatured: true,
@@ -130,7 +126,7 @@ const Events = () => {
       location: "Mercy Seat Ministries",
       description: "Women gathering for prayer and encouragement.",
       category: "Women",
-      fullDescription: "A special time for women to come together for prayer, encouragement, and fellowship. We support one another in our faith journey.",
+      fullDescription: "A special time for women to come together for prayer, encouragement, and fellowship.",
       attendees: 15,
       maxAttendees: 20,
       isFeatured: false,
@@ -158,22 +154,6 @@ const Events = () => {
     setShowDetailsDialog(true);
   };
 
-  const handleSubmitJoin = () => {
-    if (!joinEmail.trim()) {
-      alert('Please enter your email address.');
-      return;
-    }
-    
-    // Here you would typically send the email to mercyseatkit@gmail.com
-    // For now, we'll just show a success message
-    alert(`Thank you for your interest in "${selectedEvent?.title}". Your request has been sent to our team. We'll contact you at ${joinEmail} with more details.`);
-    
-    setShowJoinDialog(false);
-    setJoinEmail('');
-    setJoinMessage('');
-    setSelectedEvent(null);
-  };
-
   const handleShareEvent = (event: Event) => {
     if (navigator.share) {
       navigator.share({
@@ -182,11 +162,9 @@ const Events = () => {
         url: window.location.href,
       }).catch(() => {
         navigator.clipboard.writeText(`${event.title} - ${event.description}`);
-        alert('Event details copied to clipboard!');
       });
     } else {
       navigator.clipboard.writeText(`${event.title} - ${event.description}`);
-      alert('Event details copied to clipboard!');
     }
   };
 
@@ -244,10 +222,9 @@ const Events = () => {
                   variant="secondary"
                   size="sm"
                   onClick={() => handleJoinEvent(filteredEvents.filter((e) => e.isFeatured)[0])}
-                  disabled={filteredEvents.filter((e) => e.isFeatured)[0].attendees >= filteredEvents.filter((e) => e.isFeatured)[0].maxAttendees}
                 >
                   <Users className="h-4 w-4 mr-2" />
-                  {filteredEvents.filter((e) => e.isFeatured)[0].attendees >= filteredEvents.filter((e) => e.isFeatured)[0].maxAttendees ? 'Event Full' : 'Join Event'}
+                  Join Event
                 </Button>
                 <Button
                   variant="outline"
@@ -411,65 +388,43 @@ const Events = () => {
         )}
       </main>
 
-      {/* Join Event Dialog */}
+      {/* Join Event Dialog - Artistic popup with Call and Email buttons */}
       <Dialog open={showJoinDialog} onOpenChange={setShowJoinDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-center text-2xl font-bold text-blue-600">
+            <DialogTitle className="text-center text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
               Join Event
             </DialogTitle>
+            <DialogDescription className="text-center">
+              Get in touch with us to join this event
+            </DialogDescription>
           </DialogHeader>
-          <div className="space-y-6 py-4">
-            <div className="text-center">
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">{selectedEvent?.title}</h3>
-              <p className="text-gray-600 text-sm">{selectedEvent?.description}</p>
+          <div className="text-center py-6 space-y-4">
+            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
+              <Calendar className="w-10 h-10 text-blue-600" />
             </div>
-            
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address *
-                </label>
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={joinEmail}
-                  onChange={(e) => setJoinEmail(e.target.value)}
-                  required
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Message (Optional)
-                </label>
-                <Textarea
-                  placeholder="Any additional information or questions..."
-                  value={joinMessage}
-                  onChange={(e) => setJoinMessage(e.target.value)}
-                  rows={3}
-                />
-              </div>
-            </div>
-            
-            <div className="flex space-x-3">
-              <Button
-                variant="outline"
-                onClick={() => setShowJoinDialog(false)}
-                className="flex-1"
+            <h3 className="text-xl font-semibold text-gray-800">{selectedEvent?.title}</h3>
+            <p className="text-gray-600 text-sm leading-relaxed max-w-sm mx-auto">
+              {selectedEvent?.description}
+            </p>
+            <p className="text-gray-500 text-sm">
+              Reach out to us to register for this event:
+            </p>
+            <div className="space-y-3 pt-2">
+              <Button 
+                onClick={() => window.open('tel:+260972601568', '_self')}
+                className="w-full bg-green-600 hover:bg-green-700"
               >
-                Cancel
+                <Phone className="h-4 w-4 mr-2" />
+                Call Us
               </Button>
-              <Button
-                onClick={handleSubmitJoin}
-                className="flex-1 bg-blue-600 hover:bg-blue-700"
+              <Button 
+                onClick={() => window.open('mailto:mercyseatkit@gmail.com?subject=Join Event: ' + encodeURIComponent(selectedEvent?.title || ''), '_self')}
+                className="w-full bg-blue-600 hover:bg-blue-700"
               >
-                Submit Request
+                <Mail className="h-4 w-4 mr-2" />
+                Email Us
               </Button>
-            </div>
-            
-            <div className="text-center text-sm text-gray-500">
-              <p>Your request will be sent to our team at mercyseatkit@gmail.com</p>
             </div>
           </div>
         </DialogContent>
@@ -533,7 +488,7 @@ const Events = () => {
                   handleJoinEvent(selectedEvent!);
                 }}
                 className="flex-1 bg-blue-600 hover:bg-blue-700"
-                disabled={selectedEvent?.attendees && selectedEvent?.maxAttendees && selectedEvent.attendees >= selectedEvent.maxAttendees}
+                disabled={selectedEvent?.attendees && selectedEvent?.maxAttendees && selectedEvent.attendees >= selectedEvent.maxAttendees ? true : false}
               >
                 <Users className="h-4 w-4 mr-2" />
                 Join Event

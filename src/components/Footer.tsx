@@ -1,5 +1,5 @@
 
-import { MapPin, Phone, Mail, Facebook, Instagram, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Facebook, Clock } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export const Footer = () => {
@@ -50,9 +50,8 @@ export const Footer = () => {
                 <Clock className="h-4 w-4 text-blue-400" />
                 <span>Tuesday: 5:00 PM - 6:30 PM</span>
               </div>
-              <div className="flex items-center gap-2 text-sm">
-                <Clock className="h-4 w-4 text-blue-400" />
-                <span>Wednesday: 5:00 PM - 6:00 PM</span>
+              <div className="text-sm pl-6">
+                <span className="text-gray-400 text-xs">Contact us for Cell Meetings</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Clock className="h-4 w-4 text-blue-400" />
@@ -72,14 +71,6 @@ export const Footer = () => {
                 className="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
               >
                 <Facebook className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://www.instagram.com/maronnorum?igsh=MTl5MjBkYWJ3bGtzdA==" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-2 bg-pink-600 rounded-full hover:bg-pink-700 transition-colors"
-              >
-                <Instagram className="h-5 w-5" />
               </a>
             </div>
             
@@ -113,21 +104,6 @@ export const Footer = () => {
                           <div>
                             <p className="font-medium text-gray-800">Phone Numbers</p>
                             <p className="text-sm text-gray-600">0763011947 / 0972601568</p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                          <Instagram className="h-5 w-5 text-pink-600" />
-                          <div>
-                            <p className="font-medium text-gray-800">Instagram</p>
-                            <a 
-                              href="https://www.instagram.com/maronnorum?igsh=MTl5MjBkYWJ3bGtzdA==" 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-sm text-pink-600 hover:text-pink-700 underline"
-                            >
-                              @maronnorum
-                            </a>
                           </div>
                         </div>
                       </div>
