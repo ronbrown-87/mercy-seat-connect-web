@@ -10,7 +10,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
-const FACEBOOK_VIDEO_EMBED = "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1KpqbsbLoH%2F&show_text=false&width=560&t=0";
+const FACEBOOK_VIDEO_EMBED = "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2F100068315346662%2Fvideos%2F2413507769084446%2F&show_text=false&width=560&t=0";
 
 const Live = () => {
   const navigate = useNavigate();
