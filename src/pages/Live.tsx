@@ -16,7 +16,7 @@ const Live = () => {
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isLive, setIsLive] = useState(false);
   const [viewers, setViewers] = useState(1247);
-  const [chatMessage, setChatMessage] = useState('');
+  
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const playerContainerRef = useRef<HTMLDivElement>(null);
@@ -127,13 +127,6 @@ const Live = () => {
     }
   };
 
-  const handleChatSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (chatMessage.trim()) {
-      console.log("Chat message:", chatMessage);
-      setChatMessage("");
-    }
-  };
 
   const liveEvents = [
     { id: "2", title: "Cell Meetings / Bible Study", description: "Deep dive into God's Word with our midweek Bible study.", date: "2025-08-20", time: "Contact us for details" },
