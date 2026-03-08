@@ -205,10 +205,6 @@ const Events = () => {
               <p className="text-blue-100 mb-4">{filteredEvents.filter((e) => e.isFeatured)[0]?.description}</p>
               <div className="flex items-center space-x-4 text-sm text-blue-100 mb-4">
                 <div className="flex items-center space-x-1">
-                  <Calendar className="h-4 w-4" />
-                  <span>{filteredEvents.filter((e) => e.isFeatured)[0]?.date}</span>
-                </div>
-                <div className="flex items-center space-x-1">
                   <Clock className="h-4 w-4" />
                   <span>{filteredEvents.filter((e) => e.isFeatured)[0]?.time}</span>
                 </div>
@@ -313,10 +309,6 @@ const Events = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3 mb-4">
-                  <div className="flex items-center space-x-2 text-sm text-gray-500">
-                    <Calendar className="h-4 w-4" />
-                    <span>{event.date}</span>
-                  </div>
                   <div className="flex items-center space-x-2 text-sm text-gray-500">
                     <Clock className="h-4 w-4" />
                     <span>{event.time}</span>
@@ -442,10 +434,6 @@ const Events = () => {
             <div className="text-center">
               <h3 className="text-2xl font-bold text-gray-800 mb-2">{selectedEvent?.title}</h3>
               <div className="flex items-center justify-center space-x-4 text-sm text-gray-600 mb-4">
-                <div className="flex items-center space-x-1">
-                  <Calendar className="h-4 w-4" />
-                  <span>{selectedEvent?.date}</span>
-                </div>
                 <div className="flex items-center space-x-1">
                   <Clock className="h-4 w-4" />
                   <span>{selectedEvent?.time}</span>

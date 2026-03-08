@@ -60,10 +60,6 @@ export const UpcomingEvents = () => {
               <CardContent>
                 <div className="space-y-3 mb-4">
                   <div className="flex items-center text-gray-600">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    <span>{event.date}</span>
-                  </div>
-                  <div className="flex items-center text-gray-600">
                     <Clock className="h-4 w-4 mr-2" />
                     <span>{event.time}</span>
                   </div>
