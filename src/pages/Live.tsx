@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { ArrowLeft, Calendar, Check, Clock, Copy, Eye, Facebook, Maximize2, Mic, Minimize2, Play, Share2, Users, Video, X } from "lucide-react";
+import { ArrowLeft, Calendar, Check, Clock, Copy, Facebook, Maximize2, Mic, Minimize2, Play, Share2, Users, Video, X } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -15,7 +15,7 @@ const Live = () => {
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isLive, setIsLive] = useState(false);
-  const [viewers, setViewers] = useState(1247);
+  
   
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -45,12 +45,6 @@ const Live = () => {
   }, []);
 
   useEffect(() => {
-    if (isLive) {
-      const interval = setInterval(() => {
-        setViewers((prev) => prev + Math.floor(Math.random() * 3) - 1);
-      }, 5000);
-      return () => clearInterval(interval);
-    }
   }, [isLive]);
 
   const toggleFullscreen = useCallback(() => {
@@ -203,10 +197,6 @@ const Live = () => {
                           <div className="w-2 h-2 bg-white rounded-full mr-2 animate-ping" />
                           LIVE
                         </Badge>
-                        <Badge className="bg-black/60 backdrop-blur-sm text-white border-0 px-3 py-1 text-sm">
-                          <Eye className="w-3 h-3 mr-1.5" />
-                          {viewers.toLocaleString()}
-                        </Badge>
                       </div>
                     )}
 
@@ -237,11 +227,6 @@ const Live = () => {
                       <span className="text-white/80 text-sm font-medium hidden md:inline">Sunday Morning Service</span>
                     </div>
                     <div className="flex items-center space-x-2">
-                      {isLive && (
-                        <span className="text-white/60 text-xs flex items-center mr-2">
-                          <Eye className="w-3 h-3 mr-1" /> {viewers.toLocaleString()}
-                        </span>
-                      )}
                       <Button
                         size="sm"
                         variant="ghost"
