@@ -204,7 +204,6 @@ const Live = () => {
                     <div className="absolute bottom-0 left-0 right-0 z-20 p-4 md:p-6">
                       <div className="flex items-end justify-between">
                         <div className="flex items-center space-x-3 text-white/60 text-xs md:text-sm">
-                          <span className="flex items-center"><Calendar className="w-3.5 h-3.5 mr-1" /> Aug 17, 2025</span>
                           <span className="flex items-center"><Clock className="w-3.5 h-3.5 mr-1" /> 10:00 AM</span>
                         </div>
                         <span className="text-white/40 text-xs tracking-widest uppercase">Tap to play</span>
@@ -332,7 +331,6 @@ const Live = () => {
                       <h4 className="font-semibold text-foreground">{event.title}</h4>
                       <p className="text-sm text-muted-foreground mb-2">{event.description}</p>
                       <div className="flex items-center space-x-4 text-xs text-muted-foreground">
-                        <span className="flex items-center space-x-1"><Calendar className="h-3 w-3" /><span>{new Date(event.date).toLocaleDateString()}</span></span>
                         <span className="flex items-center space-x-1"><Clock className="h-3 w-3" /><span>{event.time}</span></span>
                       </div>
                     </div>
