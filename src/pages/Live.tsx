@@ -4,8 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { ArrowLeft, Calendar, Check, Clock, Copy, Expand, Eye, Facebook, Maximize2, MessageCircle, Mic, Minimize2, Play, Send, Share2, Users, Video, X } from "lucide-react";
+import { ArrowLeft, Calendar, Check, Clock, Copy, Eye, Facebook, Maximize2, Mic, Minimize2, Play, Share2, Users, Video, X } from "lucide-react";
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -340,57 +339,6 @@ const Live = () => {
               </CardContent>
             </Card>
 
-            {/* Live Chat - Only visible when live */}
-            {isLive && (
-              <Card className="mt-6">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <MessageCircle className="h-5 w-5" />
-                    <span>Live Chat</span>
-                    <Badge variant="secondary">Active</Badge>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="h-64 bg-muted/30 rounded-lg p-4 mb-4 overflow-y-auto">
-                    <div className="space-y-3">
-                      <div className="flex items-start space-x-3">
-                        <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                          <span className="text-primary-foreground text-sm font-bold">J</span>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-foreground">John D.</p>
-                          <p className="text-sm text-muted-foreground">Praise God! This service is amazing 🙏</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
-                          <span className="text-white text-sm font-bold">S</span>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-foreground">Sarah M.</p>
-                          <p className="text-sm text-muted-foreground">Thank you for this message, Pastor!</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center">
-                          <span className="text-white text-sm font-bold">M</span>
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-foreground">Mike R.</p>
-                          <p className="text-sm text-muted-foreground">Praying for everyone watching today ❤️</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <form onSubmit={handleChatSubmit} className="flex space-x-2">
-                    <Input value={chatMessage} onChange={(e) => setChatMessage(e.target.value)} placeholder="Type your message..." />
-                    <Button type="submit" disabled={!chatMessage.trim()}>
-                      <Send className="h-4 w-4" />
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            )}
           </div>
 
           {/* Sidebar */}
