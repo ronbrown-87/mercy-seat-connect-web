@@ -128,7 +128,7 @@ const TraditionalHome = () => {
             <Button size="lg" variant="secondary" onClick={() => navigate('/learn-more')}>
               Learn More About Us
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-amber-600" onClick={() => window.open('https://www.facebook.com/share/1Agq7Kd1f1/?mibextid=qi2Omg','_blank')}>
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-amber-600" onClick={() => window.open('https://www.facebook.com/profile.php?id=100068315346662','_blank')}>
               Watch Live Service
             </Button>
           </div>
