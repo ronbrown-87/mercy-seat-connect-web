@@ -124,7 +124,7 @@ export const Footer = () => {
         {/* Bottom Section */}
         <div className="mt-8 pt-8 border-t border-slate-700 text-center text-sm">
           <p className="text-gray-400">
-            © 2024 Mercy Seat Ministries. All rights reserved.
+            © 2026 Mercy Seat Ministries. All rights reserved.
           </p>
         </div>
       </div>
