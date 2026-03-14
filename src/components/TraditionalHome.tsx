@@ -210,7 +210,7 @@ const TraditionalHome = () => {
             variant="ghost" 
             size="icon" 
             className="text-blue-600 hover:text-blue-700"
-            onClick={() => window.open('https://www.facebook.com/share/17BxUm2Cwy/?mibextid=qi2Omg', '_blank')}
+            onClick={() => window.open('https://www.facebook.com/profile.php?id=100068315346662', '_blank')}
           >
             <Facebook className="w-6 h-6" />
           </Button>

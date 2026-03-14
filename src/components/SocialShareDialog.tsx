@@ -25,7 +25,7 @@ export const SocialShareDialog: React.FC<SocialShareDialogProps> = ({
   const socialPlatforms = [
     {
       name: 'Facebook',
-      url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+      url: `https://www.facebook.com/profile.php?id=100068315346662`,
       color: 'bg-blue-600 hover:bg-blue-700'
     },
     {
