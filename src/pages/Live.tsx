@@ -102,7 +102,7 @@ const Live = () => {
   };
 
   const handleFacebookLive = () => {
-    window.open("https://www.facebook.com/share/1Agq7Kd1f1/?mibextid=qi2Omg", "_blank");
+    window.open("https://www.facebook.com/profile.php?id=100068315346662", "_blank");
   };
 
   const handleShare = () => {
