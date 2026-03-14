@@ -65,7 +65,7 @@ export const Footer = () => {
             <h3 className="text-xl font-bold text-blue-400">Follow Us</h3>
             <div className="flex gap-4 mb-4">
               <a 
-                href="https://www.facebook.com/share/1Agq7Kd1f1/?mibextid=qi2Omg" 
+                href="https://www.facebook.com/profile.php?id=100068315346662" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
@@ -124,7 +124,7 @@ export const Footer = () => {
         {/* Bottom Section */}
         <div className="mt-8 pt-8 border-t border-slate-700 text-center text-sm">
           <p className="text-gray-400">
-            © 2024 Mercy Seat Ministries. All rights reserved.
+            © 2026 Mercy Seat Ministries. All rights reserved.
           </p>
         </div>
       </div>

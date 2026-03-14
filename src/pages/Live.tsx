@@ -84,7 +84,7 @@ const Live = () => {
     const text = "Join us for our live service at Mercy Seat Ministries!";
     switch (platform) {
       case 'facebook':
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        window.open("https://www.facebook.com/profile.php?id=100068315346662", '_blank');
         break;
       case 'whatsapp':
         window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
@@ -102,7 +102,7 @@ const Live = () => {
   };
 
   const handleFacebookLive = () => {
-    window.open("https://www.facebook.com/share/1Agq7Kd1f1/?mibextid=qi2Omg", "_blank");
+    window.open("https://www.facebook.com/profile.php?id=100068315346662", "_blank");
   };
 
   const handleShare = () => {

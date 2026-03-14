@@ -1,154 +1,152 @@
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Heart, BookOpen, Users, Church, Sparkles, Star } from "lucide-react";
 
 export const About = () => {
-  const pastors = [
-    {
-      name: "Pastor Gavu Nyirongo",
-      title: "Senior Pastor",
-      bio: "Pastor Gavu has been leading Mercy Seat Ministries with passion and dedication, committed to spreading God's love throughout the Kitwe community.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
-    },
-    {
-      name: "Assistant Pastor John Mwansa",
-      title: "Assistant Pastor",
-      bio: "Pastor John focuses on youth ministry and community outreach, bringing fresh energy to our congregation.",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
-    },
-    {
-      name: "Pastor Grace Tembo",
-      title: "Assistant Pastor - Women's Ministry",
-      bio: "Pastor Grace leads our women's ministry and coordinates community service programs with compassion and wisdom.",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop&crop=face"
-    }
-  ];
-
   const beliefs = [
-    {
-      title: "The Bible",
-      description: "We believe the Bible is the inspired, infallible Word of God and our ultimate authority for faith and life."
-    },
-    {
-      title: "Salvation",
-      description: "We believe salvation is by grace through faith in Jesus Christ alone, not by works."
-    },
-    {
-      title: "Trinity",
-      description: "We believe in one God eternally existing in three persons: Father, Son, and Holy Spirit."
-    },
-    {
-      title: "Jesus Christ",
-      description: "We believe Jesus Christ is fully God and fully man, who died for our sins and rose again."
-    },
-    {
-      title: "Holy Spirit",
-      description: "We believe the Holy Spirit empowers believers for Christian living and service."
-    },
-    {
-      title: "Church",
-      description: "We believe the church is the body of Christ, called to worship, fellowship, and serve."
-    }
+    { title: "The Bible", description: "The inspired, infallible Word of God and our ultimate authority for faith and life.", icon: BookOpen },
+    { title: "Salvation", description: "By grace through faith in Jesus Christ alone, not by works.", icon: Heart },
+    { title: "Trinity", description: "One God eternally existing in three persons: Father, Son, and Holy Spirit.", icon: Sparkles },
+    { title: "Jesus Christ", description: "Fully God and fully man, who died for our sins and rose again.", icon: Star },
+    { title: "Holy Spirit", description: "Empowers believers for Christian living and service.", icon: Sparkles },
+    { title: "Church", description: "The body of Christ, called to worship, fellowship, and serve.", icon: Church },
   ];
 
   return (
-    <section id="about" className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
-        {/* Mission Statement */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            About <span className="text-blue-600">Us</span>
+    <section id="about" className="py-24 bg-gradient-to-b from-background to-muted/50 relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold tracking-wide uppercase mb-4">
+            Know More About Us
+          </span>
+          <h2 className="text-4xl md:text-6xl font-extrabold text-foreground mb-6 leading-tight">
+            A Community Built on <br />
+            <span className="text-primary">Faith & Love</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
-            Mercy Seat Ministries is a vibrant church community in Kitwe, dedicated to spreading God's love, 
-            fostering spiritual growth, and serving our community with compassion and purpose.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            For over 25 years, Mercy Seat Ministries has been a home for believers in Kitwe — 
+            a place to grow, connect, and make an impact together.
           </p>
-          
-          {/* Stats Section - Removed "Lives Touched" */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center mb-8">
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">500+</div>
-              <div className="text-gray-600">Church Members</div>
+        </div>
+
+        {/* Impact Stats - Modern cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 max-w-4xl mx-auto">
+          {[
+            { number: "500+", label: "Church Members", sublabel: "Growing family" },
+            { number: "10+", label: "Ministries", sublabel: "Serving together" },
+            { number: "25+", label: "Years of Service", sublabel: "Faithful since 1999" },
+          ].map((stat, i) => (
+            <div
+              key={i}
+              className="group relative bg-card border border-border rounded-2xl p-8 text-center hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-500"
+            >
+              <div className="text-5xl md:text-6xl font-black text-primary mb-2 tracking-tight">
+                {stat.number}
+              </div>
+              <div className="text-lg font-semibold text-foreground mb-1">{stat.label}</div>
+              <div className="text-sm text-muted-foreground">{stat.sublabel}</div>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">10+</div>
-              <div className="text-gray-600">Ministries</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-blue-600 mb-2">25+</div>
-              <div className="text-gray-600">Years of Service</div>
+          ))}
+        </div>
+
+        {/* Mission & Vision - Side by side modern layout */}
+        <div className="grid md:grid-cols-2 gap-8 mb-20 max-w-5xl mx-auto">
+          <div className="bg-primary text-primary-foreground rounded-3xl p-10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+            <div className="relative z-10">
+              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-6">
+                <Heart className="h-6 w-6" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+              <p className="text-primary-foreground/90 leading-relaxed text-lg">
+                To be a place where people encounter God's mercy, experience authentic fellowship, 
+                and are equipped to serve in God's kingdom — locally and globally.
+              </p>
             </div>
           </div>
-          
-          <div className="bg-white rounded-lg p-8 shadow-md max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Our Mission</h3>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              To be a place where people can encounter God's mercy, experience authentic fellowship, 
-              and be equipped to serve in God's kingdom both locally and globally.
-            </p>
+
+          <div className="bg-card border border-border rounded-3xl p-10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-40 h-40 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+            <div className="relative z-10">
+              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                <Users className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mb-4">Our Vision</h3>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                To raise a generation of believers who are rooted in God's Word, passionate about worship, 
+                and committed to transforming their communities through love and service.
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Pastor Profiles */}
-        <div className="mb-16">
-          <h3 className="text-3xl font-bold text-center text-gray-800 mb-12">
-            Our <span className="text-blue-600">Leadership</span>
+        {/* Leadership Preview */}
+        <div className="text-center mb-12">
+          <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold tracking-wide uppercase mb-4">
+            Our Leadership
+          </span>
+          <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Led by Faithful Servants
           </h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {pastors.map((pastor, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300">
-                <CardHeader>
-                  <div className="w-32 h-32 mx-auto mb-4 overflow-hidden rounded-full">
-                    <img 
-                      src={index === 0 ? "/lovable-uploads/526056a4-9b79-4588-baaa-38c60c79a716.png" : pastor.image} 
-                      alt={pastor.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <CardTitle className="text-xl text-gray-800">{pastor.name}</CardTitle>
-                  <p className="text-blue-600 font-semibold">{pastor.title}</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 leading-relaxed mb-4">{pastor.bio}</p>
-                  {index === 0 && (
-                    <div className="space-y-3">
-                      <p className="text-sm text-gray-500">
-                        Pastor Gavu has over 15 years of ministry experience and holds a degree in Theology. 
-                        He is passionate about community development and has led numerous outreach programs 
-                        throughout Kitwe and surrounding areas.
-                      </p>
-                      <Button size="sm" variant="outline" className="mt-2">
-                        Read Full Bio
-                      </Button>
-                    </div>
-                  )}
-                  {index !== 0 && (
-                    <Button size="sm" variant="outline" className="mt-2">
-                      Read More
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
+          <p className="text-muted-foreground max-w-xl mx-auto mb-8">
+            Our pastoral team is dedicated to shepherding, teaching, and equipping 
+            every member to walk in their God-given purpose.
+          </p>
+          <div className="flex justify-center">
+            <div className="bg-card border border-border rounded-3xl p-8 max-w-md w-full hover:shadow-lg hover:border-primary/30 transition-all duration-500">
+              <div className="w-28 h-28 mx-auto mb-5 overflow-hidden rounded-2xl ring-4 ring-primary/20">
+                <img
+                  src="/lovable-uploads/526056a4-9b79-4588-baaa-38c60c79a716.png"
+                  alt="Pastor Gavu Nyirongo"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h4 className="text-xl font-bold text-foreground">Pastor Gavu Nyirongo</h4>
+              <p className="text-primary font-semibold text-sm mb-3">Senior Pastor</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Leading Mercy Seat Ministries with passion and dedication for over 15 years, 
+                committed to spreading God's love throughout the Kitwe community.
+              </p>
+              <Button variant="outline" size="sm" className="mt-4" onClick={() => window.location.href = '/about'}>
+                Meet the Team
+              </Button>
+            </div>
           </div>
         </div>
 
         {/* Statement of Faith */}
-        <div>
-          <h3 className="text-3xl font-bold text-center text-gray-800 mb-12">
-            What We <span className="text-blue-600">Believe</span>
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {beliefs.map((belief, index) => (
-              <Card key={index} className="hover:shadow-md transition-shadow duration-300">
-                <CardHeader>
-                  <CardTitle className="text-lg text-blue-600">{belief.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 leading-relaxed">{belief.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+        <div className="mt-20">
+          <div className="text-center mb-12">
+            <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold tracking-wide uppercase mb-4">
+              Statement of Faith
+            </span>
+            <h3 className="text-3xl md:text-4xl font-bold text-foreground">
+              What We Believe
+            </h3>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto">
+            {beliefs.map((belief, index) => {
+              const Icon = belief.icon;
+              return (
+                <div
+                  key={index}
+                  className="group bg-card border border-border rounded-2xl p-6 hover:border-primary/40 hover:shadow-md transition-all duration-300"
+                >
+                  <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                    <Icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <h4 className="text-lg font-bold text-foreground mb-2">{belief.title}</h4>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{belief.description}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
