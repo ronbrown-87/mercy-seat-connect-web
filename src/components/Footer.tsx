@@ -65,7 +65,7 @@ export const Footer = () => {
             <h3 className="text-xl font-bold text-blue-400">Follow Us</h3>
             <div className="flex gap-4 mb-4">
               <a 
-                href="https://www.facebook.com/share/1Agq7Kd1f1/?mibextid=qi2Omg" 
+                href="https://www.facebook.com/profile.php?id=100068315346662" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
