@@ -3,52 +3,64 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Filter, Download, Share2, ChevronDown, ChevronUp, Church } from "lucide-react";
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { toast } from 'sonner';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { SocialShareDialog } from '@/components/SocialShareDialog';
 import { motion, AnimatePresence } from 'framer-motion';
+import { GalleryItem, categories, staticGalleryData, youthSundayImages } from '@/data/galleryData';
 
-interface GalleryItem {
-  id: number;
-  title: string;
-  description: string;
-  imageUrl: string;
-  category: string;
-}
+const ITEMS_PER_PAGE = 24;
 
-const categories = ['All', 'Youth Sunday', 'Ministry', 'Architecture', 'People', 'Community Gathering'];
-
-const youthSundayImages: GalleryItem[] = [
-  { id: 101, title: "Youth Preaching the Word", description: "A young minister delivers a powerful sermon at the altar", imageUrl: "/images/youth-preaching.jpg", category: "Youth Sunday" },
-  { id: 102, title: "Congregation in Worship", description: "The youth congregation gathered in unified worship and praise", imageUrl: "/images/youth-congregation.jpg", category: "Youth Sunday" },
-  { id: 103, title: "Youth Group Outdoors", description: "Young members standing together after the outdoor service", imageUrl: "/images/youth-group-outdoor.jpg", category: "Youth Sunday" },
-  { id: 104, title: "Sisters in Christ", description: "Two young ladies in Mercy Seat uniform radiating joy", imageUrl: "/images/youth-sisters.jpg", category: "Youth Sunday" },
-  { id: 105, title: "Generations Together", description: "A mother and daughter sharing a precious moment in matching church attire", imageUrl: "/images/youth-mother-daughter.jpg", category: "Youth Sunday" },
-  { id: 106, title: "Joy of the Lord", description: "A young woman full of joy and confidence at the church grounds", imageUrl: "/images/youth-peace-sign.jpg", category: "Youth Sunday" },
-  { id: 107, title: "Youth Fellowship", description: "Young friends bonding together after the service", imageUrl: "/images/youth-friends.jpg", category: "Youth Sunday" },
-  { id: 108, title: "Best Friends at Church", description: "Two young ladies enjoying fellowship and sisterhood", imageUrl: "/images/youth-besties.jpg", category: "Youth Sunday" },
-  { id: 109, title: "Youth Worship Service", description: "Youth gathered at the altar during the Waiting on God prayer session", imageUrl: "/images/youth-worship-service.jpg", category: "Youth Sunday" },
-  { id: 110, title: "Full Youth Assembly", description: "The entire youth group photo after a blessed Sunday service", imageUrl: "/images/youth-full-group.jpg", category: "Youth Sunday" },
-  { id: 111, title: "Little One in the Faith", description: "A young child proudly wearing the Mercy Seat polo shirt", imageUrl: "/images/youth-child.jpg", category: "Youth Sunday" },
-  { id: 112, title: "Prayer at the Altar", description: "Youth Sunday congregation with the pastor leading from the pulpit", imageUrl: "/images/youth-prayer-altar.jpg", category: "Youth Sunday" },
-];
-
-const staticGalleryData: GalleryItem[] = [
-  { id: 1, title: "Sunday Service", description: "Beautiful moments from our Sunday service", imageUrl: "/images/crowd.jpg", category: "Ministry" },
-  { id: 2, title: "Church Building", description: "Our church community coming together", imageUrl: "/images/church.jpg", category: "Architecture" },
-  { id: 3, title: "Prayer Time", description: "Devoted moments of prayer and reflection", imageUrl: "/images/crowd2.jpg", category: "Ministry" },
-  { id: 4, title: "Youth Ministry", description: "Engaging with our young members", imageUrl: "/images/youth.jpg", category: "People" },
-  { id: 5, title: "Chamboli Cell Meeting", description: "Our cell meetings", imageUrl: "/images/community3.jpg", category: "Community Gathering" },
-  { id: 6, title: "Children's Ministry", description: "Engaging with our children", imageUrl: "/images/children4.jpg", category: "Ministry" },
-];
+const GalleryCard: React.FC<{ item: GalleryItem; onDownload: (item: GalleryItem) => void; onShare: (item: GalleryItem) => void }> = ({ item, onDownload, onShare }) => (
+  <Dialog>
+    <DialogTrigger asChild>
+      <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+        <div className="relative">
+          <img
+            src={item.imageUrl}
+            alt={item.title}
+            className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end">
+              <Badge className="bg-primary/90 text-primary-foreground text-xs">{item.category}</Badge>
+              <div className="flex gap-1">
+                <Button size="icon" variant="ghost" className="h-8 w-8 bg-white/20 backdrop-blur-sm text-white hover:bg-white/40" onClick={(e) => { e.stopPropagation(); onDownload(item); }}>
+                  <Download className="h-3.5 w-3.5" />
+                </Button>
+                <Button size="icon" variant="ghost" className="h-8 w-8 bg-white/20 backdrop-blur-sm text-white hover:bg-white/40" onClick={(e) => { e.stopPropagation(); onShare(item); }}>
+                  <Share2 className="h-3.5 w-3.5" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <CardContent className="p-4">
+          <h3 className="font-semibold text-base mb-1 text-foreground">{item.title}</h3>
+          <p className="text-muted-foreground text-sm line-clamp-2">{item.description}</p>
+        </CardContent>
+      </Card>
+    </DialogTrigger>
+    <DialogContent className="max-w-4xl max-h-[90vh] p-0">
+      <img src={item.imageUrl} alt={item.title} className="w-full h-auto max-h-[80vh] object-contain" />
+      <div className="p-4">
+        <Badge className="mb-2">{item.category}</Badge>
+        <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
+        <p className="text-muted-foreground mt-1">{item.description}</p>
+      </div>
+    </DialogContent>
+  </Dialog>
+);
 
 const Gallery: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [youthSundayOpen, setYouthSundayOpen] = useState(false);
+  const [youthVisibleCount, setYouthVisibleCount] = useState(ITEMS_PER_PAGE);
   const [shareDialog, setShareDialog] = useState<{ isOpen: boolean; item: GalleryItem | null }>({ isOpen: false, item: null });
 
-  const allGallery = [...staticGalleryData, ...youthSundayImages];
+  const allGallery = useMemo(() => [...staticGalleryData, ...youthSundayImages], []);
 
   const handleDownload = (item: GalleryItem) => {
     const link = document.createElement('a');
@@ -64,72 +76,35 @@ const Gallery: React.FC = () => {
     setShareDialog({ isOpen: true, item });
   };
 
-  const filteredGallery = selectedCategory === 'All'
-    ? staticGalleryData
-    : selectedCategory === 'Youth Sunday'
-    ? youthSundayImages
-    : allGallery.filter(item => item.category === selectedCategory);
+  const filteredGallery = useMemo(() => {
+    if (selectedCategory === 'All') return staticGalleryData;
+    if (selectedCategory === 'Youth Sunday') return youthSundayImages;
+    return allGallery.filter(item => item.category === selectedCategory);
+  }, [selectedCategory, allGallery]);
 
-  const renderGalleryCard = (item: GalleryItem) => (
-    <Dialog key={item.id}>
-      <DialogTrigger asChild>
-        <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
-          <div className="relative">
-            <img
-              src={item.imageUrl}
-              alt={item.title}
-              className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="absolute bottom-3 left-3 right-3 flex justify-between items-end">
-                <Badge className="bg-primary/90 text-primary-foreground text-xs">{item.category}</Badge>
-                <div className="flex gap-1">
-                  <Button size="icon" variant="ghost" className="h-8 w-8 bg-white/20 backdrop-blur-sm text-white hover:bg-white/40" onClick={(e) => { e.stopPropagation(); handleDownload(item); }}>
-                    <Download className="h-3.5 w-3.5" />
-                  </Button>
-                  <Button size="icon" variant="ghost" className="h-8 w-8 bg-white/20 backdrop-blur-sm text-white hover:bg-white/40" onClick={(e) => { e.stopPropagation(); handleShare(item); }}>
-                    <Share2 className="h-3.5 w-3.5" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <CardContent className="p-4">
-            <h3 className="font-semibold text-base mb-1 text-foreground">{item.title}</h3>
-            <p className="text-muted-foreground text-sm line-clamp-2">{item.description}</p>
-          </CardContent>
-        </Card>
-      </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[90vh] p-0">
-        <img src={item.imageUrl} alt={item.title} className="w-full h-auto max-h-[80vh] object-contain" />
-        <div className="p-4">
-          <Badge className="mb-2">{item.category}</Badge>
-          <h3 className="text-xl font-semibold text-foreground">{item.title}</h3>
-          <p className="text-muted-foreground mt-1">{item.description}</p>
-        </div>
-      </DialogContent>
-    </Dialog>
-  );
+  const visibleYouthImages = youthSundayImages.slice(0, youthVisibleCount);
+  const hasMoreYouth = youthVisibleCount < youthSundayImages.length;
 
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-4">Photo Gallery</h1>
-          <p className="text-lg text-muted-foreground">Explore our ministry moments</p>
+          <p className="text-lg text-muted-foreground">Explore our ministry moments — {youthSundayImages.length}+ Youth Sunday photos</p>
         </div>
 
-        {/* Youth Sunday Waiting on God — Featured Showcase */}
+        {/* Youth Sunday Featured Showcase */}
         <div className="mb-10">
           <button
             onClick={() => {
               setYouthSundayOpen(!youthSundayOpen);
-              if (!youthSundayOpen) setSelectedCategory('All');
+              if (!youthSundayOpen) {
+                setSelectedCategory('All');
+                setYouthVisibleCount(ITEMS_PER_PAGE);
+              }
             }}
             className="w-full relative overflow-hidden rounded-2xl group cursor-pointer"
           >
-            {/* Hero banner with overlay */}
             <div className="relative h-48 md:h-64 overflow-hidden rounded-2xl">
               <img
                 src="/images/youth-congregation.jpg"
@@ -148,11 +123,7 @@ const Gallery: React.FC = () => {
                   <p className="text-white/60 text-xs md:text-sm mt-1">{youthSundayImages.length} photos from this blessed event</p>
                 </div>
                 <div className="bg-white/20 backdrop-blur-sm rounded-full p-3 transition-transform duration-300 group-hover:scale-110">
-                  {youthSundayOpen ? (
-                    <ChevronUp className="h-6 w-6 text-white" />
-                  ) : (
-                    <ChevronDown className="h-6 w-6 text-white" />
-                  )}
+                  {youthSundayOpen ? <ChevronUp className="h-6 w-6 text-white" /> : <ChevronDown className="h-6 w-6 text-white" />}
                 </div>
               </div>
             </div>
@@ -168,8 +139,21 @@ const Gallery: React.FC = () => {
                 className="overflow-hidden"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-6">
-                  {youthSundayImages.map(renderGalleryCard)}
+                  {visibleYouthImages.map(item => (
+                    <GalleryCard key={item.id} item={item} onDownload={handleDownload} onShare={handleShare} />
+                  ))}
                 </div>
+                {hasMoreYouth && (
+                  <div className="text-center mt-6">
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      onClick={() => setYouthVisibleCount(prev => prev + ITEMS_PER_PAGE)}
+                    >
+                      Load More Photos ({youthSundayImages.length - youthVisibleCount} remaining)
+                    </Button>
+                  </div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
@@ -197,7 +181,9 @@ const Gallery: React.FC = () => {
 
         {/* Main gallery grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredGallery.map(renderGalleryCard)}
+          {filteredGallery.map(item => (
+            <GalleryCard key={item.id} item={item} onDownload={handleDownload} onShare={handleShare} />
+          ))}
         </div>
       </div>
 
