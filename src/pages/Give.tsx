@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, DollarSign, Users, BookOpen, Building2, Utensils, ArrowLeft, CreditCard, Shield, Lock, CheckCircle } from "lucide-react";
+import { MomoPaymentDialog } from '@/components/MomoPaymentDialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,6 +33,9 @@ const Give = () => {
   const [notes, setNotes] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [momoOpen, setMomoOpen] = useState(false);
+  const [momoCategory, setMomoCategory] = useState<{ id: string; name: string } | null>(null);
+  const [categoryProgress, setCategoryProgress] = useState<Record<string, number>>({});
 
   const donationCategories: DonationCategory[] = [
     {
@@ -91,12 +95,20 @@ const Give = () => {
   ];
 
   const handleDonate = (category: DonationCategory) => {
-    alert('🚧 Coming Soon!\n\nThis feature is not yet available. Please wait — you will be notified when online giving is ready. Thank you for your patience!');
+    setMomoCategory({ id: category.id, name: category.name });
+    setMomoOpen(true);
+  };
+
+  const handleMomoSuccess = (catId: string, donatedAmount: number) => {
+    setCategoryProgress((prev) => ({
+      ...prev,
+      [catId]: (prev[catId] || 0) + donatedAmount,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('🚧 Coming Soon!\n\nThis feature is not yet available. Please wait — you will be notified when online giving is ready. Thank you for your patience!');
+    alert('🚧 Coming Soon!\n\nThis feature is not yet available.');
   };
 
   const getProgressPercentage = (raised: number, goal: number) => {
@@ -150,7 +162,7 @@ const Give = () => {
                     {category.icon}
                   </div>
                   <Badge variant="secondary" className="bg-gray-100 text-gray-700">
-                    ZMW {category.raised.toLocaleString()} / ZMW {category.goal.toLocaleString()}
+                    ZMW {(category.raised + (categoryProgress[category.id] || 0)).toLocaleString()} / ZMW {category.goal.toLocaleString()}
                   </Badge>
                 </div>
                 <CardTitle className="text-lg">{category.name}</CardTitle>
@@ -160,13 +172,13 @@ const Give = () => {
                 <div className="mb-4">
                   <div className="flex justify-between text-sm text-gray-600 mb-1">
                     <span>Progress</span>
-                    <span>{getProgressPercentage(category.raised, category.goal).toFixed(1)}%</span>
+                    <span>{getProgressPercentage(category.raised + (categoryProgress[category.id] || 0), category.goal).toFixed(1)}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
-                      className="h-2 rounded-full transition-all duration-300"
+                      className="h-2 rounded-full transition-all duration-500"
                       style={{
-                        width: `${getProgressPercentage(category.raised, category.goal)}%`,
+                        width: `${getProgressPercentage(category.raised + (categoryProgress[category.id] || 0), category.goal)}%`,
                         backgroundColor: category.color.includes('green') ? '#10b981' :
                                         category.color.includes('blue') ? '#3b82f6' :
                                         category.color.includes('purple') ? '#8b5cf6' :
@@ -356,6 +368,15 @@ const Give = () => {
           </CardContent>
         </Card>
       </main>
+      {momoCategory && (
+        <MomoPaymentDialog
+          open={momoOpen}
+          onOpenChange={setMomoOpen}
+          categoryName={momoCategory.name}
+          categoryId={momoCategory.id}
+          onSuccess={handleMomoSuccess}
+        />
+      )}
       <Footer />
     </div>
   );
