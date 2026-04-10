@@ -95,12 +95,20 @@ const Give = () => {
   ];
 
   const handleDonate = (category: DonationCategory) => {
-    alert('🚧 Coming Soon!\n\nThis feature is not yet available. Please wait — you will be notified when online giving is ready. Thank you for your patience!');
+    setMomoCategory({ id: category.id, name: category.name });
+    setMomoOpen(true);
+  };
+
+  const handleMomoSuccess = (catId: string, donatedAmount: number) => {
+    setCategoryProgress((prev) => ({
+      ...prev,
+      [catId]: (prev[catId] || 0) + donatedAmount,
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('🚧 Coming Soon!\n\nThis feature is not yet available. Please wait — you will be notified when online giving is ready. Thank you for your patience!');
+    alert('🚧 Coming Soon!\n\nThis feature is not yet available.');
   };
 
   const getProgressPercentage = (raised: number, goal: number) => {
