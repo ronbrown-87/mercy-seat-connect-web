@@ -33,6 +33,9 @@ const Give = () => {
   const [notes, setNotes] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [momoOpen, setMomoOpen] = useState(false);
+  const [momoCategory, setMomoCategory] = useState<{ id: string; name: string } | null>(null);
+  const [categoryProgress, setCategoryProgress] = useState<Record<string, number>>({});
 
   const donationCategories: DonationCategory[] = [
     {
