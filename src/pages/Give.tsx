@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, DollarSign, Users, BookOpen, Building2, Utensils, ArrowLeft, CreditCard, Shield, Lock, CheckCircle } from "lucide-react";
+import { MomoPaymentDialog } from '@/components/MomoPaymentDialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
