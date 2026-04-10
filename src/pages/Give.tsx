@@ -162,7 +162,7 @@ const Give = () => {
                     {category.icon}
                   </div>
                   <Badge variant="secondary" className="bg-gray-100 text-gray-700">
-                    ZMW {category.raised.toLocaleString()} / ZMW {category.goal.toLocaleString()}
+                    ZMW {(category.raised + (categoryProgress[category.id] || 0)).toLocaleString()} / ZMW {category.goal.toLocaleString()}
                   </Badge>
                 </div>
                 <CardTitle className="text-lg">{category.name}</CardTitle>
@@ -172,13 +172,13 @@ const Give = () => {
                 <div className="mb-4">
                   <div className="flex justify-between text-sm text-gray-600 mb-1">
                     <span>Progress</span>
-                    <span>{getProgressPercentage(category.raised, category.goal).toFixed(1)}%</span>
+                    <span>{getProgressPercentage(category.raised + (categoryProgress[category.id] || 0), category.goal).toFixed(1)}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div
-                      className="h-2 rounded-full transition-all duration-300"
+                      className="h-2 rounded-full transition-all duration-500"
                       style={{
-                        width: `${getProgressPercentage(category.raised, category.goal)}%`,
+                        width: `${getProgressPercentage(category.raised + (categoryProgress[category.id] || 0), category.goal)}%`,
                         backgroundColor: category.color.includes('green') ? '#10b981' :
                                         category.color.includes('blue') ? '#3b82f6' :
                                         category.color.includes('purple') ? '#8b5cf6' :
@@ -368,9 +368,19 @@ const Give = () => {
           </CardContent>
         </Card>
       </main>
+      {momoCategory && (
+        <MomoPaymentDialog
+          open={momoOpen}
+          onOpenChange={setMomoOpen}
+          categoryName={momoCategory.name}
+          categoryId={momoCategory.id}
+          onSuccess={handleMomoSuccess}
+        />
+      )}
       <Footer />
     </div>
   );
+};
 };
 
 export default Give;
