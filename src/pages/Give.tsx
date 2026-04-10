@@ -381,6 +381,5 @@ const Give = () => {
     </div>
   );
 };
-};
 
 export default Give;
