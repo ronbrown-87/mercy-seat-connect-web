@@ -174,19 +174,19 @@ export const Navigation = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[60] lg:hidden"
+            className="fixed inset-0 z-[60] overflow-y-auto overscroll-contain lg:hidden"
           >
             {/* blurred backdrop */}
             <div
-              className="absolute inset-0 bg-blue-950/70 backdrop-blur-xl"
+              className="fixed inset-0 bg-blue-950/70 backdrop-blur-xl"
               onClick={() => setIsOpen(false)}
             />
 
             {/* glow accents */}
-            <div className="pointer-events-none absolute -top-10 right-0 h-72 w-72 rounded-full bg-orange-500/30 blur-3xl" />
-            <div className="pointer-events-none absolute bottom-10 -left-10 h-72 w-72 rounded-full bg-blue-500/30 blur-3xl" />
+            <div className="pointer-events-none fixed -top-10 right-0 h-72 w-72 rounded-full bg-orange-500/30 blur-3xl" />
+            <div className="pointer-events-none fixed bottom-10 -left-10 h-72 w-72 rounded-full bg-blue-500/30 blur-3xl" />
 
-            <div className="relative flex h-full flex-col px-6 pb-8 pt-20">
+            <div className="relative flex min-h-full flex-col px-6 pb-8 pt-20">
               <div className="mb-6 flex items-center justify-between">
                 <div>
                   <h2 className="text-xl font-bold text-white">Mercy Seat Connect</h2>
