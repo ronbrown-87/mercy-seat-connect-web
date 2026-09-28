@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Share2, Youtube, ExternalLink, ArrowUp } from "lucide-react";
+import { Share2, Youtube, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SocialShareDialog } from "@/components/SocialShareDialog";
 import { reels, YOUTUBE_CHANNEL } from "@/data/reelsData";
@@ -94,10 +94,7 @@ export const ReelsFeed = () => {
               </a>
             </div>
             <div className="absolute bottom-0 inset-x-0 p-4 pr-16 bg-gradient-to-t from-foreground/90 to-transparent pointer-events-none">
-              <p className="text-background font-semibold mb-2">{r.title}</p>
-              <a href={`https://youtube.com/shorts/${r.id}`} target="_blank" rel="noreferrer" className="pointer-events-auto inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-full bg-primary text-primary-foreground">
-                Watch on YouTube <ExternalLink className="h-3 w-3" />
-              </a>
+              <p className="text-background font-semibold">{r.title}</p>
             </div>
           </div>
         ))}
