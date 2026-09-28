@@ -9,6 +9,38 @@ export const ReelsFeed = () => {
   const [index, setIndex] = useState(0);
   const [share, setShare] = useState<{ open: boolean; id: string; title: string }>({ open: false, id: "", title: "" });
   const total = reels.length + 1; // + end card
+  const iframeRefs = useRef<(HTMLIFrameElement | null)[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const pauseAllExcept = (active: number) => {
+    iframeRefs.current.forEach((f, i) => {
+      if (f && i !== active) {
+        f.contentWindow?.postMessage(JSON.stringify({ event: "command", func: "pauseVideo", args: [] }), "*");
+      }
+    });
+  };
+
+  useEffect(() => { pauseAllExcept(index); }, [index]);
+
+  useEffect(() => {
+    const root = containerRef.current;
+    if (!root) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          const i = Number((e.target as HTMLElement).dataset.idx);
+          if (e.intersectionRatio < 0.5) {
+            iframeRefs.current[i]?.contentWindow?.postMessage(JSON.stringify({ event: "command", func: "pauseVideo", args: [] }), "*");
+          } else {
+            setIndex(i);
+          }
+        });
+      },
+      { root, threshold: [0, 0.5, 1] }
+    );
+    cardRefs.current.forEach((c) => c && obs.observe(c));
+    return () => obs.disconnect();
+  }, []);
 
   const scrollTo = (i: number) => {
     const el = containerRef.current;
@@ -40,11 +72,12 @@ export const ReelsFeed = () => {
         className="relative w-full max-w-[420px] h-[80vh] overflow-y-auto snap-y snap-mandatory rounded-2xl bg-foreground/95 shadow-xl outline-none [scrollbar-width:none]"
       >
         {reels.map((r, i) => (
-          <div key={r.id} className="snap-start h-full w-full relative flex items-center justify-center">
+          <div key={r.id} ref={(el) => (cardRefs.current[i] = el)} data-idx={i} className="snap-start h-full w-full relative flex items-center justify-center">
             <div className="relative h-full aspect-[9/16] max-w-full">
               {Math.abs(i - index) <= 1 && (
                 <iframe
-                  src={`https://www.youtube.com/embed/${r.id}?autoplay=0&rel=0`}
+                  ref={(el) => (iframeRefs.current[i] = el)}
+                  src={`https://www.youtube.com/embed/${r.id}?autoplay=0&rel=0&enablejsapi=1&playsinline=1&origin=${encodeURIComponent(window.location.origin)}`}
                   title={r.title}
                   className="absolute inset-0 w-full h-full"
                   allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
