@@ -15,6 +15,7 @@ import {
   Image as ImageIcon,
   Trophy,
   Mail,
+  Megaphone,
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -74,6 +75,7 @@ export const Navigation = () => {
     { label: 'Volunteer', to: '/volunteer' },
     { label: 'Gallery', to: '/gallery' },
     { label: 'Bible Quiz', to: '/bible-quiz' },
+    { label: 'News', to: '/announcements' },
     { label: 'Contact', to: '/contact' },
   ];
 
@@ -86,6 +88,7 @@ export const Navigation = () => {
     { label: 'Live Media', to: '/live', icon: Video },
     { label: 'Gallery', to: '/gallery', icon: ImageIcon },
     { label: 'Bible Quiz', to: '/bible-quiz', icon: Trophy },
+    { label: 'Announcements', to: '/announcements', icon: Megaphone },
     { label: 'Contact', to: '/contact', icon: Mail },
   ];
 

@@ -103,7 +103,7 @@ const TraditionalHome = () => {
             variant="ghost"
             size="icon"
             className="text-blue-500 hover:text-blue-600"
-            onClick={() => window.open('https://www.youtube.com/@MercySeatTV', '_blank')}
+            onClick={() => window.open('https://www.youtube.com/@mercyseatministriestv755', '_blank')}
           >
             <Globe className="h-6 w-6" />
           </Button>
