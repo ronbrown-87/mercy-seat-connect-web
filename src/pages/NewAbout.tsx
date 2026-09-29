@@ -14,6 +14,7 @@ import {
   Users
 } from 'lucide-react';
 import React, { useState } from 'react';
+import { LeadershipSection } from '@/components/LeadershipSection';
 import { useNavigate } from 'react-router-dom';
 
 // Import team member photos
@@ -186,128 +187,7 @@ const NewAbout: React.FC = () => {
           </div>
         </section>
 
-        {/* Leadership */}
-        <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Our Leadership</h2>
-          
-          {/* Senior Pastor */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Senior Pastor</h3>
-            <div className="flex justify-center">
-              <Card className="max-w-md text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="/images/gavuoff.jpg" alt="Pastor Gavu Nyirongo" className="w-full h-full object-cover" />
-                  </div>
-                  <CardTitle className="text-xl">Pastor Gavu Nyirongo</CardTitle>
-                  <CardDescription>Senior Pastor & Founder</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-gray-600">
-                    Leading our congregation with wisdom, compassion, and a deep commitment to God's Word.
-                  </p>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="w-full">
-                        <Info className="h-4 w-4 mr-2" />
-                        Learn More About Pastor Gavu
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-2xl">
-                      <DialogHeader>
-                        <DialogTitle>Pastor Gavu Nyirongo - Senior Pastor & Founder</DialogTitle>
-                      </DialogHeader>
-                      <div className="space-y-4">
-                        <div className="flex items-start space-x-4">
-                          <img src="/images/gavuoof.jpg" alt="Pastor Gavu" className="w-24 h-24 rounded-full object-cover" />
-                          <div className="flex-1">
-                            <p className="text-gray-600 leading-relaxed">
-                              Pastor Gavu Nyirongo is the founding pastor of Mercy Seat Ministries, called by God to establish 
-                              this ministry. With over 20  years of ministry experience, he has a heart for evangelism, 
-                              discipleship, and community transformation.
-                            </p>
-                          </div>
-                        </div>
-                        <div className="space-y-3">
-                          <h4 className="font-semibold text-gray-800">Ministry Focus:</h4>
-                          <ul className="space-y-2 text-gray-600">
-                            <li>• Expository preaching and biblical teaching</li>
-                            <li>• Leadership development and mentoring</li>
-                            <li>• Community outreach and evangelism</li>
-                            <li>• Marriage and family counseling</li>
-                          </ul>
-                          <h4 className="font-semibold text-gray-800 mt-4">Education & Training:</h4>
-                          <p className="text-gray-600">
-                            Bible College graduate with specialized training in pastoral ministry and church leadership.
-                          </p>
-                          <h4 className="font-semibold text-gray-800 mt-4">Personal:</h4>
-                          <p className="text-gray-600">
-                            Pastor Gavu is married and a devoted father. He enjoys reading, fellowship, and spending time 
-                            with his family. His passion is seeing lives transformed through the power of God's Word.
-                          </p>
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Pastors List */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Our Pastors</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="/images/maston.jpg" alt="Pastor Maston Musowoya" className="w-full h-full object-cover" />
-                  </div>
-                  <CardTitle>Pastor Maston Musowoya</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="images/catherine.jpg" alt="Pastor Catherine Chewe" className="w-full h-full object-cover" />
-                  </div>
-                  <CardTitle>Pastor Catherine Chewe</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="images/taddy.jpg" alt="Pastor Eric Tady" className="w-full h-full object-cover" />
-                  </div>
-                  <CardTitle>Pastor Eric Tady</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="/images/nyundi.jpg" alt="Pastor Eric Nyundi" className="w-full h-full object-cover" />
-                  </div>
-                  <CardTitle>Pastor Eric Nyundi</CardTitle>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="/images/chindawi.jpg" alt="Pastor Emmanuel Chindawi" className="w-full h-full object-cover" />
-                  </div>
-                  <CardTitle>Pastor Emmanuel Chindawi</CardTitle>
-                </CardHeader>
-              </Card>
-            </div>
-          </div>
-
-
-                
-        </section>
+        <LeadershipSection />
 
         {/* Praise Team */}
         <section>

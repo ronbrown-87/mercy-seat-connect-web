@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Announcements from "./pages/Announcements";
 import BibleQuiz from "./pages/BibleQuiz";
 import Contact from "./pages/Contact";
 import Events from "./pages/Events";
@@ -32,6 +33,7 @@ const AppContent = () => {
         <Route path="/volunteer" element={<Volunteer />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/announcements" element={<Announcements />} />
         <Route path="/bible-quiz" element={<BibleQuiz />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

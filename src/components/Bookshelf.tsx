@@ -268,7 +268,7 @@ export const Bookshelf: React.FC<BookshelfProps> = ({ onBookSelect }) => {
           <Button variant="ghost" size="icon" className="text-pink-600 hover:text-pink-700">
             <Instagram className="w-6 h-6" />
           </Button>
-          <Button variant="ghost" size="icon" className="text-red-600 hover:text-red-700">
+          <Button variant="ghost" size="icon" className="text-red-600 hover:text-red-700" onClick={() => window.open("https://www.youtube.com/@mercyseatministriestv755", "_blank")}>
             <Youtube className="w-6 h-6" />
           </Button>
           <Button variant="ghost" size="icon" className="text-blue-500 hover:text-blue-600">

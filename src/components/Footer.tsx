@@ -1,5 +1,5 @@
 
-import { MapPin, Phone, Mail, Facebook, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Facebook, Clock, Youtube } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
@@ -75,6 +75,9 @@ export const Footer = () => {
                 className="p-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
               >
                 <Facebook className="h-5 w-5" />
+              </a>
+              <a href="https://www.youtube.com/@mercyseatministriestv755" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="p-2 bg-red-600 rounded-full hover:bg-red-700 transition-colors">
+                <Youtube className="h-5 w-5" />
               </a>
             </div>
             

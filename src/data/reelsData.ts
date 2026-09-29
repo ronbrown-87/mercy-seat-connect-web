@@ -3,7 +3,7 @@ export interface Reel {
   title: string;
 }
 
-export const YOUTUBE_CHANNEL = "https://www.youtube.com/@MercySeatTV";
+export const YOUTUBE_CHANNEL = "https://www.youtube.com/@mercyseatministriestv755";
 
 // Append new YouTube Shorts here
 export const reels: Reel[] = [
