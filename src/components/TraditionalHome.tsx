@@ -3,6 +3,8 @@ import { Facebook, Globe } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import FeatureNodeMap from '@/components/FeatureNodeMap';
+import HeroSlideshow from '@/components/HeroSlideshow';
+import logo from '@/assets/logo.png';
 
 const TraditionalHome = () => {
   const navigate = useNavigate();
@@ -10,67 +12,52 @@ const TraditionalHome = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-blue-800 via-blue-700 to-blue-900 pt-28 pb-24 text-white">
-        {/* ambient accents */}
-        <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-orange-500/30 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -left-16 h-80 w-80 rounded-full bg-blue-400/30 blur-3xl" />
-
-        <div className="relative mx-auto max-w-7xl px-4 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium backdrop-blur"
-          >
+      <HeroSlideshow>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3">
+          <img src={logo} alt="Mercy Seat logo" className="h-12 w-12 rounded-full ring-2 ring-white/40" />
+          <span className="rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-sm font-medium text-white">
             Welcome home to Kitwe's house of worship
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 }}
-            className="mt-6 text-5xl font-bold md:text-7xl"
+          </span>
+        </motion.div>
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+          className="mt-6 text-4xl font-bold text-white drop-shadow-md md:text-6xl"
+        >
+          Mercy Seat <span className="text-orange-400">Connect</span>
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="mt-4 text-lg text-white drop-shadow-md md:text-xl"
+        >
+          Connect, grow, and serve with us as we journey together in faith.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          className="mt-8 flex flex-col gap-3 sm:flex-row"
+        >
+          <Button
+            size="lg"
+            className="bg-gradient-to-r from-orange-500 to-orange-400 font-semibold text-white hover:opacity-90"
+            onClick={() => navigate('/learn-more')}
           >
-            Mercy Seat{' '}
-            <span className="bg-gradient-to-r from-orange-400 to-orange-200 bg-clip-text text-transparent">
-              Connect
-            </span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="mx-auto mt-6 max-w-3xl text-xl text-blue-100 md:text-2xl"
+            Learn More About Us
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="border-white/70 bg-white/10 text-white hover:bg-white hover:text-blue-800"
+            onClick={() => navigate('/live')}
           >
-            Connect, grow, and serve with us as we journey together in faith.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-            className="mt-10 flex flex-col justify-center gap-4 sm:flex-row"
-          >
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-orange-500 to-orange-400 font-semibold text-white hover:opacity-90"
-              onClick={() => navigate('/learn-more')}
-            >
-              Learn More About Us
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white/60 bg-white/5 text-white hover:bg-white hover:text-blue-800"
-              onClick={() =>
-                window.open(
-                  'https://www.facebook.com/profile.php?id=100068315346662',
-                  '_blank'
-                )
-              }
-            >
-              Watch Live Service
-            </Button>
-          </motion.div>
-        </div>
-      </div>
+            Watch Live Service
+          </Button>
+        </motion.div>
+      </HeroSlideshow>
 
       {/* Interactive Feature Showcase */}
       <FeatureNodeMap />
