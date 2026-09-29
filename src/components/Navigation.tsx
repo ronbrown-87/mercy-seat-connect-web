@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import logo from '@/assets/logo.png';
 import { Button } from '@/components/ui/button';
 import {
   Menu,
@@ -108,9 +109,7 @@ export const Navigation = () => {
               onClick={scrollToTop}
               className="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
             >
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center">
-                <BookOpen className="h-5 w-5 text-white" />
-              </div>
+              <img src={logo} alt="Mercy Seat logo" className="h-10 w-10 rounded-full shadow-md md:h-11 md:w-11" />
               <div>
                 <h1 className="font-bold text-lg text-header-foreground">Mercy Seat</h1>
                 <p className="text-xs text-header-foreground/80">Connect</p>

@@ -1,5 +1,6 @@
 
 import { MapPin, Phone, Mail, Facebook, Clock } from "lucide-react";
+import logo from "@/assets/logo.png";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export const Footer = () => {
@@ -9,7 +10,10 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Church Info */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-blue-400">Mercy Seat Ministries</h3>
+            <div className="flex items-center gap-3">
+              <img src={logo} alt="Mercy Seat logo" loading="lazy" className="h-12 w-12 rounded-full" />
+              <h3 className="text-xl font-bold text-blue-400">Mercy Seat Ministries</h3>
+            </div>
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <MapPin className="h-4 w-4 text-blue-400" />
