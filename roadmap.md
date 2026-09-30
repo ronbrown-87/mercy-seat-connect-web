@@ -1,0 +1,3 @@
+- [ ] Replace Reels playback with one controllable YouTube player, custom controls, and two-pass auto-advance.
+- [ ] Add the third Short and update the end-of-feed actions.
+- [ ] Verify the Gallery on desktop and mobile.
