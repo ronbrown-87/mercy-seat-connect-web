@@ -1,0 +1,1 @@
+- Reels use the YouTube IFrame Player API with one mounted player for the centered card so playback events can drive cues and auto-advance without overlapping audio.

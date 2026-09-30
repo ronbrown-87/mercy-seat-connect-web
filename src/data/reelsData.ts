@@ -9,4 +9,5 @@ export const YOUTUBE_CHANNEL = "https://www.youtube.com/@mercyseatministriestv75
 export const reels: Reel[] = [
   { id: "rfOADCscguw", title: "Mercy Seat Ministries — Short Message" },
   { id: "eE5iwxcn0N0", title: "Mercy Seat Ministries — Worship Moment" },
+  { id: "2zTm10AMOHg", title: "Mercy Seat Ministries — Short Video" },
 ];
