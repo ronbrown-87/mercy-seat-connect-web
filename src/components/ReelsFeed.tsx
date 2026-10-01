@@ -92,12 +92,15 @@ export const ReelsFeed = () => {
     if (index >= reels.length || !mountRef.current) return;
     let cancelled = false;
     let player: Player | null = null;
+    const host = mountRef.current;
+    const mount = document.createElement("div");
+    host.appendChild(mount);
     readyRef.current = false;
     setReady(false);
     setError(false);
     loadPlayerAPI().then((YT) => {
-      if (cancelled || !mountRef.current) return;
-      player = new YT.Player(mountRef.current, {
+      if (cancelled) return;
+      player = new YT.Player(mount, {
         videoId: reels[index].id,
         playerVars: { autoplay: 0, controls: 0, playsinline: 1, rel: 0, enablejsapi: 1, origin: window.location.origin },
         events: {
@@ -138,6 +141,7 @@ export const ReelsFeed = () => {
       readyRef.current = false;
       player?.pauseVideo();
       player?.destroy();
+      host.replaceChildren();
       if (playerRef.current === player) playerRef.current = null;
     };
   }, [index, scrollTo]);
@@ -185,7 +189,7 @@ export const ReelsFeed = () => {
         {reels.map((r, i) => (
           <div key={r.id} className="snap-start h-full w-full relative flex items-center justify-center">
             <div className="relative h-full aspect-[9/16] max-w-full bg-foreground">
-              {i === index && <div ref={mountRef} className="absolute inset-0 w-full h-full" />}
+              {i === index && <div ref={mountRef} className="absolute inset-0 w-full h-full [&_iframe]:w-full [&_iframe]:h-full" />}
             </div>
             {i === index && (
               <>
