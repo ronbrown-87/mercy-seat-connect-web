@@ -72,7 +72,7 @@ export const ReelsFeed = () => {
 
   const moveTo = useCallback((next: number) => {
     if (next === activeRef.current) return;
-    playerRef.current?.pauseVideo();
+    if (readyRef.current) playerRef.current?.pauseVideo();
     setPlaying(false);
     activeRef.current = next;
     setIndex(next);
@@ -134,12 +134,11 @@ export const ReelsFeed = () => {
           },
         },
       });
-      playerRef.current = player;
     }).catch(() => { if (!cancelled) setError(true); });
     return () => {
       cancelled = true;
       readyRef.current = false;
-      player?.pauseVideo();
+      if (readyRef.current) player?.pauseVideo();
       player?.destroy();
       host.replaceChildren();
       if (playerRef.current === player) playerRef.current = null;
@@ -158,7 +157,7 @@ export const ReelsFeed = () => {
 
   useEffect(() => {
     const onVisibility = () => {
-      if (document.hidden) { playerRef.current?.pauseVideo(); setPlaying(false); }
+      if (document.hidden) { if (readyRef.current) playerRef.current?.pauseVideo(); setPlaying(false); }
     };
     document.addEventListener("visibilitychange", onVisibility);
     return () => document.removeEventListener("visibilitychange", onVisibility);
