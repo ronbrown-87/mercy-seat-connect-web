@@ -137,8 +137,8 @@ export const ReelsFeed = () => {
     }).catch(() => { if (!cancelled) setError(true); });
     return () => {
       cancelled = true;
-      readyRef.current = false;
       if (readyRef.current) player?.pauseVideo();
+      readyRef.current = false;
       player?.destroy();
       host.replaceChildren();
       if (playerRef.current === player) playerRef.current = null;
