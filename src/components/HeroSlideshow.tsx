@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { staticGalleryData, youthSundayImages } from '@/data/galleryData';
 
 const MAX = 100;
@@ -37,7 +36,6 @@ export const HeroSlideshow = ({ children }: { children: ReactNode }) => {
   }, [images]);
 
   const count = slides.length;
-  const go = (d: number) => setIndex((i) => (i + d + count) % count);
 
   useEffect(() => {
     if (paused || count < 2) return;
@@ -79,20 +77,6 @@ export const HeroSlideshow = ({ children }: { children: ReactNode }) => {
 
       {count > 1 && (
         <>
-          <button
-            aria-label="Previous slide"
-            onClick={() => go(-1)}
-            className="absolute left-3 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/20 bg-black/30 p-2 text-white backdrop-blur transition hover:bg-orange-500"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            aria-label="Next slide"
-            onClick={() => go(1)}
-            className="absolute right-3 top-1/2 z-30 -translate-y-1/2 rounded-full border border-white/20 bg-black/30 p-2 text-white backdrop-blur transition hover:bg-orange-500"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
           <div className="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 gap-2">
             {Array.from({ length: dots }).map((_, d) => (
               <button
