@@ -10,6 +10,7 @@ import { SocialShareDialog } from '@/components/SocialShareDialog';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GalleryItem, categories, staticGalleryData, youthSundayImages } from '@/data/galleryData';
 import { ReelsFeed } from '@/components/ReelsFeed';
+import { VideosGrid } from '@/components/VideosGrid';
 
 const ITEMS_PER_PAGE = 24;
 
@@ -57,7 +58,7 @@ const GalleryCard: React.FC<{ item: GalleryItem; onDownload: (item: GalleryItem)
 
 const Gallery: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [tab, setTab] = useState<'photos' | 'reels'>('photos');
+  const [tab, setTab] = useState<'photos' | 'reels' | 'videos'>('photos');
   const [youthSundayOpen, setYouthSundayOpen] = useState(false);
   const [youthVisibleCount, setYouthVisibleCount] = useState(ITEMS_PER_PAGE);
   const [shareDialog, setShareDialog] = useState<{ isOpen: boolean; item: GalleryItem | null }>({ isOpen: false, item: null });
@@ -97,7 +98,7 @@ const Gallery: React.FC = () => {
 
         <div className="flex justify-center mb-8">
           <div className="inline-flex rounded-full bg-muted p-1">
-            {(['photos', 'reels'] as const).map(t => (
+            {(['photos', 'reels', 'videos'] as const).map(t => (
               <button key={t} onClick={() => setTab(t)} className={`px-6 py-2 rounded-full text-sm font-semibold capitalize transition-colors ${tab === t ? 'bg-primary text-primary-foreground shadow' : 'text-muted-foreground'}`}>
                 {t}
               </button>
@@ -105,7 +106,7 @@ const Gallery: React.FC = () => {
           </div>
         </div>
 
-        {tab === 'reels' ? <ReelsFeed /> : <>
+        {tab === 'reels' ? <ReelsFeed /> : tab === 'videos' ? <VideosGrid /> : <>
         {/* Youth Sunday Featured Showcase */}
         <div className="mb-10">
           <button

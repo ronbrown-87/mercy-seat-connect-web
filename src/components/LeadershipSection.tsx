@@ -4,7 +4,7 @@ import { LayoutGrid, List, Phone, Megaphone, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
-type Leader = { name: string; role: string; photo: string; bio: string; focus: string[] };
+export type Leader = { name: string; role: string; photo: string; bio: string; focus: string[] };
 
 const leaders: Leader[] = [
   {
@@ -30,7 +30,7 @@ const Photo = ({ l, className }: { l: Leader; className: string }) => (
   />
 );
 
-export const LeadershipSection = () => {
+export const TeamSection = ({ title, members }: { title: string; members: Leader[] }) => {
   const [view, setView] = useState<"grid" | "list">("grid");
   const [active, setActive] = useState<Leader | null>(null);
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ export const LeadershipSection = () => {
   return (
     <section>
       <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-        <h2 className="text-3xl font-bold text-foreground">Our Leadership</h2>
+        <h2 className="text-3xl font-bold text-foreground">{title}</h2>
         <div className="inline-flex rounded-lg border border-border bg-card p-1">
           <Button size="sm" variant={view === "grid" ? "default" : "ghost"} onClick={() => setView("grid")} aria-label="Grid view">
             <LayoutGrid className="h-4 w-4 mr-1" /> Grid
@@ -51,7 +51,7 @@ export const LeadershipSection = () => {
 
       {view === "grid" ? (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {leaders.map((l) => (
+          {members.map((l) => (
             <button
               key={l.name}
               onClick={() => setActive(l)}
@@ -65,7 +65,7 @@ export const LeadershipSection = () => {
         </div>
       ) : (
         <div className="divide-y divide-border rounded-2xl border border-border bg-card">
-          {leaders.map((l) => (
+          {members.map((l) => (
             <button
               key={l.name}
               onClick={() => setActive(l)}
@@ -118,3 +118,22 @@ export const LeadershipSection = () => {
     </section>
   );
 };
+
+const praise: Leader[] = [
+  { name: "Boyd Daka", role: "Praise Team Leader", photo: "/images/boyd.jpg", bio: "Leading our congregation in worship with passion and musical excellence.", focus: ["Leading worship on Sundays", "Choir and singer coordination", "Song selection and rehearsals"] },
+];
+const instruments: Leader[] = [
+  { name: "Sydney Mutondo", role: "Instrumentalist", photo: "/images/sydney.jpg", bio: "Serves the church through music, supporting worship with skill and devotion.", focus: ["Playing during services", "Rehearsals with the praise team"] },
+  { name: "Samson Silungwe", role: "Instrumentalist", photo: "/images/sulungweOff.jpg", bio: "Serves the church through music, supporting worship with skill and devotion.", focus: ["Playing during services", "Rehearsals with the praise team"] },
+  { name: "Paul Nyirongo", role: "Mixing Team", photo: "/images/paulOff.jpg", bio: "Makes sure every service sounds clear, from the pulpit to the live stream.", focus: ["Sound mixing", "Equipment setup", "Live stream audio"] },
+];
+const media: Leader[] = [
+  { name: "Wanipa Musowoya", role: "Media Team", photo: "/images/wanipa.jpg", bio: "Helps share the Gospel through photos, video and online media.", focus: ["Photography and video", "Live stream support", "Social media content"] },
+  { name: "Shadreck Silungwe", role: "Media Team", photo: "/images/shadreck.jpg", bio: "Helps share the Gospel through photos, video and online media.", focus: ["Photography and video", "Live stream support", "Social media content"] },
+  { name: "Seth Musakanya", role: "Media Team", photo: "/images/seth.jpg", bio: "Helps share the Gospel through photos, video and online media.", focus: ["Photography and video", "Live stream support", "Social media content"] },
+];
+
+export const LeadershipSection = () => <TeamSection title="Our Leadership" members={leaders} />;
+export const PraiseTeamSection = () => <TeamSection title="Praise & Worship Team" members={praise} />;
+export const InstrumentalistsSection = () => <TeamSection title="Instrumentalists & Mixing Team" members={instruments} />;
+export const MediaTeamSection = () => <TeamSection title="Media Team" members={media} />;

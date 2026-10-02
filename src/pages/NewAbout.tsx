@@ -14,7 +14,7 @@ import {
   Users
 } from 'lucide-react';
 import React, { useState } from 'react';
-import { LeadershipSection } from '@/components/LeadershipSection';
+import { LeadershipSection, PraiseTeamSection, InstrumentalistsSection, MediaTeamSection } from '@/components/LeadershipSection';
 import { useNavigate } from 'react-router-dom';
 
 // Import team member photos
@@ -189,103 +189,9 @@ const NewAbout: React.FC = () => {
 
         <LeadershipSection />
 
-        {/* Praise Team */}
-        <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Praise & Worship Team</h2>
-          
-          {/* Praise Team Leader */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Praise Team Leader</h3>
-            <div className="flex justify-center">
-              <Card className="max-w-md text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="/images/boyd.jpg" alt="Boyd Daka" className="w-full h-full object-cover" />
-                  </div>
-                  <CardTitle className="text-xl">Boyd Daka</CardTitle>
-                  <CardDescription>Praise Team Leader</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Leading our congregation in worship with passion and musical excellence.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Instrumentalists and Mixing Team */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Instrumentalists & Mixing Team</h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="/images/sydney.jpg" alt="Sydney Mutondo" className="w-full h-full object-cover" />
-                  </div>
-                  <CardTitle>Sydney Mutondo</CardTitle>
-                  <CardDescription>Instrumentalist</CardDescription>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="/images/sulungweOff.jpg" alt="Samson Silungwe" className="w-full h-full object-cover" />
-                  </div>
-                  <CardTitle>Samson Silungwe</CardTitle>
-                  <CardDescription>Instrumentalist</CardDescription>
-                </CardHeader>
-              </Card>
-              
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                    <img src="/images/paulOff.jpg" alt="Paul Nyirongo" className="w-full h-full object-cover" />
-                  </div>
-                  <CardTitle>Paul Nyirongo</CardTitle>
-                  <CardDescription>Mixing Team</CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-                {/* Media Team */}
-        <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Media Team</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                  <img src="/images/wanipa.jpg" alt="Wanipa Musowoya" className="w-full h-full object-cover" />
-                </div>
-                <CardTitle>Wanipa Musowoya</CardTitle>
-                <CardDescription>Media Team</CardDescription>
-              </CardHeader>
-            </Card>
-            
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                  <img src="/images/shadreck.jpg" alt="Shadreck Silungwe" className="w-full h-full object-cover" />
-                </div>
-                <CardTitle>Shadreck Silungwe</CardTitle>
-                <CardDescription>Media Team</CardDescription>
-              </CardHeader>
-            </Card>
-            
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                  <img src="images/seth.jpg" alt="Seth Musakanya" className="w-full h-full object-cover" />
-                </div>
-                <CardTitle>Seth Musakanya</CardTitle>
-                <CardDescription>Media Team</CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-        </section>
+        <PraiseTeamSection />
+        <InstrumentalistsSection />
+        <MediaTeamSection />
         
 
        
